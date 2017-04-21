@@ -15,9 +15,9 @@ title: Gonzalo Mateo García
 
 ### <a href="http://ipl.uv.es" target="blank">Image processing laboratory (IPL)</a>
 
-I'm currently a PhD student in the Image processing laboratory at Universidad de Valencia.
+I'm currently a PhD student in the Image processing laboratory at Universidad de Valencia. My advisor is <a href="http://www.uv.es/chovago/" target="blank">Prof. Luis Gómez-Chova</a>.
 
-My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="blank">some results</a>). Currently I have focused on convolutional neural networks and deep learning.
+My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="blank">some results</a>). Currently I have focused on convolutional neural networks and in kernel methods.
 
 This is my <a href="statement.pdf" target="blank">research statement</a>. Please feel free to contact me at: <br>
  gonzalo.mateo-garcia **AT** <a href="http://www.uv.es" target="blank">uv</a> DOT es.
