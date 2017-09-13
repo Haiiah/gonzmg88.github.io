@@ -15,9 +15,9 @@ title: Gonzalo Mateo García
 
 ### <a href="http://ipl.uv.es" target="blank">Image processing laboratory (IPL)</a>
 
-I'm currently a PhD student in the Image processing laboratory at Universidad de Valencia. My advisor is <a href="http://www.uv.es/chovago/" target="blank">Prof. Luis Gómez-Chova</a>.
+I'm a PhD student in the Image processing laboratory at Universidad de Valencia. My advisor is <a href="http://www.uv.es/chovago/" target="blank">Prof. Luis Gómez-Chova</a>.
 
-My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="blank">some results</a>). Currently I have focused on convolutional neural networks and in kernel methods.
+My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="blank">some results</a>). Currently I am working with convolutional neural networks and kernel methods.
 
 This is my <a href="statement.pdf" target="blank">research statement</a>. Please feel free to contact me at: <br>
  gonzalo.mateo-garcia **AT** <a href="http://www.uv.es" target="blank">uv</a> DOT es.
@@ -31,11 +31,11 @@ This is my <a href="statement.pdf" target="blank">research statement</a>. Please
 
 2. **Cloud detection machine learning algorithms for PROBA-V** <br>
   Gomez-Chova, Luis and Mateo-Garcia, Gonzalo and Muñoz Mari, Jordi and Camps-Valls, Gustau <br>
-  Work in progress
+  IGARSS 2017. IEEE 2017 International Geoscience and Remote Sensing Symposium, 2017.
 
 3. **Convolutional neural networks for multispectral image cloud masking** <br>
   Mateo-Garcia, Gonzalo and Gomez-Chova, Luis and Camps-Valls, Gustau <br>
-  Work in progress
+  IGARSS 2017. IEEE 2017 International Geoscience and Remote Sensing Symposium, 2017.
 
 3. **Optimizing Basis Functions in Kernel Ridge Regression** <br>
   Mateo-Garcia, Gonzalo and Laparra, Valero and Muñoz-Marí, Jordi and Gómez-Chova, Luis <br>
