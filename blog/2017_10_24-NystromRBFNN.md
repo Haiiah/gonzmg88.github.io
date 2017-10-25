@@ -102,7 +102,7 @@ Hence we can apply this formula into the inverse of eq (2) $\Big( \overbrace{K_{
 
 ### Proof
 
-The ad. hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expresions:
+The ad. hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expressions:
 
 $$
 A = K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1} = K_{uu}^{-1}K_{uf}\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)^{-1}
@@ -255,4 +255,4 @@ $$
 
 Using the same procedure than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in Nystrom $\mathcal{GP}$ method.
 
-One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behaviour of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$ which in turn will be close to zero if we consider for example the `rbf` kernel. We refer the reader to [Quiñonero-Candela 2005](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
+One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$ which in turn will be close to zero if we consider for example the `rbf` kernel. We refer the reader to [Quiñonero-Candela 2005](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
