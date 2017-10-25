@@ -220,7 +220,7 @@ To solve this (nasty) integral we can rely again on Bishop's book in this case w
 First we compute the mean:
 
 $$
-\mathbb{E}[(y,y^*) \mid X, X_*] = \mathbb{E}[\mathbb{E}[y,y^* \mid X, X_*,\alpha]] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\mathbb{E}[(y,y^*) \mid X, X_*] = \mathbb{E}[\mathbb{E}[(y,y^*) \mid X, X_*,\alpha]] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
 $$
 
 Then we compute the covariance:
@@ -229,7 +229,8 @@ $$
 \begin{aligned}
 \mathbb{E}\left[\begin{pmatrix} y \\ y \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*\right] &=
 \mathbb{E}\left[\mathbb{E}\left[ \begin{pmatrix} y \\ y \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*,\alpha \right]\right] \\ &=
-\mathbb{E}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t  \right]  \\  &=   
+\mathbb{E}\left[ \begin{pmatrix} K_{fu}\alpha + \epsilon \\ K_{*u}\alpha + \epsilon \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf} + \epsilon^t & \alpha^tK_{u*} + \epsilon^t \end{pmatrix} \Big | \; X, X_* \right] \\ &=
+\mathbb{E}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t \Big | \; X, X_*  \right]  \\  &=   
 \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I  \\ &=
 \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} A \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I \\ &=
 \begin{pmatrix} K_{fu}AK_{uf} & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} \end{pmatrix} + \sigma^2 I
