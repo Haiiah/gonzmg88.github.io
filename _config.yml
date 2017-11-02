@@ -1,2 +1,3 @@
 name: Gonzalo Mateo García
-markdown: kramdown 
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title

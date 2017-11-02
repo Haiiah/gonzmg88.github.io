@@ -1,7 +1,8 @@
 ---
-layout: default
+layout: post
 title: Why Radial Basis Function Neural Networks are equivalent to Nystrom method
 date: 2017-10-24
+author: Gonzalo Mateo-García
 ---
 
 <script type="text/x-mathjax-config">
@@ -16,10 +17,7 @@ date: 2017-10-24
 );*/
 </script>
 
-<style>
-body {max-width:70em;}
-h1 {line-height:1.7em; text-align: center;}
-</style>
+
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full" charset="utf-8">-->
 
 <!-- <script type="text/javascript" src="/js/MathJax.js">
@@ -29,11 +27,9 @@ h1 {line-height:1.7em; text-align: center;}
 </script>
 
 
-# Why Radial Basis Function Neural Networks are equivalent to Nystrom method
+Radial Basis Function Neural Networks (RBFN) and Nystrom methods are two methods that can be used for regression. They come from different *statistical learning* frameworks: RBFN were proposed in the context of *shallow* neural networks: this is a three layer neural network where the hidden layer computes the rbf similarities to a set of *centroids*. Then a fully connected layer is added to give the final prediction. Nystrom method was proposed in the kernel machine literature as a way to reduce the computational burden of the full kernel similarity matrix $K$. Nystrom was proposed latter, however it can be applied to different problems not only regression.
 
-Radial Basis Function Neural Networks (RBFN) and Nystrom methods are two methods that can be used for regression. They come from different *statistical learning* frameworks: RBFN were proposed in the context of *shallow* neural networks: this is a three layer neural network where the hidden layer computes the rbf similarities to a set of *centroids*. Then a fully connected layer is added to give the final prediction. Nystrom method was proposed in the kernel machine literature as a way to reduce the computational burden of the full kernel similarity matrix $K$. Nystrom was proposed latter, however it can be applied to different kernel approaches, not only regression.
-
-The equivalence of the method is not something unknown that we came up to; however we feel it is not cristal clear the relationship as perhaps seems for experts in the field. In [Quiñonero-Candela 2005](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} and in Rassmussen and Williams [*Guassian Process for Machine Learning*](http://www.gaussianprocess.org/gpml/){:target="_blank"} book this relations are taken from granted. [Recent papers in the context of RBFNN](http://proceedings.mlr.press/v51/que16.html){:target="_blank"} explicitly say so. In addition, another clear proof of the people awareness of this relationship is the [scikit learn implementation of Nystrom method](http://scikit-learn.org/stable/auto_examples/plot_kernel_approximation.html#sphx-glr-auto-examples-plot-kernel-approximation-py){:target="_blank"}, which explicitly uses it. In this way the purpose of this post is to shed light in the *proof* of this relationship which helps to better understand this powerful methods. First we show the relation into an *empirical risk minimization* setting, later we will develop the *Bayesian* approach which leads to the so called **sparse $\mathcal{GP}$** methods, the `RBFN` network is called in this context the **Subset of Regressors (SoR)** method. **Sparse $\mathcal{GP}$s** is an active field of research which have had many contributions over the last years.
+The equivalence of the method is not something unknown that we came up to; however we feel it is not crystal clear the relationship as perhaps seems for experts in the field. In [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} and in Rassmussen and Williams [*Guassian Process for Machine Learning*](http://www.gaussianprocess.org/gpml/){:target="_blank"} book this relations are taken from granted. [Recent papers in the context of RBFNN](http://proceedings.mlr.press/v51/que16.html){:target="_blank"} explicitly say so. In addition, another clear proof of the people awareness of this relationship is the [scikit learn implementation of Nystrom method](http://scikit-learn.org/stable/auto_examples/plot_kernel_approximation.html#sphx-glr-auto-examples-plot-kernel-approximation-py){:target="_blank"}, which explicitly uses it. In this way the purpose of this post is to shed light in the *proof* of this relationship which helps to better understand this powerful methods. First we show the relation into an *empirical risk minimization* setting, later we will develop the *Bayesian* approach which leads to the so called **sparse $\mathcal{GP}$** methods, the `RBFN` network is called in this context the **Subset of Regressors (SoR)** method. **Sparse $\mathcal{GP}$s** is an active field of research which have had many contributions over the last years.
 
 ## Introduction
 Let $$ \mathcal{D}=\{x_i,y_i\}_{i=1}^N $$ be the data of our regression problem: \\(x_i\in\mathbb{R}^D\\), \\(y_i\in \mathbb{R}\\). In matrix notation we write \\(\mathcal{D}=(X,y)\\) where \\(X\\) is an $N\times D$ matrix and \\(y\\) and \\(N \times 1\\) vector. Both methods employ a subset of \\(\mathcal{D}\\) of size \\(M\\) \\(\mathcal{D}_u = (X_u,y_u)\\) (\\(X_u\\) is an \\(M\times D\\) matrix and \\(y_u\\) and $M \times 1$). This subset is sometimes called *centroids*, *pseudo-inputs* or *inducing inputs*. Also, we will sometimes refer with the subscript $f$ to the subset formed by all the data: \\(\mathcal{D}=\mathcal{D_f}=(X_f,y_f)=(X,y)\\)
@@ -150,7 +146,9 @@ $$
 So we have that the mean of the $\mathcal{GP}$ solution using Nystrom kernel is the same as the aforementioned approaches.
 
 ### Bayesian RBFN
-The RBFN method can be also viewed from a standard Bayesian linear regression point of view. If we assume the model $y_i = K_{x_iu}\alpha + \epsilon_i$ where $\epsilon_i\sim \mathcal{N}(0,\sigma^2)$. Which is equivalent to $p(y_i\mid x_i,\alpha) = p(y_i \mid K_{x_iu},\alpha)=\mathcal{N}(y_i\mid K_{x_iu}\alpha, \sigma^2)$.
+The RBFN method can be also viewed from a standard Bayesian linear regression point of view. The only _difference_ with the Bayesian linear regression is that we first transform the inputs $x_i$ to the similarities space $K_{x_iu}$. The rest remains equal. I am going to re-develop this approach for our current case because there are interesting similarities with the $\mathcal{GP}$ regression.
+
+So let's start: we assume the _linear in $\alpha$_ model: $y_i = K_{x_iu}\alpha + \epsilon_i$ where $$epsilon_i$$ is independent white noise: $\epsilon_i\sim \mathcal{N}(0,\sigma^2)$. This can also be written as $p(y_i\mid x_i,\alpha) = p(y_i \mid K_{x_iu},\alpha)=\mathcal{N}(y_i\mid K_{x_iu}\alpha, \sigma^2)$.
 The likelihood of our model is then:
 
 $$
@@ -162,10 +160,10 @@ p(\overbrace{y_1,...,y_N}^y \mid \overbrace{x_1,...,x_N}^X,\alpha) &= \prod_{i=1
 \end{align}
 $$
 
-If we place a prior over $\alpha\sim \mathcal{N}(0,A)$, the joint $y,\alpha$ distribution given $X$ would be:
+If we place a prior over $p(\alpha \mid X) = \mathcal{N}(\alpha \mid 0,A)$, the joint $y,\alpha$ distribution given $X$ would be:
 
 $$
-p(y,\alpha \mid  X) = p(y\mid X,\alpha)p(\alpha \mid \cancel{X})
+p(y,\alpha \mid  X) = p(y\mid X,\alpha)p(\alpha \mid X)
 $$
 
 At this point it is worth to stop and consider *what do we want?* the natural answer is *give predictions for newcomming* \\( x_* \\) *values*. This means in Bayesian language that we want a **posterior predictive distribution** which is a probability distribution over the \\( y^* \\) values given all the available information:  \\( p(y^* \mid  X_\*, X, y)  \\).
@@ -173,7 +171,7 @@ At this point it is worth to stop and consider *what do we want?* the natural an
 One way to obtain the posterior predictive distribution, which is similar to the approach followed for $\mathcal{GP}$s is:
 
 1. Augment the above equation with the test points:
-$$ p(y,y^*,\alpha \mid  X,X_*) $$ (It will just change the likelihood term).
+$$ p(y,y^*,\alpha \mid  X,X_*) $$ (Changing the likelihood term to accommodate the unseen $$X^*$$ and $$y_*$$).
 2. Integrate out \\( \alpha \\): $$ p(y,y^* \mid  X,X_*) = \int p(y,y^*,\alpha \mid  X,X_*) d\alpha $$
 3. Compute the posterior predictive using the trick we used above in the Nystrom case (5).
 
@@ -255,4 +253,4 @@ $$
 
 Using the same procedure than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in Nystrom $\mathcal{GP}$ method.
 
-One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$ which in turn will be close to zero if we consider for example the `rbf` kernel. We refer the reader to [Quiñonero-Candela 2005](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
+One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $$Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$$ which in turn will be close to zero if we consider for example the *rbf* kernel. We refer the reader to [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.

@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<style>
+body {max-width:70em;}
+h1 {line-height:1.7em; text-align: center;}
+p.datetitle {font-style: italic;text-align: center;}
+</style>
+
+<h1> {{ page.title }}</h1>
+
+<p class="datetitle"> {{ page.date | date_to_string }} <br>
+{{ page.author }}</p>
+
+<div class="post">
+  {{ content }}
+</div>
