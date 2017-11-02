@@ -188,7 +188,7 @@ p(y^* \mid x^* X, y) &= \int p(y^* \mid X^*, \alpha, \cancel{X, y}) P(\alpha \mi
 \end{aligned}
 $$
 
-We will further develop _similar to $\mathcal{GP}$ approach_ in the fully Bayesian approach section. However first we will consider the maximum a posteriori (MAP) approach which, we''ll see, it is equivalent to the empirical risk minimization approach.
+We will further develop the _similar to $\mathcal{GP}$ approach_ in the fully Bayesian approach section. However first we will consider the maximum a posteriori (MAP) approach which, we''ll see, it is equivalent to the empirical risk minimization approach.
 
 #### MAP approach
 The *"less Bayesian approach"* would be to compute the maximum a posteriori estimate of $p(\alpha \mid y,X)$ and then use such value ($\alpha_{MAP}$) to compute predictions: $y^* = K_{*,u}\alpha_{MAP}$. This is the approach which is equivalent to the empirical risk minimization approach exposed above (if we use $A=K_{uu}^{-1}$):
@@ -229,7 +229,7 @@ To solve this (nasty) integral we can rely again on Bishop's book in this case w
 First we compute the mean:
 
 $$
-\mathbb{E}[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*] = \mathbb{E}[\mathbb{E}[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*,\alpha]] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*\right] = \mathbb{E}\left[\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*,\alpha\right]\right] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
 $$
 
 Then we compute the covariance:
@@ -246,12 +246,14 @@ $$
 \end{aligned}
 $$
 
-Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train test data:
+Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nystrom $\mathcal{GP}$ method:
 
 $$
 p(y,y^* \mid  X,X_*) = \mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} + \sigma^2 I \end{pmatrix} \right)
 $$
 
-Using the same procedure than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in Nystrom $\mathcal{GP}$ method.
+Using the same procedure than in equation (5) (assuming $A=K_{uu}^{-1}$) we get again the same **predictive posterior** as in Nystrom $\mathcal{GP}$ method. This proves:
+
+_**Theorem**_ The linear Bayesian approach in the space of similarities to $X_u$ (Bayesian RBFN) yields the same result as the Nystrom $\mathcal{GP}$ regression. We only have to provide the following prior over the linear regression weights $\alpha$: $\alpha \sim \mathcal{N}(0,K_{uu}^{-1})$.
 
 One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $$Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$$ which in turn will be close to zero if we consider for example the *rbf* kernel. We refer the reader to [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
