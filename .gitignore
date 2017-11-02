@@ -1,2 +1,3 @@
 _site/
+blog/notebooks/.ipynb_checkpoints/
 Gemfile.lock
