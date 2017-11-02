@@ -17,19 +17,20 @@ author: Gonzalo Mateo-García
 );*/
 </script>
 
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full" charset="utf-8">-->
 
 <!-- <script type="text/javascript" src="/js/MathJax.js">
 </script>-->
-<script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+
 
 
 Radial Basis Function Neural Networks (RBFN) and Nystrom methods are two methods that can be used for regression. They come from different *statistical learning* frameworks: RBFN were proposed in the context of *shallow* neural networks: this is a three layer neural network where the hidden layer computes the rbf similarities to a set of *centroids*. Then a fully connected layer is added to give the final prediction. Nystrom method was proposed in the kernel machine literature as a way to reduce the computational burden of the full kernel similarity matrix $K$. Nystrom was proposed latter, however it can be applied to different problems not only regression.
 
-The equivalence of the method is not something unknown that we came up to; however we feel it is not crystal clear the relationship as perhaps seems for experts in the field. In [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} and in Rassmussen and Williams [*Guassian Process for Machine Learning*](http://www.gaussianprocess.org/gpml/){:target="_blank"} book this relations are taken from granted. [Recent papers in the context of RBFNN](http://proceedings.mlr.press/v51/que16.html){:target="_blank"} explicitly say so. In addition, another clear proof of the people awareness of this relationship is the [scikit learn implementation of Nystrom method](http://scikit-learn.org/stable/auto_examples/plot_kernel_approximation.html#sphx-glr-auto-examples-plot-kernel-approximation-py){:target="_blank"}, which explicitly uses it. In this way the purpose of this post is to shed light in the *proof* of this relationship which helps to better understand this powerful methods. First we show the relation into an *empirical risk minimization* setting, later we will develop the *Bayesian* approach which leads to the so called **sparse $\mathcal{GP}$** methods, the `RBFN` network is called in this context the **Subset of Regressors (SoR)** method. **Sparse $\mathcal{GP}$s** is an active field of research which have had many contributions over the last years.
+The equivalence of the method is not something unknown that we came up to; however we feel it is not crystal clear the relationship as perhaps seems for experts in the field. In [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} and in Rassmussen and Williams [*Guassian Process for Machine Learning*](http://www.gaussianprocess.org/gpml/){:target="_blank"} book this relations are taken from granted. [Recent papers in the context of RBFNN](http://proceedings.mlr.press/v51/que16.html){:target="_blank"} explicitly say this. In addition, another clear proof of the people awareness of this relationship is the [scikit learn implementation of Nystrom method](http://scikit-learn.org/stable/auto_examples/plot_kernel_approximation.html#sphx-glr-auto-examples-plot-kernel-approximation-py){:target="_blank"}, which explicitly uses it. In this way the purpose of this post is to shed light in the *proof* of this relationship which helps to better understand this powerful methods. First we show the relation into an *empirical risk minimization* setting, later we will develop the *Bayesian* approach which leads to one of the called **sparse $\mathcal{GP}$** methods, we will see that the RBFN network is equivalent in this context to the **Subset of Regressors (SoR)** method (following [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} naming convention). **Sparse $\mathcal{GP}$s** is an active field of research which have had many contributions over the last years.
 
 ## Introduction
 Let $$ \mathcal{D}=\{x_i,y_i\}_{i=1}^N $$ be the data of our regression problem: \\(x_i\in\mathbb{R}^D\\), \\(y_i\in \mathbb{R}\\). In matrix notation we write \\(\mathcal{D}=(X,y)\\) where \\(X\\) is an $N\times D$ matrix and \\(y\\) and \\(N \times 1\\) vector. Both methods employ a subset of \\(\mathcal{D}\\) of size \\(M\\) \\(\mathcal{D}_u = (X_u,y_u)\\) (\\(X_u\\) is an \\(M\times D\\) matrix and \\(y_u\\) and $M \times 1$). This subset is sometimes called *centroids*, *pseudo-inputs* or *inducing inputs*. Also, we will sometimes refer with the subscript $f$ to the subset formed by all the data: \\(\mathcal{D}=\mathcal{D_f}=(X_f,y_f)=(X,y)\\)
@@ -49,17 +50,17 @@ $$
 
 ### Nystrom method
 
-[Nystrom method](https://papers.nips.cc/paper/1866-using-the-nystrom-method-to-speed-up-kernel-machines){:target="_blank"} proposes the substitution of the kernel function $k$ with $k_{nystrom}$ defined as $k_{nystrom}(x_i,x_j) = k(x_i,X_u)K_{uu}^{-1}k(X_u,x_j)$. The matrix $K$ ($K_{ff}$) is replaced then with $Q=K_{fu}K_{uu}^{-1}K_{uf}$ ($Q_{ff}$).
+Nystrom method [[Williams and Seeger 2000]](https://papers.nips.cc/paper/1866-using-the-nystrom-method-to-speed-up-kernel-machines){:target="_blank"} proposes the substitution of the kernel function $k$ with $k_{nystrom}$ defined as $k_{nystrom}(x_i,x_j) = k(x_i,X_u)K_{uu}^{-1}k(X_u,x_j)$. The matrix $K$ is replaced then with $Q=K_{fu}K_{uu}^{-1}K_{uf}$ ($Q_{ff}$).
 
 The Kernel Ridge Regression (KRR) solution using the kernel function $k_{nystrom}$ for a given $x^\*$ is:
 
 $$
-k_{nystrom}(x^*,f)\Big(Q_{ff}+ \sigma I \Big)^{-1} y = K_{*u} \overbrace{K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1}}^{A} y \quad \text{(2)}
+k_{nystrom}(x^*,X)\Big(Q_{ff}+ \sigma I \Big)^{-1} y = K_{*u} \overbrace{K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1}}^{A} y \quad \text{(2)}
 $$
 
-### `RBFN` method
+### RBFN method
 
-The (RBFN) method is an **empirical risk minimization approach** originally proposed by [Poggio and Girosi 1990](http://cbcl.mit.edu/people/poggio/journals/poggio-girosi-IEEE-1990.pdf){:target="_blank"} (eq 25). In this approach we have first to map $X$ to the space generated by the kernel similarities to $X_u$ which for the training data yields the matrix $K_{fu}$ of (1).
+The (RBFN) method is an **empirical risk minimization approach** originally proposed by [[Poggio and Girosi 1990]](http://cbcl.mit.edu/people/poggio/journals/poggio-girosi-IEEE-1990.pdf){:target="_blank"} (eq 25). In this approach we have first to map the inputs $x$ to the space generated by the kernel similarities to $X_u$: $k(x,X_u)$. For the training input $X$ yield the matrix $K_{fu}$ of (1).
 
 Then we solve the **linear ridge regression** problem in the transformed domain $K_{fu}$. That is, we seek to minimize  the empirical regularized risk $J$ for $\alpha$:
 
@@ -135,7 +136,7 @@ $$
 p(y,y^* \mid X_*, X)=\mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \mid \; 0,\:\begin{pmatrix} Q_{f,f}+\sigma^2 I & Q_{f,*}\\ Q_{*,f} & Q_{*,*} + \sigma^2 I \end{pmatrix} \right)
 $$
 
-Here we want to retrieve the __posterior predictive distribution__: \\( p(y^* \mid X_*, X, y) \\) from this joint prior. If we dust off Christopher Bishop's: [Pattern Recognition and Machine Learning ](http://www.springer.com/us/book/9780387310732){:target="_blank"} book and we go to *chapter 2 section 2.3.1. Conditional Gaussian distributions* we have the derivation that gives the conditional distribution from a joint Gaussian distribution.
+Here we want to retrieve the __posterior predictive distribution__: \\( p(y^* \mid X_*, X, y) \\) from this joint prior. If we dust off Christopher Bishop's: [Pattern Recognition and Machine Learning ](http://www.springer.com/us/book/9780387310732){:target="_blank"} book and we go to _chapter 2 section 2.3.1.: Conditional Gaussian distributions_ we have the derivation that gives the conditional distribution from a joint Gaussian distribution.
 
 Applying this equation (which is also [here in the wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)) leads to the expression of the **posterior predictive distribution**:
 
@@ -148,7 +149,7 @@ So we have that the mean of the $\mathcal{GP}$ solution using Nystrom kernel is 
 ### Bayesian RBFN
 The RBFN method can be also viewed from a standard Bayesian linear regression point of view. The only _difference_ with the Bayesian linear regression is that we first transform the inputs $x_i$ to the similarities space $K_{x_iu}$. The rest remains equal. I am going to re-develop this approach for our current case because there are interesting similarities with the $\mathcal{GP}$ regression.
 
-So let's start: we assume the _linear in $\alpha$_ model: $y_i = K_{x_iu}\alpha + \epsilon_i$ where $$epsilon_i$$ is independent white noise: $\epsilon_i\sim \mathcal{N}(0,\sigma^2)$. This can also be written as $p(y_i\mid x_i,\alpha) = p(y_i \mid K_{x_iu},\alpha)=\mathcal{N}(y_i\mid K_{x_iu}\alpha, \sigma^2)$.
+So let's start: we assume the _linear in $\alpha$_ model: $$y_i = K_{x_iu}\alpha + \epsilon_i$$ where $$\epsilon_i$$ is independent white noise: $\epsilon_i\sim \mathcal{N}(0,\sigma^2)$. This can also be written as $p(y_i\mid x_i,\alpha) = p(y_i \mid K_{x_iu},\alpha)=\mathcal{N}(y_i\mid K_{x_iu}\alpha, \sigma^2)$.
 The likelihood of our model is then:
 
 $$
@@ -187,7 +188,7 @@ p(y^* \mid x^* X, y) &= \int p(y^* \mid X^*, \alpha, \cancel{X, y}) P(\alpha \mi
 \end{aligned}
 $$
 
-We will further develop this approach in the fully Bayesian approach section. However first we will consider the maximum a posteriori (MAP) approach which we''ll see it is equivalent to the empirical risk minimization approach.
+We will further develop _similar to $\mathcal{GP}$ approach_ in the fully Bayesian approach section. However first we will consider the maximum a posteriori (MAP) approach which, we''ll see, it is equivalent to the empirical risk minimization approach.
 
 #### MAP approach
 The *"less Bayesian approach"* would be to compute the maximum a posteriori estimate of $p(\alpha \mid y,X)$ and then use such value ($\alpha_{MAP}$) to compute predictions: $y^* = K_{*,u}\alpha_{MAP}$. This is the approach which is equivalent to the empirical risk minimization approach exposed above (if we use $A=K_{uu}^{-1}$):
@@ -202,7 +203,7 @@ $$
  \end{aligned}
 $$
 
-So we see that the MAP of the Bayesian RBFN approach is the same of the empirical risk minimization RBFN approach. Given that we can also say that it is also the same to the KRR solution using Nystrom method and by the way it is also the mean of the $\mathcal{GP}$ solution using Nystrom method. So we have different methods derived from different points of view which at the end lead to the same *point estimates*. The only thing that remains is the fully Bayesian RBFN approach; we wonder: *will the mean of fully Bayesian RBFN approach give the same predictions as all the methods?* The answer, as you might expect, is also yes.
+So we see that the MAP of the Bayesian RBFN approach is the same of the empirical risk minimization RBFN approach. Given that we can also say that it is also the same to the KRR solution using Nystrom method and by the way it is also the mean of the $\mathcal{GP}$ solution using Nystrom method. So we have different methods derived from different points of view which at the end lead to the same *point estimates*. The only thing that remain to consider is the fully Bayesian RBFN approach; we wonder: *will the mean of fully Bayesian RBFN approach give the same predictions as all the other methods?* The answer, as you might expect, is also yes.
 
 #### Fully Bayesian approach
 We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^*\mid x_*,X,y)$$. First we consider the *augmented likelihood*:
@@ -228,15 +229,15 @@ To solve this (nasty) integral we can rely again on Bishop's book in this case w
 First we compute the mean:
 
 $$
-\mathbb{E}[(y,y^*) \mid X, X_*] = \mathbb{E}[\mathbb{E}[(y,y^*) \mid X, X_*,\alpha]] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\mathbb{E}[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*] = \mathbb{E}[\mathbb{E}[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*,\alpha]] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
 $$
 
 Then we compute the covariance:
 
 $$
 \begin{aligned}
-\mathbb{E}\left[\begin{pmatrix} y \\ y \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*\right] &=
-\mathbb{E}\left[\mathbb{E}\left[ \begin{pmatrix} y \\ y \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*,\alpha \right]\right] \\ &=
+\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*\right] &=
+\mathbb{E}\left[\mathbb{E}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*,\alpha \right]\right] \\ &=
 \mathbb{E}\left[ \begin{pmatrix} K_{fu}\alpha + \epsilon \\ K_{*u}\alpha + \epsilon \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf} + \epsilon^t & \alpha^tK_{u*} + \epsilon^t \end{pmatrix} \Big | \; X, X_* \right] \\ &=
 \mathbb{E}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t \Big | \; X, X_*  \right]  \\  &=   
 \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I  \\ &=
