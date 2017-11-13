@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Why Radial Basis Function Neural Networks are equivalent to Nystrom method
+title: Why Radial Basis Function Neural Networks are equivalent to Nyström method
 date: 2017-10-24
 author: Gonzalo Mateo-García
 ---
@@ -50,7 +50,7 @@ $$
 
 ### Nyström method
 
-The Nyström method [[Williams and Seeger 2000]](https://papers.nips.cc/paper/1866-using-the-nystrom-method-to-speed-up-kernel-machines){:target="_blank"} proposes the substitution of the kernel function $k$ with $k_{nystrom}$ defined as $k_{nystrom}(x_i,x_j) = k(x_i,X_u)K_{uu}^{-1}k(X_u,x_j)$. The matrix $K$ is replaced then with $Q=K_{fu}K_{uu}^{-1}K_{uf}$ ($Q_{ff}$).
+The Nyström method [[Williams and Seeger 2000]](https://papers.nips.cc/paper/1866-using-the-nystrom-method-to-speed-up-kernel-machines){:target="_blank"} proposes the substitution of the kernel function $k$ with $k_{Nyström}$ defined as $k_{Nyström}(x_i,x_j) = k(x_i,X_u)K_{uu}^{-1}k(X_u,x_j)$. The matrix $K$ is replaced then with $Q=K_{fu}K_{uu}^{-1}K_{uf}$ ($Q_{ff}$).
 
 The Kernel Ridge Regression (KRR) solution using the kernel function $k_{Nyström}$ for a given $x^\*$ is:
 
@@ -246,7 +246,7 @@ $$
 \end{aligned}
 $$
 
-Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nystrom $\mathcal{GP}$ method:
+Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nyström $\mathcal{GP}$ method:
 
 $$
 p(y,y^* \mid  X,X_*) = \mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} + \sigma^2 I \end{pmatrix} \right)
@@ -257,3 +257,5 @@ Using the same procedure than in equation (5) and assuming $A=K_{uu}^{-1}$ we re
 _**Theorem**_ The linear Bayesian approach in the space of similarities to $X_u$ (Bayesian RBFN) yields the same result as the Nyström $\mathcal{GP}$ regression. We only have to provide the following prior over the linear regression weights $\alpha$: $\alpha \sim \mathcal{N}(0,K_{uu}^{-1})$.
 
 One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $$Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$$ which in turn will be close to zero if we consider for example the *rbf* kernel. We refer the reader to [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
+
+Thanks to Daniel Svendsen for corrections and all the [isp](http://isp.uv.es){:target="_blank"} group for the very fruitful discussions that led to this work.
