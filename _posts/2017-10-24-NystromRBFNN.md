@@ -153,12 +153,12 @@ So let's start: we assume the _linear in $\alpha$_ model: $$y_i = K_{x_iu}\alpha
 The likelihood of our model is then:
 
 $$
-\begin{align}
-p(\overbrace{y_1,...,y_N}^y \mid \overbrace{x_1,...,x_N}^X,\alpha) &= \prod_{i=1}^N p(y_i\mid x_i,\alpha) \nonumber \\
-&=  \prod_{i=1}^N \mathcal{N}(y_i \mid  K_{x_iu}\alpha , \sigma^2) = \mathcal{N}(y \mid K_{fu}\alpha, \sigma^2 I ) \nonumber \\
-&= \frac{1}{(2\pi)^{N/2}\sqrt{|\sigma^2I|}}\exp\big(-\frac{1}{2}(y- K_{fu}\alpha)^t \sigma^{-2}I(y- K_{fu}\alpha)\big) \nonumber \\
-&= \frac{1}{(2\pi \sigma^2)^{N/2}}\exp\big(-\frac{1}{2\sigma^2}\|y- K_{fu}\alpha\|^2\big) \nonumber \quad \text{(6)}
-\end{align}
+\begin{aligned}
+p(\overbrace{y_1,...,y_N}^y \mid \overbrace{x_1,...,x_N}^X,\alpha) &= \prod_{i=1}^N p(y_i\mid x_i,\alpha)  \\
+&=  \prod_{i=1}^N \mathcal{N}(y_i \mid  K_{x_iu}\alpha , \sigma^2) = \mathcal{N}(y \mid K_{fu}\alpha, \sigma^2 I ) \quad \text{(6)} \\
+&= \frac{1}{(2\pi)^{N/2}\sqrt{|\sigma^2I|}}\exp\big(-\frac{1}{2}(y- K_{fu}\alpha)^t \sigma^{-2}I(y- K_{fu}\alpha)\big)  \\
+&= \frac{1}{(2\pi \sigma^2)^{N/2}}\exp\big(-\frac{1}{2\sigma^2}\|y- K_{fu}\alpha\|^2\big)  
+\end{aligned}
 $$
 
 If we place a prior over $p(\alpha \mid X) = \mathcal{N}(\alpha \mid 0,A)$, the joint $y,\alpha$ distribution given $X$ would be:
@@ -209,9 +209,7 @@ So we see that the MAP of the Bayesian RBFN approach is the same of the empirica
 We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^*\mid x_*,X,y)$$. First we consider the *augmented likelihood*:
 
 $$
-\begin{equation}
-p(y,y^* \mid  X, X_*,  \alpha) = \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right)
-\end{equation}
+p(y,y^* \mid  X, X_*,  \alpha) = \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right)\quad \text{(7)}
 $$
 
 Which is the same expression that (6) but including the test data $$(X_*,y^*)$$.
@@ -224,23 +222,30 @@ $$
 \end{aligned}
 $$
 
-To solve this (nasty) integral we can rely again on Bishop's book in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. However, if we *believe* that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of $(y,y^* \mid X, X_*)$.
+To solve this (nasty) integral we can rely again on Bishop's book; in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. However, if we *believe* that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of $(y,y^* \mid X, X_*)$. To do this we can use the cool trick:
+
+$$
+\mathbb{E}_{p(a)}\left[a\right] = \mathbb{E}_{p(b)}\left[\mathbb{E}_{p(a\mid b)}\left[a\right]\right]
+$$
 
 First we compute the mean:
 
 $$
-\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*\right] = \mathbb{E}\left[\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \mid X, X_*,\alpha\right]\right] \underbrace{=}_{eq. 7} \mathbb{E}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \mid X, X_* \right] = \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\begin{aligned}
+\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right] &= \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right]\right] \underbrace{=}_{eq. 7} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \right] \\
+&= \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha \mid X,X_*)}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\end{aligned}
 $$
 
 Then we compute the covariance:
 
 $$
 \begin{aligned}
-\mathbb{E}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*\right] &=
-\mathbb{E}\left[\mathbb{E}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \Big | \; X, X_*,\alpha \right]\right] \\ &=
-\mathbb{E}\left[ \begin{pmatrix} K_{fu}\alpha + \epsilon \\ K_{*u}\alpha + \epsilon \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf} + \epsilon^t & \alpha^tK_{u*} + \epsilon^t \end{pmatrix} \Big | \; X, X_* \right] \\ &=
-\mathbb{E}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t \Big | \; X, X_*  \right]  \\  &=   
-\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I  \\ &=
+\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \right] &=
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix}  \right]\right] \\ &\underbrace{=}_{eq. 7}
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[ \begin{pmatrix} K_{fu}\alpha + \epsilon \\ K_{*u}\alpha + \epsilon \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf} + \epsilon^t & \alpha^tK_{u*} + \epsilon^t \end{pmatrix} \right] \\  &\underbrace{=}_{\alpha \text{ indep } \epsilon}
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t \right]  \\  &=   
+\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I  \\ &=
 \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} A \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I \\ &=
 \begin{pmatrix} K_{fu}AK_{uf} & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} \end{pmatrix} + \sigma^2 I
 \end{aligned}
