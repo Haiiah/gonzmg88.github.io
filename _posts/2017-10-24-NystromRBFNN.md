@@ -218,36 +218,42 @@ Now we integrate out $\alpha$:
 $$
 \begin{aligned}
   p(y,y^* \mid  X,X_*) &= \int p(y,y^* \alpha \mid  X,X_*) d\alpha = \int p(y,y^* \mid  X,X_*,\alpha)p(\alpha \mid X,X_*) d\alpha \\ &=
-  \int \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha
+  \int \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha \quad \text{(8)}
 \end{aligned}
 $$
 
-To solve this (nasty) integral we can rely again on Bishop's book; in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. However, if we *believe* that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of $(y,y^* \mid X, X_*)$. To do this we can use the cool trick:
-
-$$
-\mathbb{E}_{p(a)}\left[g(a)\right] = \mathbb{E}_{p(b)}\left[\mathbb{E}_{p(a\mid b)}\left[g(a)\right]\right]
-$$
-
-In this case, $a$ is $$(y,y^* \mid X, X_*)$$ and $b$ is $$(\alpha,\epsilon \mid X,X_*)$$. $\alpha$ and $\epsilon$ are independent with joint distribution: $$p(\alpha,\epsilon \mid X,X_*) = \mathcal{N}(\alpha \mid 0, A) \mathcal{N}(\epsilon \mid 0, \sigma^2I)$$.
+To solve this (nasty) integral we can rely again on Bishop's book; in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. However, if we *believe* that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of $$(y,y^* \mid X, X_*)$$. To do this we *just* have to integrate (8).
 
 First we compute the mean:
 
 $$
 \begin{aligned}
-\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right] &= \mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha,\epsilon)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right]\right] \underbrace{=}_{eq. 7} \mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha + \epsilon \right] \\
-&= \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha, \epsilon \mid X,X_*)}[\alpha] + 0 \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right] &= \int \begin{pmatrix} y \\ y^* \end{pmatrix} p( y , y^*  \mid  X,X_*) d(y,y^*)\\
+&= \int \begin{pmatrix} y \\ y^* \end{pmatrix} \int  \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha d(y,y^*) \\
+&\underbrace{=}_{\text{switch integrals}} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha,)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right]\right] \quad \text{(9)}\\
+&\underbrace{=}_{eq. 7} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \right] \\
+&= \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha, \mid X,X_*)}[\alpha] \underbrace{=}_{\alpha \text{ has mean zero}} 0
 \end{aligned}
 $$
 
-Then we compute the covariance:
+Equation (9) shows the cool trick that can be used to compute this integrals which can be generalized into:
+
+$$
+\mathbb{E}_{p(a)}\left[g(a)\right] = \mathbb{E}_{p(b)}\left[\mathbb{E}_{p(a\mid b)}\left[g(a)\right]\right] \quad \text{(10)}
+$$
+
+(In this case $a$ is $$(y,y^* \mid X, X_*)$$ and $b$ is $$(\alpha \mid X,X_*)$$)
+
+Given that the mean is zero, the second order moment is the covariance of the distribution. In order to compute it we just have reuse the trick (10):
 
 $$
 \begin{aligned}
 \mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \right] &=
-\mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha,\epsilon)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix}  \right]\right] \\ &\underbrace{=}_{eq. 7}
-\mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[ \begin{pmatrix} K_{fu}\alpha + \epsilon \\ K_{*u}\alpha + \epsilon \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf} + \epsilon^t & \alpha^tK_{u*} + \epsilon^t \end{pmatrix} \right] \\  &\underbrace{=}_{\alpha \text{ indep } \epsilon}
-\mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[ \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \epsilon \epsilon^t \right]  \\  &=   
-\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha,\epsilon \mid X,X_*)}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I  \\ &=
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix}  \right]\right] \\ &=
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[Cov[y,y^*\mid X,X_*,\alpha] + \mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix}\right]\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y^t &  y^{t*} \end{pmatrix}\right]\right] \\ &\underbrace{=}_{eq. 7}
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[ \sigma^2 I+ \begin{pmatrix} K_{fu}\alpha  \\ K_{*u}\alpha \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf}  & \alpha^tK_{u*}  \end{pmatrix}   \right] \\  &=
+\mathbb{E}_{p(\alpha \mid X,X_*)}\left[\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}   \right]  \\  &=   
+\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}  \\ &=
 \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} A \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I \\ &=
 \begin{pmatrix} K_{fu}AK_{uf} & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} \end{pmatrix} + \sigma^2 I
 \end{aligned}
