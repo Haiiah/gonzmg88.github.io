@@ -26,17 +26,8 @@ author: Gonzalo Mateo-García
 <!-- <script type="text/javascript" src="/js/MathJax.js">
 </script>-->
 
-## Table of Contents
-1. [Introduction](#introduction)
-1. [Empirical risk minimization approach](#empirical-risk-minimization-approach)
-  * [Nyström Method](#nystrm-method)
-  * [RBFN Method](#rbfn-method)
-  * [Proof](#proof)
-1. [Bayesian approach](#bayesian-approach)
-  * [Nyström $$\mathcal{GP}$$](#nystrm-mathcalgp)
-  * [Bayesian RBFN](#bayesian-rbfn)
-    * [MAP approach](#map-approach)
-    * [Fully Bayesian approach](#fully-bayesian-approach)
+* TOC
+{:toc}
 
 ## Introduction
 
@@ -101,28 +92,30 @@ We may wonder why do we have to use the $K_{uu}$ in the regularization of the ri
 Saying that both methods yield the same predictions boils down to show that the matrices $A$ and $B$ are equivalent. To see this equivalence we can rely on the [matrix inversion lemma](#matrix-inversion-lemma-proof) or we can prove it [ad hoc](#ad-hoc-proof).
 
 ### Matrix inversion lemma proof
+{:.no_toc}
 
 <a onclick="$('#mil_hidden').slideToggle();"> Unfold explanation </a>
 
-<div id="mil_hidden" class="input_hidden">
+<div id="mil_hidden" class="input_hidden" markdown="1">
 
-<p> The easiest way to prove the equivalence between both methods (which is used in <a href="http://www.gaussianprocess.org/gpml/" target="blank"> [Rassmusen and Williams book]</a> Chapter 8 section 6.1.) is to rely on the <strong>matrix inversion lemma</strong> which states:</p>
+The easiest way to prove the equivalence between both methods (which is used in <a href="http://www.gaussianprocess.org/gpml/" target="blank"> [Rassmusen and Williams book]</a> Chapter 8 section 6.1.) is to rely on the <strong>matrix inversion lemma</strong> which states:
 
 $$
  \Big(Z + UWV^t\Big)^{-1} = Z^{-1} -Z^{-1} U\Big(W^{-1} + V^tZ^{-1}U\Big)^{-1}V^tZ^{-1}
 $$
 
-<p>Hence we can apply this formula into the inverse of eq (2) <script type="math/tex">\Big( \overbrace{K_{fu}K_{uu}^{-1}K_{uf}}^{Q_{ff}}+\sigma^2 I\Big)^{-1}</script> to get eq (3).</p>
+Hence we can apply this formula into the inverse of eq (2) <script type="math/tex">\Big( \overbrace{K_{fu}K_{uu}^{-1}K_{uf}}^{Q_{ff}}+\sigma^2 I\Big)^{-1}</script> to get eq (3).
 
-<p><a onclick="$('#mil_hidden').slideToggle();"> Collapse </a></p>
+<a onclick="$('#mil_hidden').slideToggle();"> Collapse </a>
 
 </div>
 
 ### Ad hoc proof
+{:.no_toc}
 
 <a onclick="$('#ah_hidden').slideToggle();"> Unfold explanation </a>
-<div id="ah_hidden" class="input_hidden">
-<p>The ad hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expressions:</p>
+<div id="ah_hidden" class="input_hidden"  markdown="1">
+The ad hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expressions:
 
 $$
 A = K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1} = K_{uu}^{-1}K_{uf}\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)^{-1}
@@ -133,7 +126,7 @@ $$
 B = \Big( K_{uf}K_{fu}\ +  \sigma^2 K_{uu}\Big)^{-1} K_{uf} = K_{uu}^{-1}\Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \cancel{K_{uu}K_{uu}^{-1}} \Big)^{-1} K_{uf}
 $$
 
-<p>Thus $A = B$ lead us to:</p>
+Thus $A = B$ lead us to:
 
 $$
 \require{cancel}
@@ -146,10 +139,11 @@ $$
 \Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \Big) K_{uf} = K_{uf} \Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)
 $$
 
-<p>So the equality holds.</p>
+So the equality holds.
 
-<p>(This trick is taken from <a href="http://stat.wikia.com/wiki/Kernel_Ridge_Regression" target="blank"> http://stat.wikia.com/wiki/Kernel_Ridge_Regression)</a>).</p>
-<p><a onclick="$('#ah_hidden').slideToggle();"> Collapse </a></p>
+(This trick is taken from <a href="http://stat.wikia.com/wiki/Kernel_Ridge_Regression" target="blank"> http://stat.wikia.com/wiki/Kernel_Ridge_Regression)</a>).
+
+<a onclick="$('#ah_hidden').slideToggle();"> Collapse </a>
 
 </div>
 
@@ -260,13 +254,17 @@ $$
 Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nyström $\mathcal{GP}$ method.
 
 #### Alternative Derivation
+{:.no_toc}
+
 An alternative derivation (maybe easier or more intuitive?) of (11) is given if you click <a onclick="$('#alternative_derivation_hidden').slideToggle();"> unfold explanation</a>.
 
-<div id="alternative_derivation_hidden" class="input_hidden">
+<div id="alternative_derivation_hidden" class="input_hidden" markdown="1">
 
 
-<p>If we <em>believe</em> that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of: <script type="math/tex"> (y,y^* \mid X, X_*) </script> To do this we <em>just</em> have to integrate (8).</p>
-<p>First we compute the mean:</p>
+If we <em>believe</em> that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of: <script type="math/tex"> (y,y^* \mid X, X_*) </script> To do this we <em>just</em> have to integrate (8).
+
+First we compute the mean:
+
 $$
 \begin{aligned}
 \mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right] &= \int \begin{pmatrix} y \\ y^* \end{pmatrix} p( y , y^*  \mid  X,X_*) d(y,y^*)\\
@@ -277,16 +275,17 @@ $$
 \end{aligned}
 $$
 
-<p>Equation (9) shows the cool trick that can be used to compute this integrals which can be generalized into:</p>
+Equation (9) shows the cool trick that can be used to compute this integrals which can be generalized into:
 
 $$
 \mathbb{E}_{p(a)}\left[g(a)\right] = \mathbb{E}_{p(b)}\left[\mathbb{E}_{p(a\mid b)}\left[g(a)\right]\right] \quad \text{(10)}
 $$
+
 $$
 \text{(In this case }a\text{ is }(y,y^* \mid X, X_*)\text{ and }b\text{ is }(\alpha \mid X,X_*)\text{).}
 $$
 
-<p>Given that the mean is zero, the second order moment is the covariance of the distribution. In order to compute it we just have reuse the trick (10):</p>
+Given that the mean is zero, the second order moment is the covariance of the distribution. In order to compute it we just have reuse the trick (10):
 
 $$
 \begin{aligned}
@@ -301,7 +300,7 @@ $$
 \end{aligned}
 $$
 
-<a onclick="$('#alternative_derivation_hidden').slideToggle();"> Collapse </a>.
+<a onclick="$('#alternative_derivation_hidden').slideToggle();"> Collapse </a>
 
 </div>
 
@@ -319,6 +318,24 @@ Thanks to Daniel Svendsen for corrections and all the [isp](http://isp.uv.es){:t
   border:1px solid black;
   padding-left: 2%;
   padding-right: 1%;
+}
+#markdown-toc::before {
+    content: "Contents";
+    font-weight: bold;
+}
+
+// Using numbers instead of bullets for listing
+#markdown-toc ul {
+    list-style: decimal;
+}
+
+#markdown-toc {
+    border: 1px solid #aaa;
+    padding: 1.5em;
+    margin-right: 1%;
+    list-style: decimal;
+    display: inline-block;
+    float: left;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
