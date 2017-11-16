@@ -259,10 +259,8 @@ $$
 
 Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nyström $\mathcal{GP}$ method.
 
-An alternative derivation (maybe easier or more intuitive?) of this formula is given if you click <a onclick="$('#alternative_derivation_hidden').slideToggle();"> unfold explanation</a>.
-
 #### Alternative Derivation
-<a onclick="$('#alternative_derivation_hidden').slideToggle();"> Unfold explanation</a>
+An alternative derivation (maybe easier or more intuitive?) of (11) is given if you click <a onclick="$('#alternative_derivation_hidden').slideToggle();"> unfold explanation</a>.
 
 <div id="alternative_derivation_hidden" class="input_hidden">
 
