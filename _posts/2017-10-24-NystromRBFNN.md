@@ -97,20 +97,32 @@ We see here the *three layer network*: the first layer is the input, the second 
 
 We may wonder why do we have to use the $K_{uu}$ in the regularization of the risk of $J(\alpha)$? One practical reason is that if $X_u$ is $X$ (i.e. all the data) the solution (3) will be the standard KRR solution since $K=K_{uf}=K_{fu}=K_{uu}$. Another one probably will be related to the fact that if two rows of $$X_u$$ $$ x_{ui} $$, $$ x_{uj} $$ are very correlated their corresponding $$\alpha_i$$, $$\alpha_j$$ coefficients should be regularized.
 
+### Proof
+Saying that both methods yield the same predictions boils down to show that the matrices $A$ and $B$ are equivalent. To see this equivalence we can rely on the [matrix inversion lemma](#matrix-inversion-lemma-proof) or we can prove it [ad hoc](#ad-hoc-proof).
+
 ### Matrix inversion lemma proof
 
-The easiest way to prove the equivalence between both methods (which is used in [Rassmusen and Williams book](http://www.gaussianprocess.org/gpml/){:target="_blank"} Chapter 8 section 6.1.) is to rely on the **matrix inversion lemma** which states:
+<a onclick="$('#mil_hidden').slideToggle();"> Unfold explanation </a>
+
+<div id="mil_hidden" class="input_hidden">
+
+<p> The easiest way to prove the equivalence between both methods (which is used in <a href="http://www.gaussianprocess.org/gpml/" target="blank"> [Rassmusen and Williams book]</a> Chapter 8 section 6.1.) is to rely on the <strong>matrix inversion lemma</strong> which states:</p>
 
 $$
  \Big(Z + UWV^t\Big)^{-1} = Z^{-1} -Z^{-1} U\Big(W^{-1} + V^tZ^{-1}U\Big)^{-1}V^tZ^{-1}
 $$
 
-Hence we can apply this formula into the inverse of eq (2) $\Big( \overbrace{K_{fu}K_{uu}^{-1}K_{uf}}^{Q_{ff}}+\sigma^2 I\Big)^{-1}$ to get eq (3).
+<p>Hence we can apply this formula into the inverse of eq (2) <script type="math/tex">\Big( \overbrace{K_{fu}K_{uu}^{-1}K_{uf}}^{Q_{ff}}+\sigma^2 I\Big)^{-1}</script> to get eq (3).</p>
 
+<p><a onclick="$('#mil_hidden').slideToggle();"> Collapse </a></p>
 
-### Proof
+</div>
 
-The ad. hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expressions:
+### Ad hoc proof
+
+<a onclick="$('#ah_hidden').slideToggle();"> Unfold explanation </a>
+<div id="ah_hidden" class="input_hidden">
+<p>The ad hoc way to prove the result is showing that the matrices $A$ from (2) and $B$ from (3) are equivalent. We can simplify the expressions:</p>
 
 $$
 A = K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1} = K_{uu}^{-1}K_{uf}\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)^{-1}
@@ -121,30 +133,33 @@ $$
 B = \Big( K_{uf}K_{fu}\ +  \sigma^2 K_{uu}\Big)^{-1} K_{uf} = K_{uu}^{-1}\Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \cancel{K_{uu}K_{uu}^{-1}} \Big)^{-1} K_{uf}
 $$
 
-Thus $A = B$ lead us to:
+<p>Thus $A = B$ lead us to:</p>
 
 $$
 \require{cancel}
 \cancel{K_{uu}^{-1}} K_{uf}\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)^{-1} = \cancel{K_{uu}^{-1}} \Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \Big)^{-1} K_{uf} \quad \text{(4)}
 $$
 
-Multiplying each part of the equation (4) at the left by $\Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \Big)$ and at the right by $\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)$ we have:
+<p>Multiplying each part of the equation (4) at the left by $\Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \Big)$ and at the right by $\Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)$ we have:</p>
 
 $$
 \Big( K_{uf}K_{fu} K_{uu}^{-1} + \sigma^2 I \Big) K_{uf} = K_{uf} \Big(K_{fu}K_{uu}^{-1}K_{uf}+ \sigma^2 I \Big)
 $$
 
-So the equality holds.
+<p>So the equality holds.</p>
 
-(This trick is taken from [http://stat.wikia.com/wiki/Kernel_Ridge_Regression](http://stat.wikia.com/wiki/Kernel_Ridge_Regression){:target="_blank"}).
+<p>(This trick is taken from <a href="http://stat.wikia.com/wiki/Kernel_Ridge_Regression" target="blank"> http://stat.wikia.com/wiki/Kernel_Ridge_Regression)</a>).</p>
+<p><a onclick="$('#ah_hidden').slideToggle();"> Collapse </a></p>
+
+</div>
 
 ## Bayesian approach
 
 ### Nyström $\mathcal{GP}$
-The Nyström approach, in the context of $\mathcal{GP}$s, replace the prior over $(y,y^{\*})$ with:
+As we explained before, the Nyström method just replaces the $k$ function with the $k_{Nyström}$ function. In the context of $\mathcal{GP}$s this changes the **covariance** of the joint prior over the train and test data $$(y,y^* \mid X, X_* )$$. The joint prior distribution will be:
 
 $$
-p(y,y^* \mid X_*, X)=\mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \mid \; 0,\:\begin{pmatrix} Q_{f,f}+\sigma^2 I & Q_{f,*}\\ Q_{*,f} & Q_{*,*} + \sigma^2 I \end{pmatrix} \right)
+p(y,y^* \mid X_*, X)=\mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \mid \; 0,\:\begin{pmatrix} Q_{f,f}+\sigma^2 I & Q_{f,*}\\ Q_{*,f} & Q_{*,*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(12)}
 $$
 
 Here we want to retrieve the __posterior predictive distribution__: \\( p(y^* \mid X_*, X, y) \\) from this joint prior. If we dust off Christopher Bishop's: [Pattern Recognition and Machine Learning ](http://www.springer.com/us/book/9780387310732){:target="_blank"} book and we go to _chapter 2 section 2.3.1.: Conditional Gaussian distributions_ we have the derivation that gives the conditional distribution from a joint Gaussian distribution.
@@ -152,7 +167,10 @@ Here we want to retrieve the __posterior predictive distribution__: \\( p(y^* \m
 Applying this equation (which is also [here in the wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)) leads to the expression of the **posterior predictive distribution**:
 
 $$
-p(y^* | X_*, X, y) = \mathcal{N}\big(f^* \mid Q_{*,f}(Q_{f,f}+\sigma^2 I)^{-1}y,\enspace Q_{*,*} - Q_{*,f}(Q_{f,f} + \sigma^2 I)^{-1}Q_{f,*} + \sigma^2 I \big) \quad \text{(5)}
+\begin{aligned}
+p(y^* | X_*, X, y) = \mathcal{N}\big(y^* \mid & Q_{*,f}(Q_{f,f}+\sigma^2 I)^{-1}y, \\
+                                              & Q_{*,*} + \sigma^2 I - Q_{*,f}(Q_{f,f} + \sigma^2 I)^{-1}Q_{f,*}  \big) \quad \text{(5)}
+\end{aligned}
 $$
 
 So we have that the mean of the $\mathcal{GP}$ solution using the Nyström kernel is the same as the aforementioned approaches.
@@ -183,7 +201,7 @@ At this point it is worth to stop and consider *what do we want?* the natural an
 One way to obtain the posterior predictive distribution, which is similar to the approach followed for $\mathcal{GP}$s is:
 
 1. Augment the above equation with the test points:
-$$ p(y,y^*,\alpha \mid  X,X_*) $$ (Changing the likelihood term to accommodate the unseen $$X^*$$ and $$y_*$$).
+$$ p(y,y^*,\alpha \mid  X,X_*) $$ (Changing the likelihood term to accommodate the unseen $$X_*$$ and $$y^*$$).
 2. Integrate out \\( \alpha \\): $$ p(y,y^* \mid  X,X_*) = \int p(y,y^*,\alpha \mid  X,X_*) d\alpha $$
 3. Compute the posterior predictive using the trick we used above in the Nyström case (5).
 
@@ -194,7 +212,7 @@ The other, *more standard* approach would be:
 
 $$
 \begin{aligned}
-p(y^* \mid x^* X, y) &= \int p(y^* \mid X^*, \alpha, \cancel{X, y}) P(\alpha \mid \cancel{X^*}, X, y) d \alpha \\&=
+p(y^* \mid x^* X, y) &= \int p(y^* \mid X_*, \alpha, \cancel{X, y}) P(\alpha \mid \cancel{X_*}, X, y) d \alpha \\&=
 \int \mathcal{N}(y^*\mid K_{*u}\alpha, \sigma^2) p(\alpha \mid y,X)d \alpha
 \end{aligned}
 $$
@@ -217,7 +235,7 @@ $$
 So we see that the MAP of the Bayesian RBFN approach is the same of the empirical risk minimization RBFN approach. Given that we can also say that it is also the same to the KRR solution using the Nyström method and by the way it is also the mean of the $\mathcal{GP}$ solution using the Nyström method. So we have different methods derived from different points of view which at the end lead to the same *point estimates*. The only thing that remain to consider is the fully Bayesian RBFN approach; we wonder: *will the mean of fully Bayesian RBFN approach give the same predictions as all the other methods?* The answer, as you might expect, is also yes.
 
 #### Fully Bayesian approach
-We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^*\mid x_*,X,y)$$. First we consider the *augmented likelihood*:
+We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^*\mid X_*,X,y)$$. First we consider the *augmented likelihood*:
 
 $$
 p(y,y^* \mid  X, X_*,  \alpha) = \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right)\quad \text{(7)}
@@ -228,7 +246,7 @@ Now we integrate out $\alpha$:
 
 $$
 \begin{aligned}
-  p(y,y^* \mid  X,X_*) &= \int p(y,y^* \alpha \mid  X,X_*) d\alpha = \int p(y,y^* \mid  X,X_*,\alpha)p(\alpha \mid X,X_*) d\alpha \\ &=
+  p(y,y^* \mid  X,X_*) &= \int p(y,y^*, \alpha \mid  X,X_*) d\alpha = \int p(y,y^* \mid  X,X_*,\alpha)p(\alpha \mid X,X_*) d\alpha \\ &=
   \int \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha \quad \text{(8)}
 \end{aligned}
 $$
@@ -236,15 +254,18 @@ $$
 To solve this (nasty) integral we can rely again on Bishop's book; in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. After a while, if you did it properly, you will end up with:
 
 $$
-p(y,y^* \mid  X,X_*) = \mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(10)}
+p(y,y^* \mid  X,X_*) = \mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(11)}
 $$
 
 Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nyström $\mathcal{GP}$ method.
 
-An alternative derivation (maybe easier or more intuitive?) of this formula is given if you click <a class="clickme"> Unfold explanation</a>.
+An alternative derivation (maybe easier or more intuitive?) of this formula is given if you click <a onclick="$('#alternative_derivation_hidden').slideToggle();"> unfold explanation</a>.
 
-<div class="input_hidden">
-<h4 id="alternative-derivation">Alternative Derivation </h4>
+#### Alternative Derivation
+<a onclick="$('#alternative_derivation_hidden').slideToggle();"> Unfold explanation</a>
+
+<div id="alternative_derivation_hidden" class="input_hidden">
+
 
 <p>If we <em>believe</em> that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of: <script type="math/tex"> (y,y^* \mid X, X_*) </script> To do this we <em>just</em> have to integrate (8).</p>
 <p>First we compute the mean:</p>
@@ -282,9 +303,11 @@ $$
 \end{aligned}
 $$
 
+<a onclick="$('#alternative_derivation_hidden').slideToggle();"> Collapse </a>.
+
 </div>
 
-Using the same procedure in equation (10) than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in the Nyström $\mathcal{GP}$ method. This proves:
+Using the same procedure in equation (11) than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in the Nyström $\mathcal{GP}$ method. This proves:
 
 _**Theorem**_ The linear Bayesian approach in the space of similarities to $X_u$ (Bayesian RBFN) yields the same result as the Nyström $\mathcal{GP}$ regression. We only have to provide the following prior over the linear regression weights $\alpha$: $\alpha \sim \mathcal{N}(0,K_{uu}^{-1})$.
 
@@ -301,10 +324,3 @@ Thanks to Daniel Svendsen for corrections and all the [isp](http://isp.uv.es){:t
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".clickme").click(function(){
-      $('.input_hidden').slideToggle();
-  });
-});
-</script>
