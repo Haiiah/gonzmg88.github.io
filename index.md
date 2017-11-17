@@ -11,23 +11,25 @@ title: Gonzalo Mateo García
 
 ### Current position: PhD student
 
-### <a href="http://isp.uv.es" target="blank">Image and signal processing group (ISP)</a>
+### <a href="http://isp.uv.es" target="_blank">Image and signal processing group (ISP)</a>
 
-### <a href="http://ipl.uv.es" target="blank">Image processing laboratory (IPL)</a>
+### <a href="http://ipl.uv.es" target="_blank">Image processing laboratory (IPL)</a>
 
-I'm a PhD student in the Image processing laboratory at Universidad de Valencia. My advisor is <a href="http://www.uv.es/chovago/" target="blank">Prof. Luis Gómez-Chova</a>.
+I'm a PhD student in the Image processing laboratory at Universidad de Valencia. My advisor is <a href="http://www.uv.es/chovago/" target="_blank">Prof. Luis Gómez-Chova</a>.
 
-My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="blank">some results</a>). Currently I am working with convolutional neural networks and kernel methods.
+My research interests are in the field of machine learning with applications on multispectral satellite images. I worked under the <a href="https://research.google.com/research-outreach.html#/research-outreach/faculty-engagement/earth-engine-research-awards" target="_blank">Google Earth Engine Award</a> project to develop machine learning cloud detection algorithms (<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="_blank">some results</a>). Currently I am working with convolutional neural networks and kernel methods.
 
-This is my <a href="statement.pdf" target="blank">research statement</a>. Please feel free to contact me at: <br>
- gonzalo.mateo-garcia **AT** <a href="http://www.uv.es" target="blank">uv</a> DOT es.
+This is my <a href="statement.pdf" target="_blank">research statement</a>. Please feel free to contact me at:
+
+[gonzalo.mateo-garcia@uv.es](mailto:gonzalo.mateo-garcia@uv.es)
+{:style="text-align: center;"}
 
 ### Publications
 
 1. **Cloud masking and removal in remote sensing image time series**  <br>
   Gómez-Chova, Luis and Amorós-López, Julia and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau	 <br>
   Journal of Applied Remote Sensing 11 (1) :015005, 2017  <br>
-  <a href="http://dx.doi.org/10.1117/1.JRS.11.015005" target="blank"> DOI url </a>
+  <a href="http://dx.doi.org/10.1117/1.JRS.11.015005" target="_blank"> DOI url </a>
 
 2. **Cloud detection machine learning algorithms for PROBA-V** <br>
   Gomez-Chova, Luis and Mateo-Garcia, Gonzalo and Muñoz Mari, Jordi and Camps-Valls, Gustau <br>

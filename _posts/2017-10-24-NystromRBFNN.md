@@ -98,7 +98,7 @@ Saying that both methods yield the same predictions boils down to show that the 
 
 <div id="mil_hidden" class="input_hidden" markdown="1">
 
-The easiest way to prove the equivalence between both methods (which is used in <a href="http://www.gaussianprocess.org/gpml/" target="blank"> [Rassmusen and Williams book]</a> Chapter 8 section 6.1.) is to rely on the <strong>matrix inversion lemma</strong> which states:
+The easiest way to prove the equivalence between both methods (which is used in <a href="http://www.gaussianprocess.org/gpml/" target="_blank"> [Rassmusen and Williams book]</a> Chapter 8 section 6.1.) is to rely on the <strong>matrix inversion lemma</strong> which states:
 
 $$
  \Big(Z + UWV^t\Big)^{-1} = Z^{-1} -Z^{-1} U\Big(W^{-1} + V^tZ^{-1}U\Big)^{-1}V^tZ^{-1}
@@ -141,7 +141,7 @@ $$
 
 So the equality holds.
 
-(This trick is taken from <a href="http://stat.wikia.com/wiki/Kernel_Ridge_Regression" target="blank"> http://stat.wikia.com/wiki/Kernel_Ridge_Regression)</a>).
+(This trick is taken from <a href="http://stat.wikia.com/wiki/Kernel_Ridge_Regression" target="_blank"> http://stat.wikia.com/wiki/Kernel_Ridge_Regression)</a>).
 
 <a onclick="$('#ah_hidden').slideToggle();"> Collapse </a>
 
