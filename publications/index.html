@@ -2,85 +2,268 @@
 layout: default
 title: Publications
 ---
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script type="text/javascript" src="/bibtex_js.js"></script>
 
 <style>
-.abstract {
+.bibtex {
   display:none;
   font-family: 'Courier New', monospace;
   white-space: pre;
   font-size: small;
+  background-color: #dedede;
+  border:1px solid black;
+}
+
+.abstract {
+  display:none;
+  font-size: small;
+  font-style: italic;
+  background-color: #dedede;
+  border:1px solid black;
+}
+
+.author{
+  padding-left: 3%;
+}
+.journal{
+  padding-left: 3%;
+  font-style: italic;
 }
 </style>
-<textarea id="bibtex_input" style="display:none;">
-</textarea>
 
-<div id="bibtex_errors"></div>
 
-<div class="bibtex_template" style="display:none;">
-  <span class="year" style="font-weight: bold;"></span>,
-  <span class="if title" style="font-weight: bold;">
-    <span class="title"></span>
-  </span>
-  <br>
-  <span class="author"></span><br>
-  <span class="if booktitle" style="font-style: italic;">
-    <span class="booktitle"></span>,
-    <span class="if address" style="font-style: normal;">
-      <span class="address"></span>
-    </span>
-  </span>
-  <span class="if journal" style="font-style: italic;">
-    <span class="journal"></span>
-  </span>
-  <span style="if publisher">
-    <span class="publisher"></span>
-  </span>
-  <span style="if school">
-    <span class="school"></span>
-  </span>
-  <span class="if volume">
-    <span class="volume"></span>
-    <span class="if number">(
-      <span class="number"></span>)</span>
-    <span class="if pages">:
-      <span class="pages"></span>,
-    </span>
-  </span>
-  <span class="if edition">
-    <span class="edition"></span> ed.,
-  </span>
-  <br>
-  <span class="if url">
-    [<a class="url">url</a>]
-  </span>
-    <span class="if arxiv">
-      [<a class="arxiv"> </a>]
-  </span>
-  <span class="if pdf">
-    [<a class="pdf"></a>]
-    </a>
-  </span>
-  <span class="if doi">
-    [<a class="doi">DOI</a>]
-  </span>
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Cloud masking and removal in remote sensing image time series</span>
+  </div>
+  <div class="author">Gómez-Chova, Luis and Amorós-López, Julia and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau</div>
+  
+    <div class="journal">Journal of Applied Remote Sensing</div>
+  
+  
+  <div class="blinks">
+  
+        [<a href="https://www.spiedigitallibrary.org/journals/Journal-of-Applied-Remote-Sensing/volume-11/issue-1/015005/Cloud-masking-and-removal-in-remote-sensing-image-time-series/10.1117/1.JRS.11.015005.short" target="_blank">URL</a>]
+  
+  
+        [<a href="http://doi.org/10.1117/1.JRS.11.015005" target="_blank">DOI</a>]
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@article{gomez-chova_cloud_2017,
+ author = {Gómez-Chova, Luis and Amorós-López, Julia and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
+ copyright = {All rights reserved},
+ doi = {10.1117/1.JRS.11.015005},
+ issn = {1931-3195, 1931-3195},
+ journal = {Journal of Applied Remote Sensing},
+ link = {https://www.spiedigitallibrary.org/journals/Journal-of-Applied-Remote-Sensing/volume-11/issue-1/015005/Cloud-masking-and-removal-in-remote-sensing-image-time-series/10.1117/1.JRS.11.015005.short},
+ month = {jan},
+ number = {1},
+ pages = {015005},
+ title = {Cloud masking and removal in remote sensing image time series},
+ urldate = {2017-10-09},
+ volume = {11},
+ year = {2017}
+}
+
 </div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Automatic cloud masking of Earth observation images is one of the first required steps in optical remote sensing data processing since the operational use and product generation from satellite image time series might be hampered by undetected clouds. The high temporal revisit of current and forthcoming missions and the scarcity of labeled data force us to cast cloud screening as an unsupervised change detection problem in the temporal domain. We introduce a cloud screening method based on detecting abrupt changes along the time dimension. The main assumption is that image time series follow smooth variations over land (background) and abrupt changes will be mainly due to the presence of clouds. The method estimates the background surface changes using the information in the time series. In particular, we propose linear and nonlinear least squares regression algorithms that minimize both the prediction and the estimation error simultaneously. Then, significant differences in the image of interest with respect to the estimated background are identified as clouds. The use of kernel methods allows the generalization of the algorithm to account for higher-order (nonlinear) feature relations. After the proposed cloud masking and cloud removal, cloud-free time series at high spatial resolution can be used to obtain a better monitoring of land cover dynamics and to generate more elaborated products. The method is tested in a dataset with 5-day revisit time series from SPOT-4 at high resolution and with Landsat-8 time series. Experimental results show that the proposed method yields more accurate cloud masks when confronted with state-of-the-art approaches typically used in operational settings. In addition, the algorithm has been implemented in the Google Earth Engine platform, which allows us to access the full Landsat-8 catalog and work in a parallel distributed platform to extend its applicability to a global planetary scale.</blockquote>
+</div>
+<div>
 
-<ol>
-<div id="bibtex_display"></div>
-</ol>
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Proba-V cloud detection Round Robin: Validation results and recommendations</span>
+  </div>
+  <div class="author">Iannone, R. Q. and Niro, F. and Goryl, P. and Dransfeld, S. and Hoersch, B. and Stelzer, K. and Kirches, G. and Paperin, M. and Brockmann, C. and Gómez-Chova, Luis and Mateo-García, Gonzalo and Preusker, R. and Fischer, J. and Amato, U. and Serio, C. and Gangkofner, U. and Berthelot, B. and Iordache, M. D. and Bertels, L. and Wolters, E. and Dierckx, W. and Benhadj, I. and Swinnen, E.</div>
+  
+  
+    <div class="journal">2017 9th International Workshop on the Analysis of Multitemporal Remote Sensing Images (MultiTemp)</div>
+  
+  <div class="blinks">
+  
+  
+        [<a href="http://doi.org/10.1109/Multi-Temp.2017.8035219" target="_blank">DOI</a>]
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{iannone_proba-v_2017,
+ author = {Iannone, R. Q. and Niro, F. and Goryl, P. and Dransfeld, S. and Hoersch, B. and Stelzer, K. and Kirches, G. and Paperin, M. and Brockmann, C. and Gómez-Chova, Luis and Mateo-García, Gonzalo and Preusker, R. and Fischer, J. and Amato, U. and Serio, C. and Gangkofner, U. and Berthelot, B. and Iordache, M. D. and Bertels, L. and Wolters, E. and Dierckx, W. and Benhadj, I. and Swinnen, E.},
+ booktitle = {2017 9th {International} {Workshop} on the {Analysis} of {Multitemporal} {Remote} {Sensing} {Images} ({MultiTemp})},
+ copyright = {All rights reserved},
+ doi = {10.1109/Multi-Temp.2017.8035219},
+ keyword = {atmospheric techniques, Cloud Detection Algorithm, cloud detection approaches, cloud masking, cloud optical thickness, clouds, Clouds, Detection algorithms, discriminant analysis, downstream geophysical products, environmental conditions, European countries, Land surface, MODIS, multispectral thresholding, multitextural thresholding, neural network, Proba-V, Proba-V cloud detection algorithm, Proba-V cloud detection Round Robin, Proba-V level 2a products, Reflectivity, remote sensing, Round robin, Round Robin, satellite optical remote sensing, Satellites, self-organizing feature maps, spectral bands, surface types, thermal infrared bands},
+ month = {jun},
+ pages = {1--8},
+ shorttitle = {Proba-{V} cloud detection {Round} {Robin}},
+ title = {Proba-{V} cloud detection {Round} {Robin}: {Validation} results and recommendations},
+ year = {2017}
+}
 
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">This paper discusses results from 12 months of a Round Robin exercise aimed at the inter-comparison of different cloud detection algorithms for Proba-V. Clouds detection is a critical issue for satellite optical remote sensing, since potential errors in cloud masking directly translates into significant uncertainty in the retrieved downstream geophysical products. Cloud detection is particularly challenging for Proba-V due to the presence of a limited number of spectral bands and the lack of thermal infrared bands. The main objective of the project was the inter-comparison of several cloud detection algorithms for Proba-V over a wide range of surface types and environmental conditions. Proba-V Level 2a products have been distributed to six different algorithm providers representing companies and research institutes in several European countries. The considered cloud detection approaches are based on different strategies: Neural Network, Discriminant Analysis, Multi-spectral and Multi-textural Thresholding, Self-Organizing Feature Maps, Dynamic Thresholding, and physically-based retrieval of Cloud Optical Thickness. The results from all algorithms were analysed and compared against a reference dataset, consisting of a large number (more than fifty thousands) of visually classified pixels. The quality assessment was performed according to a uniform methodology and the results provide clear indication on the potential best-suited approach for next Proba-V cloud detection algorithm.</blockquote>
+</div>
+<div>
+
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Fair Kernel Learning</span>
+  </div>
+  <div class="author">Pérez-Suay, Adrián and Laparra, Valero and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Gómez-Chova, Luis and Camps-Valls, Gustau</div>
+  
+  
+    <div class="journal">2017 European Conference on Machine Learning (ECML)</div>
+  
+  <div class="blinks">
+  
+        [<a href="\url{http://arxiv.org/abs/1710.05578}" target="_blank">URL</a>]
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{perez-suay_fair_2017,
+ author = {Pérez-Suay, Adrián and Laparra, Valero and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Gómez-Chova, Luis and Camps-Valls, Gustau},
+ booktitle = {2017 {European} {Conference} on {Machine} {Learning} ({ECML})},
+ copyright = {All rights reserved},
+ keyword = {Statistics - Machine Learning},
+ link = {\url{http://arxiv.org/abs/1710.05578}},
+ month = {sep},
+ note = {arXiv: 1710.05578},
+ title = {Fair {Kernel} {Learning}},
+ urldate = {2017-12-01},
+ year = {2017}
+}
+
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">New social and economic activities massively exploit big data and machine learning algorithms to do inference on people's lives. Applications include automatic curricula evaluation, wage determination, and risk assessment for credits and loans. Recently, many governments and institutions have raised concerns about the lack of fairness, equity and ethics in machine learning to treat these problems. It has been shown that not including sensitive features that bias fairness, such as gender or race, is not enough to mitigate the discrimination when other related features are included. Instead, including fairness in the objective function has been shown to be more efficient. We present novel fair regression and dimensionality reduction methods built on a previously proposed fair classification framework. Both methods rely on using the Hilbert Schmidt independence criterion as the fairness term. Unlike previous approaches, this allows us to simplify the problem and to use multiple sensitive variables simultaneously. Replacing the linear formulation by kernel functions allows the methods to deal with nonlinear problems. For both linear and nonlinear formulations the solution reduces to solving simple matrix inversions or generalized eigenvalue problems. This simplifies the evaluation of the solutions for different trade-off values between the predictive error and fairness terms. We illustrate the usefulness of the proposed methods in toy examples, and evaluate their performance on real world datasets to predict income using gender and/or race discrimination as sensitive variables, and contraceptive method prediction under demographic and socio-economic sensitive descriptors.</blockquote>
+</div>
+<div>
+
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Cloud detection machine learning algorithms for PROBA-V</span>
+  </div>
+  <div class="author">Gómez-Chova, Luis and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau</div>
+  
+  
+    <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  
+  <div class="blinks">
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{gomez-chova_cloud_2017-1,
+ author = {Gómez-Chova, Luis and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
+ booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ copyright = {All rights reserved},
+ month = {jul},
+ title = {Cloud detection machine learning algorithms for {PROBA}-{V}},
+ year = {2017}
+}
+
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">This paper presents the development and implementation of a cloud detection algorithm for Proba-V.<br/>Accurate and automatic detection of clouds in satellite scenes is a key issue for a wide range of remote sensing applications. With no accurate cloud masking, undetected clouds are one of the most significant sources of error in both sea and land cover biophysical parameter retrieval.<br/>The objective of the algorithms presented in this paper is to detect clouds accurately providing a cloud flag per pixel. For this purpose, the method exploits the information of Proba-V using statistical machine learning techniques to identify the clouds present in Proba-V products.<br/>The effectiveness of the proposed method is successfully illustrated using a large number of real Proba-V images.</blockquote>
+</div>
+<div>
+
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Advances in statistical cloud screening: the Proba-V case study</span>
+  </div>
+  <div class="author">Mateo-García, Gonzalo and Gómez-Chova, Luis and Muñoz-Marí, Jordi and Camps-Valls, Gustau</div>
+  
+  
+    <div class="journal">Vth International Symposium: Recent Advances in Quantitative Remote Sensing, Sept 2017, (RAQRS '17)</div>
+  
+  <div class="blinks">
+  
+        [<a href="http://ipl.uv.es/raqrs/" target="_blank">URL</a>]
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{mateo-garcia_advances_2017,
+ author = {Mateo-García, Gonzalo and Gómez-Chova, Luis and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
+ booktitle = {Vth {International} {Symposium}: {Recent} {Advances} in {Quantitative} {Remote} {Sensing}, {Sept} 2017, ({RAQRS} '17)},
+ copyright = {All rights reserved},
+ link = {http://ipl.uv.es/raqrs/},
+ month = {jul},
+ title = {Advances in statistical cloud screening: the {Proba}-{V} case study},
+ year = {2017}
+}
+
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Accurate and automatic detection of clouds in optical Earth observation satellite scenes is a key issue for a wide range of remote sensing applications. With no accurate cloud masking, undetected clouds are one of the most significant sources of error in both sea and land biophysical parameter retrieval. We present recent advances in statistical cloud detection for Proba-V imagery.<br/>The objective of the cloud masking algorithms is to detect clouds accurately providing a cloud flag per pixel. We first approach the problem from the classical machine learning perspective based on feature extraction plus supervised classification with neural networks (NN). Using this approach we significantly improve the cloud detection accuracy compared to the operational Proba-V algorithm. Then we approach the problem using deep learning methods based on convolutional neural networks (CNN). Experimental results show that CNN are a promising alternative for solving cloud masking problems.</blockquote>
+</div>
+<div>
+
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Cloud detection on the Google Earth Engine platform</span>
+  </div>
+  <div class="author">Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Gómez-Chova, Luis</div>
+  
+  
+    <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  
+  <div class="blinks">
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{mateo-garcia_cloud_2017,
+ author = {Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Gómez-Chova, Luis},
+ booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ copyright = {All rights reserved},
+ month = {jul},
+ title = {Cloud detection on the {Google} {Earth} {Engine} platform},
+ year = {2017}
+}
+
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">The vast amount of data acquired by current high resolution Earth observation satellites implies some technical challenges to be faced. Google Earth Engine (GEE) platform provides a framework for the  development of algorithms and products built over this data in an easy and scalable manner. In this paper, we take advantage of the GEE platform capabilities to exploit the wealth of information in the temporal dimension by processing a long time series of satellite images.<br/>A cloud detection algorithm for Landsat-8, which uses previous images of the same location to detect clouds, is implemented and tested on the GEE platform.</blockquote>
+</div>
+<div>
+
+<div class="entry">
+  <div><span style="font-weight: bold;">2017</span>,
+    <span style="font-weight: bold;">Convolutional Neural Networks for Multispectral Image Cloud Masking</span>
+  </div>
+  <div class="author">Mateo-García, Gonzalo and Gómez-Chova, Luis and Camps-Valls, Gustau</div>
+  
+  
+    <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  
+  <div class="blinks">
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">@inproceedings{mateo-garcia_convolutional_2017,
+ author = {Mateo-García, Gonzalo and Gómez-Chova, Luis and Camps-Valls, Gustau},
+ booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ copyright = {All rights reserved},
+ month = {jul},
+ title = {Convolutional {Neural} {Networks} for {Multispectral} {Image} {Cloud} {Masking}},
+ year = {2017}
+}
+
+</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Convolutional neural networks (CNN) have proven to be  state of the art methods for many image classification tasks and their use is rapidly increasing in remote sensing problems. One of their major strengths is that, when enough data is available, CNN perform an end-to-end learning without the need of custom feature extraction methods.<br/>In this work, we study the use of different CNN architectures for cloud masking of Proba-V multispectral images. We compare such methods with the more classical machine learning approach based on feature extraction plus supervised classification. Experimental results suggest that CNN are a promising alternative for solving cloud masking problems.</blockquote>
+</div>
+<div>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script>
 		/**/
-		function showFollow(event) {
-		    var content = $(event).next('.abstract');
+		function showFollow(event,clase) {
+		    var content = $(event).next(clase);
 		    content.slideToggle(500,function(){
 		        //var caca = content.querySelectorAll('.imagenes_links');
 		        //console.log(caca);
 		        //wheelzoom(caca);
 		    });
 		};
-    $("#bibtex_input").load( "pubs.bib", bibtex_js_draw );
 
 </script>
