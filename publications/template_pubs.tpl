@@ -29,19 +29,15 @@ title: Publications
   font-style: italic;
 }
 </style>
-
+<h2>Journals</h2>
 {% for bibentry_key in bib_data.entries.keys() %}
+{% if "journal" in bib_data.entries[bibentry_key].fields %}
 <div class="entry">
   <div><span style="font-weight: bold;">{{bib_data.entries[bibentry_key].fields["year"]}}</span>,
     <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
   </div>
-  <div class="author">{{bib_data.entries[bibentry_key].rich_fields.get('author')}}</div>
-  {% if "journal" in bib_data.entries[bibentry_key].fields %}
-    <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('journal')}}</div>
-  {% endif %}
-  {% if "booktitle" in bib_data.entries[bibentry_key].fields %}
-    <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('booktitle')}}</div>
-  {% endif %}
+  <div class="author">{{extra[bibentry_key]["authors"]}}</div>
+  <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('journal')}}</div>
   <div class="blinks">
   {% if "url" in bib_data.entries[bibentry_key].fields %}
         [<a href="{{ bib_data.entries[bibentry_key].fields['url']}}" target="_blank">URL</a>]
@@ -50,11 +46,36 @@ title: Publications
         [<a href="http://doi.org/{{bib_data.entries[bibentry_key].fields['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
-  <div class="bibtex">{{extra[bibentry_key]}}</div>
+  <div class="bibtex">{{extra[bibentry_key]["bibtex"]}}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">{{ abstracts[bibentry_key].replace("\n","<br/>")}}</blockquote>
+  <blockquote class="abstract">{{ extra[bibentry_key]["abstract"].replace("\n","<br/>")}}</blockquote>
 </div>
-<div>
+</div>
+{% endif %}
+{% endfor %}
+<h2>Conferences</h2>
+{% for bibentry_key in bib_data.entries.keys() %}
+{% if "booktitle" in bib_data.entries[bibentry_key].fields %}
+<div class="entry">
+  <div><span style="font-weight: bold;">{{bib_data.entries[bibentry_key].fields["year"]}}</span>,
+    <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
+  </div>
+  <div class="author">{{extra[bibentry_key]["authors"]}}</div>
+  <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('booktitle')}}</div>
+  <div class="blinks">
+  {% if "url" in bib_data.entries[bibentry_key].fields %}
+        [<a href="{{ bib_data.entries[bibentry_key].fields['url']}}" target="_blank">URL</a>]
+  {% endif %}
+  {% if "doi" in bib_data.entries[bibentry_key].fields %}
+        [<a href="http://doi.org/{{bib_data.entries[bibentry_key].fields['doi'] }}" target="_blank">DOI</a>]
+  {% endif %}
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{{extra[bibentry_key]["bibtex"]}}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">{{ extra[bibentry_key]["abstract"].replace("\n","<br/>")}}</blockquote>
+</div>
+</div>
+{% endif %}
 {% endfor %}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
