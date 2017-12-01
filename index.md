@@ -24,23 +24,15 @@ This is my <a href="statement.pdf" target="_blank">research statement</a>. Pleas
 [gonzalo.mateo-garcia@uv.es](mailto:gonzalo.mateo-garcia@uv.es)
 {:style="text-align: center;"}
 
-### Publications
+### Current projects
 
-1. **Cloud masking and removal in remote sensing image time series**  <br>
-  Gómez-Chova, Luis and Amorós-López, Julia and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau	 <br>
-  Journal of Applied Remote Sensing 11 (1) :015005, 2017  <br>
-  <a href="http://dx.doi.org/10.1117/1.JRS.11.015005" target="_blank"> DOI url </a>
+1. **Cloud masking in remote sensing image time series using the Google Earth Engine platform**  <br>
+  with Luis Gómez-Chova and Jordi Muñoz-Marí<br>
 
-2. **Cloud detection machine learning algorithms for PROBA-V** <br>
-  Gomez-Chova, Luis and Mateo-Garcia, Gonzalo and Muñoz Mari, Jordi and Camps-Valls, Gustau <br>
-  IGARSS 2017. IEEE 2017 International Geoscience and Remote Sensing Symposium, 2017.
+2. **Transfer learning with convolutional neural networks for multispectral image cloud masking** <br>
+  with Luis Gómez-Chova and Gustau Camps-Valls <br>
 
-3. **Convolutional neural networks for multispectral image cloud masking** <br>
-  Mateo-Garcia, Gonzalo and Gomez-Chova, Luis and Camps-Valls, Gustau <br>
-  IGARSS 2017. IEEE 2017 International Geoscience and Remote Sensing Symposium, 2017.
-
-3. **Optimizing Basis Functions in Kernel Ridge Regression** <br>
-  Mateo-Garcia, Gonzalo and Laparra, Valero and Muñoz-Marí, Jordi and Gómez-Chova, Luis <br>
-  Work in progress
+3. **Optimized Kernel Ridge Regression** <br>
+  with Valero Laparra, Jordi Muñoz-Marí and Luis Gómez-Chova <br>
 
  <img id="banner" src="imgs/banner.jpg"/>

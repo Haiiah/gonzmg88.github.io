@@ -1,0 +1,86 @@
+---
+layout: default
+title: Publications
+---
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/bibtex_js.js"></script>
+
+<style>
+.abstract {
+  display:none;
+  font-family: 'Courier New', monospace;
+  white-space: pre;
+  font-size: small;
+}
+</style>
+<textarea id="bibtex_input" style="display:none;">
+</textarea>
+
+<div id="bibtex_errors"></div>
+
+<div class="bibtex_template" style="display:none;">
+  <span class="year" style="font-weight: bold;"></span>,
+  <span class="if title" style="font-weight: bold;">
+    <span class="title"></span>
+  </span>
+  <br>
+  <span class="author"></span><br>
+  <span class="if booktitle" style="font-style: italic;">
+    <span class="booktitle"></span>,
+    <span class="if address" style="font-style: normal;">
+      <span class="address"></span>
+    </span>
+  </span>
+  <span class="if journal" style="font-style: italic;">
+    <span class="journal"></span>
+  </span>
+  <span style="if publisher">
+    <span class="publisher"></span>
+  </span>
+  <span style="if school">
+    <span class="school"></span>
+  </span>
+  <span class="if volume">
+    <span class="volume"></span>
+    <span class="if number">(
+      <span class="number"></span>)</span>
+    <span class="if pages">:
+      <span class="pages"></span>,
+    </span>
+  </span>
+  <span class="if edition">
+    <span class="edition"></span> ed.,
+  </span>
+  <br>
+  <span class="if url">
+    [<a class="url">url</a>]
+  </span>
+    <span class="if arxiv">
+      [<a class="arxiv"> </a>]
+  </span>
+  <span class="if pdf">
+    [<a class="pdf"></a>]
+    </a>
+  </span>
+  <span class="if doi">
+    [<a class="doi">DOI</a>]
+  </span>
+</div>
+
+<ol>
+<div id="bibtex_display"></div>
+</ol>
+
+<script>
+		/**/
+		function showFollow(event) {
+		    var content = $(event).next('.abstract');
+		    content.slideToggle(500,function(){
+		        //var caca = content.querySelectorAll('.imagenes_links');
+		        //console.log(caca);
+		        //wheelzoom(caca);
+		    });
+		};
+    $("#bibtex_input").load( "pubs.bib", bibtex_js_draw );
+
+</script>
