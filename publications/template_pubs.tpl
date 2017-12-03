@@ -30,10 +30,10 @@ title: Publications
 }
 </style>
 <h2>Journals</h2>
-{% for bibentry_key in bib_data.entries.keys() %}
+{% for bibentry_key in ordered_keys %}
 {% if "journal" in bib_data.entries[bibentry_key].fields %}
 <div class="entry">
-  <div><span style="font-weight: bold;">{{bib_data.entries[bibentry_key].fields["year"]}}</span>,
+  <div><span style="font-style: italic;">{{extra[bibentry_key]["date"].strftime("%h %Y") }}</span>,
     <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
   </div>
   <div class="author">{{extra[bibentry_key]["authors"]}}</div>
@@ -54,10 +54,10 @@ title: Publications
 {% endif %}
 {% endfor %}
 <h2>Conferences</h2>
-{% for bibentry_key in bib_data.entries.keys() %}
+{% for bibentry_key in ordered_keys %}
 {% if "booktitle" in bib_data.entries[bibentry_key].fields %}
 <div class="entry">
-  <div><span style="font-weight: bold;">{{bib_data.entries[bibentry_key].fields["year"]}}</span>,
+  <div><span style="font-style: italic;">{{extra[bibentry_key]["date"].strftime("%h %Y") }}</span>,
     <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
   </div>
   <div class="author">{{extra[bibentry_key]["authors"]}}</div>
@@ -68,6 +68,12 @@ title: Publications
   {% endif %}
   {% if "doi" in bib_data.entries[bibentry_key].fields %}
         [<a href="http://doi.org/{{bib_data.entries[bibentry_key].fields['doi'] }}" target="_blank">DOI</a>]
+  {% endif %}
+  {% if "slides" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['slides']}}" target="_blank">Slides</a>]
+  {% endif %}
+  {% if "poster" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['poster']}}" target="_blank">Poster</a>]
   {% endif %}
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{{extra[bibentry_key]["bibtex"]}}</div>
