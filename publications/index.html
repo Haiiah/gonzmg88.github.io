@@ -20,7 +20,12 @@ title: Publications
   background-color: #dedede;
   border:1px solid black;
 }
-
+.entry{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 1%;
+  border:1px solid #dedede;
+}
 .author{
   padding-left: 3%;
 }
