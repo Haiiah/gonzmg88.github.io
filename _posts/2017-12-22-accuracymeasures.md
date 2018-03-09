@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Accuracy measures
-date: 2017-10-24
+date: 2017-12-22
 author: Gonzalo Mateo-García
 ---
 <script type="text/x-mathjax-config">
