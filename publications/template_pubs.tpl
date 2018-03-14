@@ -36,19 +36,19 @@ title: Publications
 </style>
 <h2>Journals</h2>
 {% for bibentry_key in ordered_keys %}
-{% if "journal" in bib_data.entries[bibentry_key].fields %}
+{% if "journal" in extra[bibentry_key] %}
 <div class="entry">
   <div><span style="font-style: italic;">{{extra[bibentry_key]["date"].strftime("%h %Y") }}</span>,
-    <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
+    <span style="font-weight: bold;">{{extra[bibentry_key]['title']}}</span>
   </div>
   <div class="author">{{extra[bibentry_key]["authors"]}}</div>
-  <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('journal')}}</div>
+  <div class="journal">{{ extra[bibentry_key]['journal'] }}</div>
   <div class="blinks">
-  {% if "url" in bib_data.entries[bibentry_key].fields %}
-        [<a href="{{ bib_data.entries[bibentry_key].fields['url']}}" target="_blank">URL</a>]
+  {% if "url" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['url']}}" target="_blank">URL</a>]
   {% endif %}
-  {% if "doi" in bib_data.entries[bibentry_key].fields %}
-        [<a href="http://doi.org/{{bib_data.entries[bibentry_key].fields['doi'] }}" target="_blank">DOI</a>]
+  {% if "doi" in extra[bibentry_key]["doi"] %}
+        [<a href="http://doi.org/{{extra[bibentry_key]['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{{extra[bibentry_key]["bibtex"]}}</div>
@@ -60,19 +60,19 @@ title: Publications
 {% endfor %}
 <h2>Conferences</h2>
 {% for bibentry_key in ordered_keys %}
-{% if "booktitle" in bib_data.entries[bibentry_key].fields %}
+{% if "booktitle" in extra[bibentry_key] %}
 <div class="entry">
   <div><span style="font-style: italic;">{{extra[bibentry_key]["date"].strftime("%h %Y") }}</span>,
-    <span style="font-weight: bold;">{{bib_data.entries[bibentry_key].rich_fields.get('title')}}</span>
+    <span style="font-weight: bold;">{{ extra[bibentry_key]['title'] }}</span>
   </div>
-  <div class="author">{{extra[bibentry_key]["authors"]}}</div>
-  <div class="journal">{{ bib_data.entries[bibentry_key].rich_fields.get('booktitle')}}</div>
+  <div class="author">{{ extra[bibentry_key]["authors"] }}</div>
+  <div class="journal">{{ extra[bibentry_key]['booktitle'] }}</div>
   <div class="blinks">
-  {% if "url" in bib_data.entries[bibentry_key].fields %}
-        [<a href="{{ bib_data.entries[bibentry_key].fields['url']}}" target="_blank">URL</a>]
+  {% if "url" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['url']}}" target="_blank">URL</a>]
   {% endif %}
-  {% if "doi" in bib_data.entries[bibentry_key].fields %}
-        [<a href="http://doi.org/{{bib_data.entries[bibentry_key].fields['doi'] }}" target="_blank">DOI</a>]
+  {% if "doi" in extra[bibentry_key] %}
+        [<a href="http://doi.org/{{ extra[bibentry_key]['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
   {% if "slides" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['slides']}}" target="_blank">Slides</a>]
