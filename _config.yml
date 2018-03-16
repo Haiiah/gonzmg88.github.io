@@ -1,3 +1,5 @@
 name: Gonzalo Mateo García
 markdown: kramdown
-permalink: /blog/:year/:month/:day/:title
+permalink: blog/:year/:month/:day/:title
+baseurl: /gonmagar
+exclude: [publications/Untitled.ipynb, publications/template_pubs.tpl, LICENSE, blog/notebooks/]
