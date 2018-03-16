@@ -10,21 +10,11 @@ author: Gonzalo Mateo-García
       tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
       //TeX: { equationNumbers: { autoNumber: "False" } }
     });
-  /*  MathJax.Hub.Queue(
-  ["resetEquationNumbers",MathJax.InputJax.TeX],
-  ["PreProcess",MathJax.Hub],
-  ["Reprocess",MathJax.Hub]
-);*/
 </script>
 
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML-full" charset="utf-8">-->
-
-<!-- <script type="text/javascript" src="/js/MathJax.js">
-</script>-->
 
 * TOC
 {:toc}
@@ -57,7 +47,7 @@ The Nyström method [[Williams and Seeger 2000]](https://papers.nips.cc/paper/18
 The Kernel Ridge Regression (KRR) solution using the kernel function $k_{Nyström}$ for a given $x^\*$ is:
 
 $$
-k_{Nyström}(x^*,X)\Big(Q_{ff}+ \sigma I \Big)^{-1} y = K_{*u} \overbrace{K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1}}^{A} y \quad \text{(2)}
+k_{Nyström}(x^\star,X)\Big(Q_{ff}+ \sigma I \Big)^{-1} y = K_{\star u} \overbrace{K_{uu}^{-1}K_{uf}\Big(Q_{ff}+ \sigma^2 I \Big)^{-1}}^{A} y \quad \text{(2)}
 $$
 
 ### RBFN method
@@ -78,10 +68,10 @@ $$
 \alpha_{opt} = \Big( K_{uf}K_{fu}\ + \sigma^2 K_{uu}\Big)^{-1} K_{uf}y
 $$
 
-The prediction for a given $x^*$ is then:
+The prediction for a given $x^\star$ is then:
 
 $$
-K_{*u}\cdot \alpha_{opt} = K_{*u} \overbrace{\Big( K_{uf}K_{fu}\ +  \sigma^2 K_{uu}\Big)^{-1} K_{uf}}^{B} y \quad \text{(3)}
+K_{\star u}\cdot \alpha_{opt} = K_{\star u} \overbrace{\Big( K_{uf}K_{fu}\ +  \sigma^2 K_{uu}\Big)^{-1} K_{uf}}^{B} y \quad \text{(3)}
 $$
 
 We see here the *three layer network*: the first layer is the input, the second layer is formed by the kernel similarities to $X_u$ and the third one: the output $y$.
@@ -150,20 +140,20 @@ So the equality holds.
 ## Bayesian approach
 
 ### Nyström $\mathcal{GP}$
-As we explained before, the Nyström method just replaces the $k$ function with the $k_{Nyström}$ function. In the context of $\mathcal{GP}$s this changes the **covariance** of the joint prior over the train and test data $$(y,y^* \mid X, X_* )$$. The joint prior distribution will be:
+As we explained before, the Nyström method just replaces the $k$ function with the $k_{Nyström}$ function. In the context of $\mathcal{GP}$s this changes the **covariance** of the joint prior over the train and test data $$(y,y^\star \mid X, X_\star )$$. The joint prior distribution will be:
 
 $$
-p(y,y^* \mid X_*, X)=\mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \mid \; 0,\:\begin{pmatrix} Q_{f,f}+\sigma^2 I & Q_{f,*}\\ Q_{*,f} & Q_{*,*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(12)}
+p(y,y^\star \mid X_\star, X)=\mathcal{N}\left(\begin{pmatrix}y \\ y^\star \end{pmatrix} \mid \; 0,\:\begin{pmatrix} Q_{f,f}+\sigma^2 I & Q_{f,*}\\ Q_{\star,f} & Q_{\star,*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(12)}
 $$
 
-Here we want to retrieve the __posterior predictive distribution__: \\( p(y^* \mid X_*, X, y) \\) from this joint prior. If we dust off Christopher Bishop's: [Pattern Recognition and Machine Learning ](http://www.springer.com/us/book/9780387310732){:target="_blank"} book and we go to _chapter 2 section 2.3.1.: Conditional Gaussian distributions_ we have the derivation that gives the conditional distribution from a joint Gaussian distribution.
+Here we want to retrieve the __posterior predictive distribution__: \\( p(y^\star \mid X_\star, X, y) \\) from this joint prior. If we dust off Christopher Bishop's: [Pattern Recognition and Machine Learning ](http://www.springer.com/us/book/9780387310732){:target="_blank"} book and we go to _chapter 2 section 2.3.1.: Conditional Gaussian distributions_ we have the derivation that gives the conditional distribution from a joint Gaussian distribution.
 
 Applying this equation (which is also [here in the wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)) leads to the expression of the **posterior predictive distribution**:
 
 $$
 \begin{aligned}
-p(y^* | X_*, X, y) = \mathcal{N}\big(y^* \mid & Q_{*,f}(Q_{f,f}+\sigma^2 I)^{-1}y, \\
-                                              & Q_{*,*} + \sigma^2 I - Q_{*,f}(Q_{f,f} + \sigma^2 I)^{-1}Q_{f,*}  \big) \quad \text{(5)}
+p(y^\star | X_\star, X, y) = \mathcal{N}\big(y^\star \mid & Q_{\star,f}(Q_{f,f}+\sigma^2 I)^{-1}y, \\
+                                              & Q_{\star,*} + \sigma^2 I - Q_{\star,f}(Q_{f,f} + \sigma^2 I)^{-1}Q_{f,*}  \big) \quad \text{(5)}
 \end{aligned}
 $$
 
@@ -190,13 +180,13 @@ $$
 p(y,\alpha \mid  X) = p(y\mid X,\alpha)p(\alpha \mid X)
 $$
 
-At this point it is worth to stop and consider *what do we want?* the natural answer is *give predictions for newcomming* \\( x_* \\) *values*. This means in Bayesian language that we want a **posterior predictive distribution** which is a probability distribution over the \\( y^* \\) values given all the available information:  \\( p(y^* \mid  X_\*, X, y)  \\).
+At this point it is worth to stop and consider *what do we want?* the natural answer is *give predictions for newcomming* \\( x_\star \\) *values*. This means in Bayesian language that we want a **posterior predictive distribution** which is a probability distribution over the \\( y^\star \\) values given all the available information:  \\( p(y^\star \mid  X_\star, X, y)  \\).
 
 One way to obtain the posterior predictive distribution, which is similar to the approach followed for $\mathcal{GP}$s is:
 
 1. Augment the above equation with the test points:
-$$ p(y,y^*,\alpha \mid  X,X_*) $$ (Changing the likelihood term to accommodate the unseen $$X_*$$ and $$y^*$$).
-2. Integrate out \\( \alpha \\): $$ p(y,y^* \mid  X,X_*) = \int p(y,y^*,\alpha \mid  X,X_*) d\alpha $$
+$$ p(y,y^\star,\alpha \mid  X,X_\star) $$ (Changing the likelihood term to accommodate the unseen $$X_\star$$ and $$y^\star$$).
+2. Integrate out \\( \alpha \\): $$ p(y,y^\star \mid  X,X_\star) = \int p(y,y^\star,\alpha \mid  X,X_\star) d\alpha $$
 3. Compute the posterior predictive using the trick we used above in the Nyström case (5).
 
 The other, *more standard* approach would be:
@@ -206,15 +196,15 @@ The other, *more standard* approach would be:
 
 $$
 \begin{aligned}
-p(y^* \mid x^* X, y) &= \int p(y^* \mid X_*, \alpha, \cancel{X, y}) P(\alpha \mid \cancel{X_*}, X, y) d \alpha \\&=
-\int \mathcal{N}(y^*\mid K_{*u}\alpha, \sigma^2) p(\alpha \mid y,X)d \alpha
+p(y^\star \mid x^\star X, y) &= \int p(y^\star \mid X_\star, \alpha, \cancel{X, y}) P(\alpha \mid \cancel{X_\star}, X, y) d \alpha \\&=
+\int \mathcal{N}(y^\star\mid K_{\star u}\alpha, \sigma^2) p(\alpha \mid y,X)d \alpha
 \end{aligned}
 $$
 
 We will further develop the _similar to $\mathcal{GP}$ approach_ in the fully Bayesian approach section. However first we will consider the maximum a posteriori (MAP) approach which, we''ll see, is equivalent to the empirical risk minimization approach.
 
 #### MAP approach
-The *"less Bayesian approach"* would be to compute the maximum a posteriori estimate of $p(\alpha \mid y,X)$ and then use such value ($\alpha_{MAP}$) to compute predictions: $y^* = K_{*,u}\alpha_{MAP}$. This is the approach which is equivalent to the empirical risk minimization approach exposed above (if we use $A=K_{uu}^{-1}$):
+The *"less Bayesian approach"* would be to compute the maximum a posteriori estimate of $p(\alpha \mid y,X)$ and then use such value ($\alpha_{MAP}$) to compute predictions: $y^\star = K_{\star,u}\alpha_{MAP}$. This is the approach which is equivalent to the empirical risk minimization approach exposed above (if we use $A=K_{uu}^{-1}$):
 
 $$
 \begin{aligned}
@@ -229,26 +219,26 @@ $$
 So we see that the MAP of the Bayesian RBFN approach is the same of the empirical risk minimization RBFN approach. Given that we can also say that it is also the same to the KRR solution using the Nyström method and by the way it is also the mean of the $\mathcal{GP}$ solution using the Nyström method. So we have different methods derived from different points of view which at the end lead to the same *point estimates*. The only thing that remain to consider is the fully Bayesian RBFN approach; we wonder: *will the mean of fully Bayesian RBFN approach give the same predictions as all the other methods?* The answer, as you might expect, is also yes.
 
 #### Fully Bayesian approach
-We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^*\mid X_*,X,y)$$. First we consider the *augmented likelihood*:
+We will develop here the *"similar to $\mathcal{GP}$"* approach to derive the **posterior predictive distribution** $$ p(y^\star\mid X_\star,X,y)$$. First we consider the *augmented likelihood*:
 
 $$
-p(y,y^* \mid  X, X_*,  \alpha) = \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right)\quad \text{(7)}
+p(y,y^\star \mid  X, X_\star,  \alpha) = \mathcal{N}\left(\begin{pmatrix} y \\ y^\star \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \alpha, \sigma^2 I \right)\quad \text{(7)}
 $$
 
-Which is the same expression that (6) but including the test data $$(X_*,y^*)$$.
+Which is the same expression that (6) but including the test data $$(X_\star,y^\star)$$.
 Now we integrate out $\alpha$:
 
 $$
 \begin{aligned}
-  p(y,y^* \mid  X,X_*) &= \int p(y,y^*, \alpha \mid  X,X_*) d\alpha = \int p(y,y^* \mid  X,X_*,\alpha)p(\alpha \mid X,X_*) d\alpha \\ &=
-  \int \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha \quad \text{(8)}
+  p(y,y^\star \mid  X,X_\star) &= \int p(y,y^\star, \alpha \mid  X,X_\star) d\alpha = \int p(y,y^\star \mid  X,X_\star,\alpha)p(\alpha \mid X,X_\star) d\alpha \\ &=
+  \int \mathcal{N}\left(\begin{pmatrix} y \\ y^\star \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha \quad \text{(8)}
 \end{aligned}
 $$
 
 To solve this (nasty) integral we can rely again on Bishop's book; in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. After a while, if you did it properly, you will end up with:
 
 $$
-p(y,y^* \mid  X,X_*) = \mathcal{N}\left(\begin{pmatrix}y \\ y^* \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(11)}
+p(y,y^\star \mid  X,X_\star) = \mathcal{N}\left(\begin{pmatrix}y \\ y^\star \end{pmatrix} \Big| \; 0,\:\begin{pmatrix} K_{fu}AK_{uf} + \sigma^2 I & K_{fu}AK_{u*} \\ K_{\star u}AK_{uf} & K_{\star u}AK_{u*} + \sigma^2 I \end{pmatrix} \right) \quad \text{(11)}
 $$
 
 Now we recognize here again that if $A=K_{uu}^{-1}$ we have the same joint distribution of the train and test data of the Nyström $\mathcal{GP}$ method.
@@ -261,17 +251,17 @@ An alternative derivation (maybe easier or more intuitive?) of (11) is given if 
 <div id="alternative_derivation_hidden" class="input_hidden" markdown="1">
 
 
-If we <em>believe</em> that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of: <script type="math/tex"> (y,y^* \mid X, X_*) </script> To do this we <em>just</em> have to integrate (8).
+If we <em>believe</em> that the convolution of two Gaussians is Gaussian we can just find the mean and covariance of: <script type="math/tex"> (y,y^\star \mid X, X_\star) </script> To do this we <em>just</em> have to integrate (8).
 
 First we compute the mean:
 
 $$
 \begin{aligned}
-\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right] &= \int \begin{pmatrix} y \\ y^* \end{pmatrix} p( y , y^*  \mid  X,X_*) d(y,y^*)\\
-&= \int \begin{pmatrix} y \\ y^* \end{pmatrix} \int  \mathcal{N}\left(\begin{pmatrix} y \\ y^* \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha d(y,y^*) \\
-&\underbrace{=}_{\text{switch integrals}} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha,)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \right]\right] \quad \text{(9)}\\
-&\underbrace{=}_{eq. 7} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \right] \\
-&= \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha, \mid X,X_*)}[\alpha] \underbrace{=}_{\alpha \text{ has mean zero}} 0
+\mathbb{E}_{p(y,y^\star\mid X,X_\star)}\left[\begin{pmatrix} y \\ y^\star \end{pmatrix} \right] &= \int \begin{pmatrix} y \\ y^\star \end{pmatrix} p( y , y^\star  \mid  X,X_\star) d(y,y^\star)\\
+&= \int \begin{pmatrix} y \\ y^\star \end{pmatrix} \int  \mathcal{N}\left(\begin{pmatrix} y \\ y^\star \end{pmatrix} \Big | \; \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \alpha, \sigma^2 I \right) \mathcal{N}(\alpha \mid 0, A) d\alpha d(y,y^\star) \\
+&\underbrace{=}_{\text{switch integrals}} \mathbb{E}_{p(\alpha \mid X,X_\star)}\left[\mathbb{E}_{p(y,y^\star\mid X,X_\star,\alpha,)}\left[\begin{pmatrix} y \\ y^\star \end{pmatrix} \right]\right] \quad \text{(9)}\\
+&\underbrace{=}_{eq. 7} \mathbb{E}_{p(\alpha \mid X,X_\star)}\left[\begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \alpha \right] \\
+&= \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \mathbb{E}_{p(\alpha, \mid X,X_\star)}[\alpha] \underbrace{=}_{\alpha \text{ has mean zero}} 0
 \end{aligned}
 $$
 
@@ -282,21 +272,21 @@ $$
 $$
 
 $$
-\text{(In this case }a\text{ is }(y,y^* \mid X, X_*)\text{ and }b\text{ is }(\alpha \mid X,X_*)\text{).}
+\text{(In this case }a\text{ is }(y,y^\star \mid X, X_\star)\text{ and }b\text{ is }(\alpha \mid X,X_\star)\text{).}
 $$
 
 Given that the mean is zero, the second order moment is the covariance of the distribution. In order to compute it we just have reuse the trick (10):
 
 $$
 \begin{aligned}
-\mathbb{E}_{p(y,y^*\mid X,X_*)}\left[\begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \right] &=
-\mathbb{E}_{p(\alpha \mid X,X_*)}\left[\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix}  \right]\right] \\ &=
-\mathbb{E}_{p(\alpha \mid X,X_*)}\left[Cov[y,y^*\mid X,X_*,\alpha] + \mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y \\ y^* \end{pmatrix}\right]\mathbb{E}_{p(y,y^*\mid X,X_*,\alpha)}\left[ \begin{pmatrix} y^t &  y^{t*} \end{pmatrix}\right]\right] \\ &\underbrace{=}_{eq. 7}
-\mathbb{E}_{p(\alpha \mid X,X_*)}\left[ \sigma^2 I+ \begin{pmatrix} K_{fu}\alpha  \\ K_{*u}\alpha \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf}  & \alpha^tK_{u*}  \end{pmatrix}   \right] \\  &=
-\mathbb{E}_{p(\alpha \mid X,X_*)}\left[\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}   \right]  \\  &=   
-\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} \mathbb{E}_{p(\alpha \mid X,X_*)}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}  \\ &=
-\begin{pmatrix} K_{fu} \\ K_{*u} \end{pmatrix} A \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I \\ &=
-\begin{pmatrix} K_{fu}AK_{uf} & K_{fu}AK_{u*} \\ K_{*u}AK_{uf} & K_{*u}AK_{u*} \end{pmatrix} + \sigma^2 I
+\mathbb{E}_{p(y,y^\star\mid X,X_\star)}\left[\begin{pmatrix} y \\ y^\star \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix} \right] &=
+\mathbb{E}_{p(\alpha \mid X,X_\star)}\left[\mathbb{E}_{p(y,y^\star\mid X,X_\star,\alpha)}\left[ \begin{pmatrix} y \\ y^\star \end{pmatrix} \begin{pmatrix}y^t & y^{*t} \end{pmatrix}  \right]\right] \\ &=
+\mathbb{E}_{p(\alpha \mid X,X_\star)}\left[Cov[y,y^\star\mid X,X_\star,\alpha] + \mathbb{E}_{p(y,y^\star\mid X,X_\star,\alpha)}\left[ \begin{pmatrix} y \\ y^\star \end{pmatrix}\right]\mathbb{E}_{p(y,y^\star\mid X,X_\star,\alpha)}\left[ \begin{pmatrix} y^t &  y^{t*} \end{pmatrix}\right]\right] \\ &\underbrace{=}_{eq. 7}
+\mathbb{E}_{p(\alpha \mid X,X_\star)}\left[ \sigma^2 I+ \begin{pmatrix} K_{fu}\alpha  \\ K_{\star u}\alpha \end{pmatrix} \begin{pmatrix} \alpha^tK_{uf}  & \alpha^tK_{u*}  \end{pmatrix}   \right] \\  &=
+\mathbb{E}_{p(\alpha \mid X,X_\star)}\left[\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \alpha \alpha^T \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}   \right]  \\  &=   
+\sigma^2 I + \begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} \mathbb{E}_{p(\alpha \mid X,X_\star)}\left[\alpha \alpha^T\right] \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix}  \\ &=
+\begin{pmatrix} K_{fu} \\ K_{\star u} \end{pmatrix} A \begin{pmatrix}K_{uf}^t & K_{u*}^t \end{pmatrix} + \sigma^2 I \\ &=
+\begin{pmatrix} K_{fu}AK_{uf} & K_{fu}AK_{u*} \\ K_{\star u}AK_{uf} & K_{\star u}AK_{u*} \end{pmatrix} + \sigma^2 I
 \end{aligned}
 $$
 
@@ -306,36 +296,10 @@ $$
 
 Using the same procedure in equation (11) than in equation (5) and assuming $A=K_{uu}^{-1}$ we retrieve back the same **predictive posterior** as in the Nyström $\mathcal{GP}$ method. This proves:
 
-_**Theorem**_ The linear Bayesian approach in the space of similarities to $X_u$ (Bayesian RBFN) yields the same result as the Nyström $\mathcal{GP}$ regression. We only have to provide the following prior over the linear regression weights $\alpha$: $\alpha \sim \mathcal{N}(0,K_{uu}^{-1})$.
+**Theorem** The linear Bayesian approach in the space of similarities to $X_u$ (Bayesian RBFN) yields the same result as the Nyström $\mathcal{GP}$ regression. We only have to provide the following prior over the linear regression weights $\alpha$: $\alpha \sim \mathcal{N}(0,K_{uu}^{-1})$.
 
-One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^*$$ is far from the the subset $X_u$. To see why consider that if $$x^*$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $$Q_{*,*} = K_{*u}K_{uu}^{-1}K_{u*}$$ which in turn will be close to zero if we consider for example the *rbf* kernel. We refer the reader to [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
+One of the biggest concerns about this predictive posterior distribution (equation 5) is that the predictive variance may go to zero when the test input $$x^\star$$ is far from the the subset $X_u$. To see why consider that if $$x^\star$$ is far from all the data $X$ the natural behavior of the $\mathcal{GP}$ is to stick to the prior. The prior variance is $$Q_{\star,*} = K_{\star u}K_{uu}^{-1}K_{u*}$$ which in turn will be close to zero if we consider for example the *rbf* kernel. We refer the reader to [[Quiñonero-Candela 2005]](http://www.jmlr.org/papers/v6/quinonero-candela05a.html){:target="_blank"} for further discussion and alternatives.
 
-Thanks to Daniel Svendsen for corrections and all the [isp](http://isp.uv.es){:target="_blank"} group for the very fruitful discussions that led to this work.
+Thanks to Daniel Svendsen for corrections and all the [isp](http://isp.uv.es){:target="_blank"} group for the fruitful discussions.
 
-<style type="text/css">
-.input_hidden {
-  display: none;
-  border:1px solid black;
-  padding-left: 2%;
-  padding-right: 1%;
-}
-#markdown-toc::before {
-    content: "Contents";
-    font-weight: bold;
-}
-
-// Using numbers instead of bullets for listing
-#markdown-toc ul {
-    list-style: decimal;
-}
-
-#markdown-toc {
-    border: 1px solid #aaa;
-    padding: 1.5em;
-    margin-right: 1%;
-    list-style: decimal;
-    display: inline-block;
-    float: left;
-}
-</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

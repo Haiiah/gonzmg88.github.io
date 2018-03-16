@@ -6,6 +6,42 @@ layout: default
 body {max-width:70em;}
 h1 {line-height:1.7em; text-align: center;}
 p.datetitle {font-style: italic;text-align: center;}
+.input_hidden {
+  display: none;
+  border:1px solid black;
+  padding-left: 2%;
+  padding-right: 1%;
+}
+#markdown-toc::before {
+    content: "Contents";
+    font-weight: bold;
+}
+
+// Using numbers instead of bullets for listing
+#markdown-toc ul {
+    list-style: decimal;
+}
+
+#markdown-toc {
+    border: 1px solid #aaa;
+    padding: 1.5em;
+    margin-right: 1%;
+    list-style: decimal;
+    display: inline-block;
+    float: left;
+}
+.alert {
+    position: relative;
+    padding: .5rem .5rem;
+    margin-bottom: .5rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
 </style>
 
 <h1> {{ page.title }}</h1>
