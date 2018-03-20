@@ -37,6 +37,12 @@ title: Publications
 <h2>Journals</h2>
 
 
+
+
+
+
+
+
 <div class="entry">
   <div><span style="font-style: italic;">Dec 2017</span>,
     <span style="font-weight: bold;">HyperLabelMe : A Web Platform for Benchmarking Remote-Sensing Image Classifiers</span>
@@ -45,6 +51,8 @@ title: Publications
   <div class="journal">IEEE Geoscience and Remote Sensing Magazine</div>
   <div class="blinks">
   
+  
+        [<a href="http://doi.org/10.1109/MGRS.2017.2762476" target="_blank">DOI</a>]
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @article{munoz-mari_hyperlabelme_2017,
@@ -91,6 +99,8 @@ title: Publications
         [<a href="https://www.spiedigitallibrary.org/journals/Journal-of-Applied-Remote-Sensing/volume-11/issue-1/015005/Cloud-masking-and-removal-in-remote-sensing-image-time-series/10.1117/1.JRS.11.015005.short" target="_blank">URL</a>]
   
   
+        [<a href="http://doi.org/10.1117/1.JRS.11.015005" target="_blank">DOI</a>]
+  
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @article{gomez-chova_cloud_2017,
  author = {Gómez-Chova, Luis and Amorós-López, Julia and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
@@ -116,6 +126,87 @@ title: Publications
 <h2>Conferences</h2>
 
 
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2018</span>,
+    <span style="font-weight: bold;">Convolutional Neural Networks for Cloud Screening: Transfer learning from Landsat-8 to Proba-V</span>
+  </div>
+  <div class="author"><u>Gonzalo Mateo-García</u> and Luis Gómez-Chova</div>
+  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="blinks">
+  
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_convolutional_2018,
+ author = {Mateo-García, Gonzalo and Gómez-Chova, Luis},
+ booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ keyword = {art methods, cloud detection, cloud masking, cloud masking problems, Clouds, convolutional neural networks, Convolutional neural networks, custom feature extraction, deep learning, different CNN architectures, end-to-end learning, feature extraction, Feature extraction, geophysical image processing, image classification, image classification tasks, Instruments, learning (artificial intelligence), multispectral image cloud masking, neural nets, Proba-V, Proba-V multispectral images, remote sensing, Remote sensing, remote sensing problems, Training, V},
+ month = {jul},
+ title = {Convolutional {Neural} {Networks} for {Cloud} {Screening}: {Transfer} learning from {Landsat}-8 to {Proba}-{V}},
+ year = {2018}
+} {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Cloud detection is a key issue for exploiting the information from Earth observation satellites multispectral sensors. For Proba-V, cloud detection is challenging due to the limited number of spectral bands. Advanced machine learning methods, such as convolutional neural networks (CNN), have shown to work well on this problem provided enough labeled data. However, simultaneous collocated information about the presence of clouds is usually not available or requires a great amount of manual labor. In this work, we propose to learn from the available Landsat-8 cloud masks datasets and transfer this learning to solve the Proba-V cloud detection problem. CNN are trained with Landsat images adapted to resemble Proba-V characteristics and tested on a large set of real Proba-V scenes. Developed models outperform current operational Proba-V cloud detection without being trained with any real Proba-V data. Moreover, cloud detection accuracy can be further increased if the CNN are fine-tuned using a limited amount of Proba-V data.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2018</span>,
+    <span style="font-weight: bold;">Optimizing kernel ridge regression for remote sensing problems</span>
+  </div>
+  <div class="author"><u>Gonzalo Mateo-García</u>, Valero Laparra and Luis Gómez-Chova</div>
+  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="blinks">
+  
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_optimizing_2018,
+ author = {Mateo-García, Gonzalo and Laparra, Valero and Gómez-Chova, Luis},
+ booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ keyword = {Remote sensing, neural nets},
+ month = {jul},
+ title = {Optimizing kernel ridge regression for remote sensing problems},
+ year = {2018}
+} {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Kernel methods have been very successful in remote sensing problems because of their ability to deal with high dimensional non-linear data. However, they are computationally expensive to train when a large amount of samples are used.<br/>In this context, while the amount of available remote sensing data has constantly increased, the size of training sets in kernel methods is usually restricted to few thousand samples.<br/>In this work, we modified the Kernel Ridge Regression (KRR) training procedure to deal with large scale datasets. In addition, the basis functions in the reproducing kernel Hilbert space are defined as parameters to be also optimized during the training process. This extends the number of free parameters from two (in the standard KRR with an RBF kernel) to more than fifty thousand in our experiments. The effectiveness of the proposal is illustrated in the problem of surface temperature estimation from MetOp-IASI hyperspectral infrared sounding data. The data set used contains more than one million samples, but the proposed method could potentially be trained with much more data.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2018</span>,
+    <span style="font-weight: bold;">Retrieval of Case 2 Water Quality Parameters with Machine Learning</span>
+  </div>
+  <div class="author">AnaB. Bruescas, <u>Gonzalo Mateo-García</u>, Gustau Camps-Valls and Martin Hieronymi</div>
+  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="blinks">
+  
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{bruescas_retrieval_2018,
+ author = {Bruescas, Ana B. and Mateo-García, Gonzalo and Camps-Valls, Gustau and Hieronymi, Martin},
+ booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ keyword = {Remote sensing},
+ month = {jul},
+ title = {Retrieval of {Case} 2 {Water} {Quality} {Parameters} with {Machine} {Learning}},
+ year = {2018}
+} {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Water quality parameters are derived applying several machine learning regression methods on the Case2eXtreme dataset (C2X). The used data are based on Hydrolight in-water radiative transfer simulations at Sentinel-3 OLCI wavebands, and the application is done exclusively for absorbing waters with high concentrations of coloured dissolved organic matter (CDOM). The regression approaches are: regularized linear, random forest, Kernel ridge, Gaussian process and support vector regressors. The validation is made with and an independent simulation dataset. A comparison with the OLCI Neural Network Swarm (ONSS) is made as well. The best approached is applied to a sample scene and compared with the standard OLCI product delivered by EUMETSAT/ESA.</blockquote>
+</div>
+</div>
+
+
+
 
 
 <div class="entry">
@@ -138,7 +229,7 @@ title: Publications
  author = {Mateo-García, Gonzalo and Gómez-Chova, Luis and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
  booktitle = {Vth {International} {Symposium}: {Recent} {Advances} in {Quantitative} {Remote} {Sensing}, {Sept} 2017, ({RAQRS})},
  copyright = {All rights reserved},
- keyword = {Satellites, AD 2011 10 28, ADL, Aerosol EDR, Aerosol Environmental Data Record Algorithm, aerosols, Aerosols, Algorithm Development Library, artificial satellites, Cloud Mask algorithms, geophysical equipment, Joint Polar Satellite System satellite, JPSS, JPSS VIIRS aerosol EDR algorithms, NOAA Interface Data Processing Segment, Ocean temperature, radiometers, Radiometry, Satellite broadcasting, scanning radiometer, Sea surface, Sensors, upstream-downstream effects, VIIRS, VIIRS Sensor Data Record, Visible Infrared Imaging Radiometer Suite},
+ keyword = {AD 2011 10 28, ADL, Aerosol EDR, Aerosol Environmental Data Record Algorithm, aerosols, Aerosols, Algorithm Development Library, artificial satellites, Cloud Mask algorithms, geophysical equipment, Joint Polar Satellite System satellite, JPSS, JPSS VIIRS aerosol EDR algorithms, NOAA Interface Data Processing Segment, Ocean temperature, radiometers, Radiometry, Satellite broadcasting, Satellites, scanning radiometer, Sea surface, Sensors, upstream-downstream effects, VIIRS, VIIRS Sensor Data Record, Visible Infrared Imaging Radiometer Suite},
  link = {http://ipl.uv.es/raqrs/},
  month = {sep},
  title = {Advances in statistical cloud screening: the {Proba}-{V} case study},
@@ -191,6 +282,37 @@ title: Publications
 
 <div class="entry">
   <div><span style="font-style: italic;">Jul 2017</span>,
+    <span style="font-weight: bold;">Cloud detection machine learning algorithms for PROBA-V</span>
+  </div>
+  <div class="author">L. Gómez-Chova, <u>G. Mateo-García</u>, J. Muñoz-Marí and G. Camps-Valls</div>
+  <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="blinks">
+  
+  
+        [<a href="http://doi.org/10.1109/IGARSS.2017.8127437" target="_blank">DOI</a>]
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{gomez-chova_cloud_2017-1,
+ author = {Gómez-Chova, L. and Mateo-García, G. and Muñoz-Marí, J. and Camps-Valls, G.},
+ booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
+ doi = {10.1109/IGARSS.2017.8127437},
+ keyword = {cloud detection, Clouds, Feature extraction, remote sensing, Training, Snow, cloud masking, clouds, Proba-V, Support vector machines, Brightness, geophysical image processing, learning (artificial intelligence), land cover, automatic cloud detection, cloud detection machine learning algorithms, land cover biophysical parameter retrieval, Machine learning algorithms, ML, PROBA-V images, PROBA-V products, remote sensing applications, satellite scenes, sea, statistical analysis, statistical machine learning techniques},
+ month = {jul},
+ pages = {2251--2254},
+ title = {Cloud detection machine learning algorithms for {PROBA}-{V}},
+ year = {2017}
+} {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">This paper presents the development and implementation of a cloud detection algorithm for Proba-V. Accurate and automatic detection of clouds in satellite scenes is a key issue for a wide range of remote sensing applications. With no accurate cloud masking, undetected clouds are one of the most significant sources of error in both sea and land cover biophysical parameter retrieval. The objective of the algorithms presented in this paper is to detect clouds accurately providing a cloud flag per pixel. For this purpose, the method exploits the information of Proba-V using statistical machine learning techniques to identify the clouds present in Proba-V products. The effectiveness of the proposed method is successfully illustrated using a large number of real Proba-V images.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2017</span>,
     <span style="font-weight: bold;">Cloud detection on the Google Earth engine platform</span>
   </div>
   <div class="author"><u>G. Mateo-García</u>, J. Muñoz-Marí and L. Gómez-Chova</div>
@@ -224,37 +346,6 @@ title: Publications
 
 <div class="entry">
   <div><span style="font-style: italic;">Jul 2017</span>,
-    <span style="font-weight: bold;">Cloud detection machine learning algorithms for PROBA-V</span>
-  </div>
-  <div class="author">L. Gómez-Chova, <u>G. Mateo-García</u>, J. Muñoz-Marí and G. Camps-Valls</div>
-  <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
-  <div class="blinks">
-  
-  
-        [<a href="http://doi.org/10.1109/IGARSS.2017.8127437" target="_blank">DOI</a>]
-  
-  
-  
-  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
-  <div class="bibtex">{% raw %} @inproceedings{gomez-chova_cloud_2017-1,
- author = {Gómez-Chova, L. and Mateo-García, G. and Muñoz-Marí, J. and Camps-Valls, G.},
- booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
- doi = {10.1109/IGARSS.2017.8127437},
- keyword = {Clouds, Feature extraction, cloud detection, Snow, remote sensing, Training, Support vector machines, cloud masking, clouds, Proba-V, Brightness, geophysical image processing, land cover, learning (artificial intelligence), automatic cloud detection, cloud detection machine learning algorithms, land cover biophysical parameter retrieval, Machine learning algorithms, ML, PROBA-V images, PROBA-V products, remote sensing applications, satellite scenes, sea, statistical analysis, statistical machine learning techniques},
- month = {jul},
- pages = {2251--2254},
- title = {Cloud detection machine learning algorithms for {PROBA}-{V}},
- year = {2017}
-} {% endraw %}</div>
-  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">This paper presents the development and implementation of a cloud detection algorithm for Proba-V. Accurate and automatic detection of clouds in satellite scenes is a key issue for a wide range of remote sensing applications. With no accurate cloud masking, undetected clouds are one of the most significant sources of error in both sea and land cover biophysical parameter retrieval. The objective of the algorithms presented in this paper is to detect clouds accurately providing a cloud flag per pixel. For this purpose, the method exploits the information of Proba-V using statistical machine learning techniques to identify the clouds present in Proba-V products. The effectiveness of the proposed method is successfully illustrated using a large number of real Proba-V images.</blockquote>
-</div>
-</div>
-
-
-
-<div class="entry">
-  <div><span style="font-style: italic;">Jul 2017</span>,
     <span style="font-weight: bold;">Convolutional neural networks for multispectral image cloud masking</span>
   </div>
   <div class="author"><u>G. Mateo-García</u>, L. Gómez-Chova and G. Camps-Valls</div>
@@ -273,7 +364,7 @@ title: Publications
  author = {Mateo-García, G. and Gómez-Chova, L. and Camps-Valls, G.},
  booktitle = {2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
  doi = {10.1109/IGARSS.2017.8127438},
- keyword = {Clouds, deep learning, Feature extraction, cloud detection, remote sensing, Training, cloud masking, Proba-V, feature extraction, image classification, Instruments, geophysical image processing, neural nets, Remote sensing, learning (artificial intelligence), art methods, cloud masking problems, convolutional neural networks, Convolutional neural networks, custom feature extraction, different CNN architectures, end-to-end learning, image classification tasks, multispectral image cloud masking, Proba-V multispectral images, remote sensing problems, V},
+ keyword = {art methods, cloud detection, cloud masking, cloud masking problems, Clouds, convolutional neural networks, Convolutional neural networks, custom feature extraction, deep learning, different CNN architectures, end-to-end learning, feature extraction, Feature extraction, geophysical image processing, image classification, image classification tasks, Instruments, learning (artificial intelligence), multispectral image cloud masking, neural nets, Proba-V, Proba-V multispectral images, remote sensing, Remote sensing, remote sensing problems, Training, V},
  month = {jul},
  pages = {2255--2258},
  title = {Convolutional neural networks for multispectral image cloud masking},
@@ -290,7 +381,7 @@ title: Publications
   <div><span style="font-style: italic;">Jun 2017</span>,
     <span style="font-weight: bold;">Proba-V cloud detection Round Robin: Validation results and recommendations</span>
   </div>
-  <div class="author">R.Q. Iannone, F. Niro, P. Goryl, S. Dransfeld, B. Hoersch, K. Stelzer, G. Kirches, M. Paperin, C. Brockmann, Luis Gómez-Chova, <u>Gonzalo Mateo-García</u>, R. Preusker, J. Fischer, U. Amato, C. Serio, U. Gangkofner, B. Berthelot, M.D. Iordache, L. Bertels, E. Wolters, W. Dierckx, I. Benhadj and E. Swinnen</div>
+  <div class="author">R.Q. Iannone, F. Niro, P. Goryl, S. Dransfeld, B. Hoersch, K. Stelzer, G. Kirches, M. Paperin, C. Brockmann, L. Gómez-Chova, <u>G. Mateo-García</u>, R. Preusker, J. Fischer, U. Amato, C. Serio, U. Gangkofner, B. Berthelot, M.D. Iordache, L. Bertels, E. Wolters, W. Dierckx, I. Benhadj and E. Swinnen</div>
   <div class="journal">2017 9th International Workshop on the Analysis of Multitemporal Remote Sensing Images (MultiTemp)</div>
   <div class="blinks">
   
@@ -301,11 +392,11 @@ title: Publications
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @inproceedings{iannone_proba-v_2017,
- author = {Iannone, R. Q. and Niro, F. and Goryl, P. and Dransfeld, S. and Hoersch, B. and Stelzer, K. and Kirches, G. and Paperin, M. and Brockmann, C. and Gómez-Chova, Luis and Mateo-García, Gonzalo and Preusker, R. and Fischer, J. and Amato, U. and Serio, C. and Gangkofner, U. and Berthelot, B. and Iordache, M. D. and Bertels, L. and Wolters, E. and Dierckx, W. and Benhadj, I. and Swinnen, E.},
+ author = {Iannone, R. Q. and Niro, F. and Goryl, P. and Dransfeld, S. and Hoersch, B. and Stelzer, K. and Kirches, G. and Paperin, M. and Brockmann, C. and Gómez-Chova, L. and Mateo-García, G. and Preusker, R. and Fischer, J. and Amato, U. and Serio, C. and Gangkofner, U. and Berthelot, B. and Iordache, M. D. and Bertels, L. and Wolters, E. and Dierckx, W. and Benhadj, I. and Swinnen, E.},
  booktitle = {2017 9th {International} {Workshop} on the {Analysis} of {Multitemporal} {Remote} {Sensing} {Images} ({MultiTemp})},
  copyright = {All rights reserved},
  doi = {10.1109/Multi-Temp.2017.8035219},
- keyword = {Clouds, remote sensing, atmospheric techniques, Cloud Detection Algorithm, cloud detection approaches, cloud masking, cloud optical thickness, clouds, Detection algorithms, discriminant analysis, downstream geophysical products, environmental conditions, European countries, Land surface, MODIS, multispectral thresholding, multitextural thresholding, neural network, Proba-V, Proba-V cloud detection algorithm, Proba-V cloud detection Round Robin, Proba-V level 2a products, Reflectivity, Round robin, Round Robin, satellite optical remote sensing, Satellites, self-organizing feature maps, spectral bands, surface types, thermal infrared bands},
+ keyword = {atmospheric techniques, Cloud Detection Algorithm, cloud detection approaches, cloud masking, cloud optical thickness, clouds, Clouds, Detection algorithms, discriminant analysis, downstream geophysical products, environmental conditions, European countries, Land surface, MODIS, multispectral thresholding, multitextural thresholding, neural network, Proba-V, Proba-V cloud detection algorithm, Proba-V cloud detection Round Robin, Proba-V level 2a products, Reflectivity, remote sensing, Round robin, Round Robin, satellite optical remote sensing, Satellites, self-organizing feature maps, spectral bands, surface types, thermal infrared bands},
  month = {jun},
  pages = {1--8},
  shorttitle = {Proba-{V} cloud detection {Round} {Robin}},

@@ -47,7 +47,7 @@ title: Publications
   {% if "url" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['url']}}" target="_blank">URL</a>]
   {% endif %}
-  {% if "doi" in extra[bibentry_key]["doi"] %}
+  {% if "doi" in extra[bibentry_key] %}
         [<a href="http://doi.org/{{extra[bibentry_key]['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]

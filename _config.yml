@@ -2,4 +2,4 @@ name: Gonzalo Mateo García
 markdown: kramdown
 permalink: blog/:year/:month/:day/:title
 # baseurl: /gonmagar
-exclude: [publications/Untitled.ipynb, publications/template_pubs.tpl, LICENSE, blog/notebooks/]
+exclude: [publications/Untitled.ipynb, publications/index_2.html, publications/template_pubs.tpl, LICENSE, blog/notebooks/]
