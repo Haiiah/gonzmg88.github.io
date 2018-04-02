@@ -23,7 +23,7 @@ author: Gonzalo Mateo-García
 Dropout is a regularization method widely applied in Neural Networks (NN) training. It consists of setting to zero activations of your NN randomly while training. The heuristic behind this is that it can be thought as building an *ensemble of Neural Networks* where each component of this ensemble is a NN with the same structure as the original one but with some activations *dropped* (i.e. set to zero). For example, if we have a two layer Neural Network, dropout is nothing but the following formula:
 
 $$
-f^\omega(x) = h_2(h_1(x^t \text{diag}(\epsilon_1) M_1+b_1)\text{diag}(\epsilon_2)M_2+b2)
+f^\omega(x) = h_2(h_1(x^t \text{diag}(\epsilon_1) M_1+b_1)\text{diag}(\epsilon_2)M_2+b_2)
 $$
 
 Where $\epsilon_{1,2}$ are 0,1 random vectors drawn with some probability $p_{1,2}$ of being 0 (formally $\epsilon_{i,j}\sim B(1-p_i)$).
@@ -106,9 +106,9 @@ $$
 
 Therefore our approach will be to minimize the $\mathcal{L}$ term w.r.t. $\theta$. Sometimes it happens that the integral $\mathcal{L}$ can be solved analytically for the chosen $q_\theta(\omega)$ distribution (this is a common criteria for choosing a $q_\theta$ distribution).  In that cases we can compute the integral and we will just have an expression depending on $\theta$ to optimize. That explains why VI approaches said that *"VI changes integration with optimization which is much easier"*.
 
-We will assume however that the integral $\mathcal{L}$ cannot be solved analytically. The way we plan to approach the problem is to minimize $\mathcal{L}$ w.r.t. $\theta$ using gradient descent (preferably **stochastic** gradient descent). We will have to compute then the gradient of $\mathcal{L}$ w.r.t. $\theta$: $\nabla_\theta \mathcal{L(q_\theta)}$
+<!--We will assume however that the integral $\mathcal{L}$ cannot be solved analytically. The way we plan to approach the problem is to minimize $\mathcal{L}$ w.r.t. $\theta$ using gradient descent (preferably **stochastic** gradient descent). We will have to compute then the gradient of $\mathcal{L}$ w.r.t. $\theta$: $\nabla_\theta \mathcal{L(q_\theta)}$-->
 
-We can write $\mathcal{L}$ in the following handy way:
+We will now expand the $\mathcal{L}$ term so that we can see how we will proceed to its minimization:
 
 $$
 \begin{aligned}
@@ -124,16 +124,19 @@ $$
 
 This expression is a **trade-off between the prior and the likelihood**: it has the interpretation of do not diverge too much from the prior unless you can reduce significantly the first expectation!
 
-If we now plug in the likelihood definition $(\text{Likelihood})$ we get:
+If we now plug in the likelihood definition of the BNN $(\text{Likelihood})$ we get:
 
 $$
 \begin{aligned}
 \mathcal{L}(q_\theta) &=-\mathbb{E}_{q_\theta(\omega)}\left[ \log \left( \prod_{i=1}^N p(y_i \mid f^\omega(x_i))\right)\right] + KL[q_\theta(\omega) || p(\omega)] \\
-&= -\sum_{i=1}^N \mathbb{E}_{q_\theta(\omega)}\left[ \log  p(y_i \mid f^\omega(x_i))\right] + KL[q_\theta(\omega) || p(\omega)]
+&= -\sum_{i=1}^N \mathbb{E}_{q_\theta(\omega)}\left[ \log  p(y_i \mid f^\omega(x_i))\right] + KL[q_\theta(\omega) || p(\omega)] \quad \text{(ELBO BNN)}
 \end{aligned}
 $$
 
-This expression starts to resemble the risk equation of the *standard* Neural Networks. It also has the nice property that is a sum over all the training data $\mathcal{D}$. This is cool since it means we can optimize it by **stochastic gradient descent**. Formally that means that if we consider $S$ a random subset of indexes of size $M$ and the following estimator:
+This expression starts to resemble the risk equation of the *standard* Neural Networks. Actually we can retrieve the same risk function if we choose the approximate distribution to be a $\delta$ distribution. The risk we obtain is also the same as if we try to find the maximum a posteriori (MAP). Click unfold if you are interested in this relation.
+
+
+The expression above $\text{(ELBO BNN)}$ has also the nice property that is a sum over all the training data $\mathcal{D}$. This is cool since it means we can optimize it by **stochastic gradient descent**. Formally that means that if we consider $S$ a random subset of indexes of size $M$ and the following estimator:
 
 $$
 \hat{\mathcal{L}}(q_\theta) = -\frac{N}{M} \sum_{i \in S} \mathbb{E}_{q_\theta(\omega)}\left[ \log  p(y_i \mid f^\omega(x_i))\right] + KL[q_\theta(\omega) || p(\omega)]
@@ -151,7 +154,7 @@ This is where we can use the so called *tricks* that are very well explained in 
 
 ## Dropout as Bayesian Neural networks
 
-In the case of **dropout networks** we will use the *reparametrization trick*, this means that the $q_\theta$ function in this case is not manually chosen but it is rather defined through its re-parametrization:
+In the case of **dropout networks** we will use the *reparametrization trick*, this means that the $q_\theta$ distribution is defined through its re-parametrization:
 
 $$
 \begin{aligned}
@@ -160,7 +163,13 @@ $$
 \end{aligned}
 $$
 
-Where $L$ is the number of layers of the NN. The expectation of above can be re-written as:
+Where $L$ is the number of layers of the NN. We could also explicitly define the distribution as we did before for the case of the MAP
+
+$$
+p(\omega) = \prod_{l=1}^L \prod_{j=1}^{n_{l-1}} \Big((1-p_l)\delta(\omega_{l,i,:} - M_{l,i,:}) + p_l\delta(\omega_{l,i,:})\Big)\prod_{l=1}^L\delta(\omega_b_i - b_i)
+$$
+
+The expectation of the likelihood can be then re-written as:
 
 $$
 \mathbb{E}_{q_\theta(\omega)}\left[ \log  p(y_i \mid f^\omega(x_i))\right] = \mathbb{E}_{p(\epsilon)} \left[ \log  p(y_i \mid f^{g(\theta,\epsilon)}(x_i))\right]
