@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Variational Free Energy
+title: Variational Free Energy for Sparse GPs
 date: 2018-04-19
 author: Gonzalo Mateo-García
 ---
