@@ -258,7 +258,7 @@ $$
 
 Since $$\nabla_\theta \mathcal{L(q_\theta)} = \mathbb{E}_{S,p(\epsilon)}[\nabla_\theta \hat{\hat{\mathcal{L}}}(q_\theta)]$$.
 
-Now it is where the magic happens since this stochastic gradient is suspiciously similar to $\text{(SG Eq)}$! We *just* have to choose an error function where $\text{err}(f^\omega(x),y) \propto \log(p(y_i\mid f^\omega(x_i)))$ and a prior and a regularization $\Omega(\omega)$ that is similar to the divergence! [[Yarin Gal Thesis]](http://www.cs.ox.ac.uk/people/yarin.gal/website/blog_2248.html#thesis) have the details regarding the *implicit* prior that leads to the same regularization as $\mathcal{l}_2$ regularization for example.
+Now it is where the magic happens since this stochastic gradient is suspiciously similar to $\text{(SG Eq)}$! We *just* have to choose an error function where $\text{err}(f^\omega(x),y) \propto \log(p(y_i\mid f^\omega(x_i)))$ and a prior and a regularization $\Omega(\omega)$ that is similar to the divergence! [[Yarin Gal Thesis]](http://www.cs.ox.ac.uk/people/yarin.gal/website/blog_2248.html#thesis){:target="_blank"} have the details regarding the *implicit* prior that leads to the same regularization as $\mathcal{l}_2$ regularization for example.
 
 So if you are training your NN using dropout you are probably doing variational inference for some prior, therefore you could take advantage of not only the weights you found by the optimization procedure ($\theta^\star$) but also of the approximate posterior distribution $q_\theta^\star$. Using the approximate distribution you can compute uncertainty measures of your predictions!
 

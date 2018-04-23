@@ -21,9 +21,9 @@ author: Gonzalo Mateo-García
 
 ## Introduction
 
-Let $$f=\{f^\star,\mathrm{f}\}$$ be the noise free latent variables of a $\mathcal{GP}$. We write $\mathrm{f}$ to be the latent variables where we have noisy observations $y$: $$y_i = \mathrm{f}_i + \epsilon_i$$ ($$\epsilon_i \sim \mathcal{N}(0,\sigma^2) $$) and $f^\star$ the points where we want to have predictions. For the purpose of understanding the Variational Free Energy (VFE) approach to $\mathcal{GP}$s of [[Titsias 2009]](https://pdfs.semanticscholar.org/db7b/e492a629a98db7f9d77d552fd3568ff42189.pdf) we will consider the **joint posterior** $p(f^\star,\mathrm{f} \mid y)$.  This joint posterior is a _strange_ object we normally do not consider if we are working with $\mathcal{GP}$s. When we work with $\mathcal{GP}$s we normally care about the **predictive posterior** $p(y^\star\mid y)$ (to make predictions) or the **marginal likelihood** $p(y)$ (to fit the hyperparameters of the kernel and the $\sigma^2$).
+Let $$f=\{f^\star,\mathrm{f}\}$$ be the noise free latent variables of a $\mathcal{GP}$. We write $\mathrm{f}$ to be the latent variables where we have noisy observations $y$: $$y_i = \mathrm{f}_i + \epsilon_i$$ ($$\epsilon_i \sim \mathcal{N}(0,\sigma^2) $$) and $f^\star$ the points where we want to have predictions. The purpose of this post is to understand the Variational Free Energy (VFE) approach to $\mathcal{GP}$s of [[Titsias 2009]](https://pdfs.semanticscholar.org/db7b/e492a629a98db7f9d77d552fd3568ff42189.pdf){:target="_blank"} expanded later by [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835){:target="_blank"}. For this purpose we start  considering the **joint posterior** $p(f^\star,\mathrm{f} \mid y)$.  This joint posterior is a _strange_ object we normally do not consider if we are working with $\mathcal{GP}$s. When we work with $\mathcal{GP}$s we normally care about the **predictive posterior** $p(y^\star\mid y)$ (to make predictions) or the **marginal likelihood** $p(y)$ (to fit the hyperparameters of the kernel and the $\sigma^2$).
 
-For the _normal_ $\mathcal{GP}$ this **joint posterior** is:
+For the _standard_ $\mathcal{GP}$ this **joint posterior** is:
 
 $$
 \begin{aligned}
@@ -47,7 +47,28 @@ p(f^\star \mid y ) &= \int p(f^\star , \mathrm{f} \mid y) d\mathrm{f} \\
 $$
 
 * _If you manage to do this integral without driving you crazy let me know_
-* _The only difference between this noise free predictive posterior and the "standard" predictive posterior ($$p(y^\star \mid y) $$ is that we have to add $\sigma^2 I $ to the variance of the later)_
+* _The only difference between this noise free predictive posterior and the "standard" predictive posterior ($$p(y^\star \mid y) $$ is that we have to add $\sigma^2 I $ to the variance of the later)_. <a onclick="$('#predictive_posterior').slideToggle();">[Click here to see why]</a>
+
+<div id="predictive_posterior" class="input_hidden" markdown="1">
+
+$$
+\begin{aligned}
+p(y^\star \mid y) &= \int p(y^\star \mid f^\star, \cancel{y}) p(f^\star \mid y) df^\star \\
+    &= \int \mathcal{N}(y^\star \mid f^\star, \sigma^2 I ) p(f^\star \mid y) df^\star
+\end{aligned}
+$$
+
+This integral of two Gaussians can be done using Bishop's book: Machine Learning and Pattern Recognition. in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. This integral also came up in the [previous blog post on Nyström method]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN#fully-bayesian-approach){:target="_blank"} and we showed there an alternative way to compute it. Anyway, the result is as expected the predictive distribution of the $\mathcal{GP}$:
+
+$$
+\begin{aligned}
+p(y^\star \mid y) &= \mathcal{N}(y^\star \mid K_{\star \mathrm{f}}(K_{\mathrm{f}\mathrm{f}}+\sigma^2 I)^{-1}y, \\
+&\quad \quad \quad \quad K_{\star\star} + \sigma^2 I - K_{\star \mathrm{f}}(K_{\mathrm{f}\mathrm{f}}+\sigma^2 I)^{-1}K_{\mathrm{f}\star})
+\end{aligned}
+$$
+
+<a onclick="$('#predictive_posterior').slideToggle();"> Collapse </a>
+</div>
 
 ## Variational sparse approximation
 
@@ -72,7 +93,7 @@ $$
 \end{aligned}
 $$
 
-Since this is a $\mathcal{GP}$ $p(f) = \mathcal{N}(f \mid 0,K_{ff})$ so $p(f^\star, \mathrm{f} \mid u)$ can be easily computed using Gaussian identities ([wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)). In this case we see that $p(f^\star, \mathrm{f} \mid u)$ is the standard posterior of the $\mathcal{GP}$ with noise free variables $u$:
+Since this is a $\mathcal{GP}$ $p(f) = \mathcal{N}(f \mid 0,K_{ff})$ so $p(f^\star, \mathrm{f} \mid u)$ can be easily computed using Gaussian identities ([wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)){:target="_blank"}. In this case we see that $p(f^\star, \mathrm{f} \mid u)$ is the standard posterior of the $\mathcal{GP}$ with noise free variables $u$:
 
 $$
 \begin{aligned}
@@ -95,15 +116,15 @@ $$
 
 Notice that:
 
-1. We could also rewrite the true posterior $p(f\mid y)$ using the subset $u$ of $f$:
+* We could also rewrite the true posterior $p(f\mid y)$ using the subset $u$ of $f$:
 
 $$
 p(f\mid y) = p(f^\star,\mathrm{f},u \mid y) = p(f^\star, \mathrm{f} \mid u,y)p(u \mid y)
 $$
 
-1. If we compare this two equations we see that **The Titsias approximation removes the dependency on the data ($y$) in the first term**. (While the second term $q(u)$ is let free).
+* If we compare this two equations we see that **The Titsias approximation removes the dependency on the data ($y$) in the first term**. (While the second term $q(u)$ is let free).
 
-1. Again, in order to make predictions, we will need the **approximate (noise free) predictive distribution** $q(f^\star)$, thus we have to integrate out $\mathrm{f}$ and $u$ from $q(f)$:
+* Again, in order to make predictions, we will need the **approximate (noise free) predictive distribution** $q(f^\star)$, thus we have to integrate out $\mathrm{f}$ and $u$ from $q(f)$:
 
 $$
 \begin{aligned}
@@ -113,16 +134,16 @@ q(f^\star) &= \int \int p(f^\star,\mathrm{f} \mid u) q(u) d\mathrm{f}du \\
 \end{aligned}
 $$
 
-1. If we are *"lucky"* and $q$ is normal, $q(u)=\mathcal{N}(u \mid m, S)$, then the **approximate predictive distribution** can be computed using the Bishop Chapter 2 pág 93 trick of Marginal and Conditional Gaussians:
+* If we are *"lucky"* and $q$ is normal, $q(u)=\mathcal{N}(u \mid m, S)$, then the **approximate predictive distribution** (APD) can be computed using the Bishop Chapter 2 pág 93 trick of Marginal and Conditional Gaussians:
 
 $$
 \begin{aligned}
-q(f^\star) = \mathcal{N}(f^\star &\mid K_{\star u}K_{uu}^{-1}m, \\
+q(f^\star) = \mathcal{N}(f^\star &\mid K_{\star u}K_{uu}^{-1}m, \quad \text{(APD)}\\
 &K_{\star\star}-Q_{\star\star}+ K_{\star u}K_{uu}^{-1}S K_{uu}^{-1}K_{u\star})
 \end{aligned}
 $$
 
-1. Substituting this $q$ in the bound $\mathcal{L}(q)$ leads to:
+* Substituting this $q$ in the bound $\mathcal{L}(q)$ leads to:
 
 $$
 \begin{aligned}
@@ -132,11 +153,23 @@ $$
 &= \mathbb{E}_{p(f^\star, \mathrm{f} \mid u)q(u)}\left[\log p(y\mid \mathrm{f})\right] + \mathbb{E}_{p(f^\star, \mathrm{f} \mid u)q(u)}\left[\log \frac{p(u)}{q(u)}\right] \\
 &= \mathbb{E}_{p(f^\star \mid \mathrm{f} , u)p(\mathrm{f} \mid u)q(u)}\left[\log p(y\mid \mathrm{f})\right] + \cancel{\mathbb{E}_{p(f^\star, \mathrm{f} \mid u)}}\mathbb{E}_{q(u)}\left[\log \frac{p(u)}{q(u)}\right] \\
 &= \cancel{\mathbb{E}_{p(f^\star \mid \mathrm{f} , u)}}\mathbb{E}_{q(u)}\left[\mathbb{E}_{p(\mathrm{f} \mid u)}\log p(y\mid \mathrm{f})\right] + \mathbb{E}_{q(u)}\left[\log \frac{p(u)}{q(u)}\right] \\
-&= \mathbb{E}_{q(u)}\left[\mathbb{E}_{p(\mathrm{f} \mid u)}\log p(y\mid \mathrm{f})\right] + KL\left[q(u) \mid\mid p(u) \right] \\
+&= \mathbb{E}_{q(u)}\left[\mathbb{E}_{p(\mathrm{f} \mid u)}\log p(y\mid \mathrm{f})\right] - KL\left[q(u) \mid\mid p(u) \right] \\
 \end{aligned}
 $$
 
-The integral $\mathbb{E}_{p(\mathrm{f} \mid u)}\left[\log p(y \mid \mathrm{f})\right]$ plays a central role in the derivation. We will call it $\mathcal{L}_1$. Let's try to compute it:
+* We will call $$\mathcal{L}_1$$ to the integral $$\mathbb{E}_{p(\mathrm{f} \mid u)}\left[\log p(y \mid \mathrm{f})\right]$$. Since $p(\mathrm{f} \mid u)$ is Gaussian this integral can be computed exactly. _(We'll have the derivation bellow)_.
+
+* The equation $\mathcal{L}(q)$ of above **shows a trade-off that normally appears in Variational Inference**: we must find a $q(u)$ distribution that on one hand has high _expected likelihood_  $$\mathbb{E}_{q(u)}\left[\mathcal{L}_1\right]$$ but is not very divergent to the prior $p(u)=\mathcal{N}(u\mid 0, K_{uu})$. We saw a similar trade-off in the previous [Bayesian Neural Network blog post]({{site.baseurl}}/blog/2017/10/24/BayesianNeuralNetworks#variational-inference-approach){:target="_blank"}.
+
+The roadwork is now to (1) compute the $\mathcal{L}_1$ integral, (2) plug-in $\mathcal{L}_1$ into $\mathcal{L}(q)$ (3) assume that $q(u)$ is normally distributed $q(u) = \mathcal{N}(u \mid m, S)$ (4) maximize $\mathcal{L}(q)$ w.r.t. the variational parameters $m$ and $S$.
+
+### Compute $\mathcal{L}_1$ integral
+
+We show below the value of the $\mathcal{L}_1$ integral. <a onclick="$('#l1_integral').slideToggle();">[Click here to see the full derivation]</a>.
+
+<div id="l1_integral" class="input_hidden" markdown="1">
+
+Let's try to compute it:
 
 $$
 \begin{aligned}
@@ -149,54 +182,69 @@ $$
 \end{aligned}
 $$
 
-Now the trick is to use that $p(\mathrm{f} \mid u)$ is normal, if we write: $\mathcal{N}(\mathrm{f} \mid \mu_{\mathrm{f}\mid u}, \operatorname{Cov}_{u\mid \mathrm{f}})$
+Now the trick is to use that $p(\mathrm{f} \mid u)$ is normal, if we write: $\mathcal{N}(\mathrm{f} \mid \mu_{\mathrm{f}\mid u}, \operatorname{Cov}_{\mathrm{f}\mid u})$
 
 $$
 \begin{aligned}
 \mathcal{L}_1 &= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left( y^t y + \mathbb{E}_{p(\mathrm{f} \mid u)}\left[\mathrm{f}^t \mathrm{f}\right]   -2 y^t \mu_{\mathrm{f}\mid u}\right) \\
 &= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left( y^t y + \mathbb{E}_{p(\mathrm{f} \mid u)}\left[(\mathrm{f}-\mu_{\mathrm{f}\mid u})^t (\mathrm{f}-\mu_{\mathrm{f}\mid u}) +2\mu_{\mathrm{f}\mid u}^t f - \mu_{\mathrm{f}\mid u}^t\mu_{\mathrm{f}\mid u}\right]   -2 y^t \mu_{\mathrm{f}\mid u}\right) \\
 &= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left( y^t y + \mathbb{E}_{p(\mathrm{f} \mid u)}\left[(\mathrm{f}-\mu_{\mathrm{f}\mid u})^t (\mathrm{f}-\mu_{\mathrm{f}\mid u}) \right] +2\mu_{\mathrm{f}\mid u}^t \mathbb{E}_{p(\mathrm{f} \mid u)}\left[f\right] - \mu_{\mathrm{f}\mid u}^t\mu_{\mathrm{f}\mid u}   -2 y^t \mu_{\mathrm{f}\mid u}\right) \\
-&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left( y^t y + \mathrm{trace}(\operatorname{Cov}_{u\mid \mathrm{f}})  + \mu_{\mathrm{f}\mid u}^t\mu_{\mathrm{f}\mid u}   -2 y^t \mu_{\mathrm{f}\mid u}\right) \\
-&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left\| y - \mu_{\mathrm{f}\mid u}\right\|^2 + \frac{-1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{u\mid \mathrm{f}}) \right) \\
-&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \exp\left(\frac{-1}{2\sigma^{2}}\left\| y - \mu_{\mathrm{f}\mid u}\right\|^2\right)\right) + \frac{-1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{u\mid \mathrm{f}}) \right) \\
-&= \log \left(\mathcal{N}\left(y \mid \mu_{\mathrm{f}\mid u}, \sigma^2 I\right)\right) - \frac{1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{u\mid \mathrm{f}}) \right)
+&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left( y^t y + \mathrm{trace}(\operatorname{Cov}_{\mathrm{f}\mid u})  + \mu_{\mathrm{f}\mid u}^t\mu_{\mathrm{f}\mid u}   -2 y^t \mu_{\mathrm{f}\mid u}\right) \\
+&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \right) + \frac{-1}{2\sigma^{2}}\left\| y - \mu_{\mathrm{f}\mid u}\right\|^2 + \frac{-1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{\mathrm{f}\mid u}) \right) \\
+&= \log \left( \left(2\pi \sigma^{2N}\right)^{-1/2} \exp\left(\frac{-1}{2\sigma^{2}}\left\| y - \mu_{\mathrm{f}\mid u}\right\|^2\right)\right) + \frac{-1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{\mathrm{f}\mid u}) \right) \\
+&= \log \left(\mathcal{N}\left(y \mid \mu_{\mathrm{f}\mid u}, \sigma^2 I\right)\right) - \frac{1}{2\sigma^{2}}\left(\mathrm{trace}(\operatorname{Cov}_{\mathrm{f}\mid u}) \right)
 \end{aligned}
 $$
 
-If we now substitute the value of the mean and covariance of $p(\mathrm{f} \mid u)$ (This is the marginal distribution of equation $\text{(CD)}$).
+If we now substitute the value of the mean and covariance of $p(\mathrm{f} \mid u)$ (This is the marginal distribution of equation $\text{(CD)}$). We have:
+
+$$
+\mathcal{L}_1 =\log \left(\mathcal{N}\left(y \mid K_{fu}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right)
+
+$$
+
+<a onclick="$('#l1_integral').slideToggle();"> Collapse </a>
+
+</div>
 
 $$
 \begin{aligned}
 \mathcal{L}_1 &=\log \left(\mathcal{N}\left(y \mid K_{fu}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right) \\
-&= \sum_{i=1}^N \left[\log\mathcal{N}\left(y_i \mid K_{f_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right)\right] \\
-&= \sum_{i=1}^N \left[-\tfrac{1}{2\sigma^2}(y_i - K_{f_iu}K_{uu}^{-1}u)^2  -\tfrac{M}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right)\right] \\
+&= \sum_{i=1}^N \left[\log\mathcal{N}\left(y_i \mid K_{\mathrm{f}_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] \\
+&= \sum_{i=1}^N \left[-\tfrac{1}{2\sigma^2}(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}u)^2  -\tfrac{M}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] \\
 \end{aligned}
 $$
 
-Great! So now it we get back the $\mathcal{L}(q)$ bound we will see it is a sum over the training data!! Therefore it is possible that it can be optimized by **stochastic** gradient descent:
+It's worth to look at this $$\mathcal{L}_1$$ equation. First this equiation is a sum over the training data, this indicates that we could probably optimize $$\mathcal{L}(q)$$ using  **stochastic** gradient descent. Then this equation looks like a likelihood equation: for each point $y_i$ we want it to be close to its natural prediction given $u$ ($$K_{\mathrm{f}_iu}K_{uu}^{-1}u$$) but also, at the same time, to have low expected variance given $u$ ($$K_{\mathrm{f}_i\mathrm{f}_i}-K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}$$).
+
+### Plug in $\mathcal{L}_1$ into $\mathcal{L}(q)$
 
 $$
 \begin{aligned}
-\mathcal{L}(q) &= \mathbb{E}_{q(u)}[\mathcal{L}_1] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \mathbb{E}_{q(u)}\left[\sum_{i=1}^N \left[\log\mathcal{N}\left(y_i \mid K_{f_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right)\right]\right] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N \mathbb{E}_{q(u)}\left[\log\mathcal{N}\left(y_i \mid K_{f_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right)\right] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N \mathbb{E}_{q(u)}\left[-\tfrac{1}{2\sigma^2}(y_i - K_{f_iu}K_{uu}^{-1}u)^2  -\tfrac{M}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right)\right] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\mathbb{E}_{q(u)}\left[(y_i - K_{f_iu}K_{uu}^{-1}u)^2\right]  -\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right) + KL\left[q(u)\mid\mid p(u)\right]
+\mathcal{L}(q) &= \mathbb{E}_{q(u)}[\mathcal{L}_1] - KL\left[q(u)\mid\mid p(u)\right] \\
+&= \mathbb{E}_{q(u)}\left[\sum_{i=1}^N \left[\log\mathcal{N}\left(y_i \mid K_{\mathrm{f}_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right]\right] - KL\left[q(u)\mid\mid p(u)\right] \\
+&= \sum_{i=1}^N \mathbb{E}_{q(u)}\left[\log\mathcal{N}\left(y_i \mid K_{\mathrm{f}_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] - KL\left[q(u)\mid\mid p(u)\right] \\
+&= \sum_{i=1}^N \mathbb{E}_{q(u)}\left[-\tfrac{1}{2\sigma^2}(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}u)^2  -\tfrac{M}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] - KL\left[q(u)\mid\mid p(u)\right] \\
+&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\mathbb{E}_{q(u)}\left[(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}u)^2\right]  -\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right) - KL\left[q(u)\mid\mid p(u)\right]
 \end{aligned}
 $$
 
-If we assume now that $q(u)$ is normal: $q(u)=\mathcal{N}(u \mid m, S)$ we can use the change of variables $u = m + R\epsilon$ (where $S=RR^t$) with $\epsilon \sim \mathcal{N(0,I)}$ M-dimensional vector to have:
+So this shows that the $\mathcal{L}(q)$ bound is a sum over the training data!! Therefore it is possible that it can be optimized by **stochastic** gradient descent.
+
+### Assume $q(u)$ is normally distributed
+
+If we assume now that $q(u)$ is normal: $q(u)=\mathcal{N}(u \mid m, S)$, the bound $\mathcal{L}(q)$ can now be written as $\mathcal{L}(m,S)$. If use the change of variables $u = m + R\epsilon$ (where $S=RR^t$) with $\epsilon \sim \mathcal{N(0,I)}$ M-dimensional vector we can compute all the integrals in $\mathcal{L}(q)$ to have
 
 $$
 \begin{aligned}
-\mathcal{L}(q) &= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\mathbb{E}_{\epsilon}\left[(y_i - K_{f_iu}K_{uu}^{-1}(m + R\epsilon))^2\right]-\tfrac{NM}{2}\log(2\pi\sigma^2)+ \\ &\quad\quad\quad - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right) + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left(\mathbb{E}_{\epsilon}\left[(y_i - K_{f_iu}K_{uu}^{-1}m)^2\right] + \mathbb{E}_{\epsilon}\left[(K_{f_iu}K_{uu}^{-1}R\epsilon)^2\right] -\cancel{\mathbb{E}_{\epsilon}\left[2(y_i - K_{f_iu}K_{uu}^{-1}m)R\epsilon \right]}\right)+ \\ &\quad\quad\quad -\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right) + KL\left[q(u)\mid\mid p(u)\right]\\
-&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left((y_i - K_{f_iu}K_{uu}^{-1}m)^2 + \mathbb{E}_{\epsilon}\left[\epsilon^tR^tK_{uu}^{-1}K_{uf_i}K_{f_iu}K_{uu}^{-1}R\epsilon\right] \right)+\\ &\quad\quad\quad-\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right) + KL\left[q(u)\mid\mid p(u)\right]\\
-&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left((y_i - K_{f_iu}K_{uu}^{-1}m)^2 + \operatorname{trace}(SK_{uu}^{-1}K_{uf_i}K_{f_iu}K_{uu}^{-1}) \right)+\\ &\quad\quad\quad-\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{f_if_i}- K_{f_iu}K_{uu}^{-1}K_{uf_i}\right) + KL\left[q(u)\mid\mid p(u)\right]\\
+\mathcal{L}(m,S) &= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\mathbb{E}_{\epsilon}\left[(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}(m + R\epsilon))^2\right]-\tfrac{NM}{2}\log(2\pi\sigma^2)+ \\ &\quad\quad\quad - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right) - KL\left[q(u)\mid\mid p(u)\right] \\
+&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left(\mathbb{E}_{\epsilon}\left[(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}m)^2\right] + \mathbb{E}_{\epsilon}\left[(K_{\mathrm{f}_iu}K_{uu}^{-1}R\epsilon)^2\right] -\cancel{\mathbb{E}_{\epsilon}\left[2(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}m)R\epsilon \right]}\right)+ \\ &\quad\quad\quad -\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right) - KL\left[q(u)\mid\mid p(u)\right]\\
+&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left((y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}m)^2 + \mathbb{E}_{\epsilon}\left[\epsilon^tR^tK_{uu}^{-1}K_{u\mathrm{f}_i}K_{\mathrm{f}_iu}K_{uu}^{-1}R\epsilon\right] \right)+\\ &\quad\quad\quad-\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right) - KL\left[q(u)\mid\mid p(u)\right]\\
+&= \sum_{i=1}^N -\tfrac{1}{2\sigma^2}\left((y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}m)^2 + \operatorname{trace}(SK_{uu}^{-1}K_{u\mathrm{f}_i}K_{\mathrm{f}_iu}K_{uu}^{-1}) \right)+\\ &\quad\quad\quad-\tfrac{NM}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\sum_{i=1}^N\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right) - KL\left[q(u)\mid\mid p(u)\right]\\
 \end{aligned}
 $$
 
-This equation is the $\mathcal{L}_3$ equation that appears in [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835). We can fully expand it adding the value of the Kullback-Leibler divergence between the approximating posterior and the prior over $u$ since both of them are multivariate normal distributions [the wikipedia](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Multivariate_normal_distributions) says it is:
+This equation is the $\mathcal{L}_3$ equation that appears in [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835){:target="_blank"}. We can fully expand it adding the value of the Kullback-Leibler divergence between the approximating posterior and the prior over $u$ since both of them are multivariate normal distributions [the wikipedia](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#Multivariate_normal_distributions){:target="_blank"} says it is:
 
 $$
 \begin{aligned}
@@ -205,89 +253,42 @@ KL[q(u) \mid\mid p(u)] &= KL[\mathcal{N}(m,S)\mid\mid \mathcal{N}(0,K_{uu})] \\
 \end{aligned}
 $$
 
-Finally it is worth to have a look at the full equation $\mathcal{L}(q)$ and see its dependencies:
+Some comments about the full $\mathcal{L}(m,S)$ equation:
 
-1. $\mathcal{L}(q)$ has as variational parameters $m$, $S$, the pseudo-inputs $X_u$, $\sigma^2$ and the parameters of the kernel! (I don't feel very comfortable with the three later ($X_u$,$\sigma^2$ and the params of the kernel).  )
+1. $\mathcal{L}(m,S)$ has as variational parameters $m$, $S$, the pseudo-inputs $X_u$, $\sigma^2$ and the parameters of the kernel! (I don't feel very comfortable with the three later ($X_u$,$\sigma^2$ and the params of the kernel).)
+1. The proposal of [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835){:target="_blank"} is to minimize this equation w.r.t. all this parameters using stochastic gradient descent. (Actually I think they do not optimize the pseudo-inputs $X_u$ in their experiments).
 1. The mean of the $q(u)$ distribution is all we need to compute the mean of the approximate predictive distribution.
-1. The dependencies of $m$ are only in the first and last term.
-1. I still want to write down the optimal $m$ to see why we reach back the ubiquitous Nyström solution for the predictive mean.
+1. The dependencies of $m$ are only in two terms: in the first term of $\mathcal{L}(m,S)$ and in the first term of the Kullback-Leibler divergence: $\tfrac{-1}{2} m^t K_{uu}^{-1}m$.
+1. The dependencies on $S$ are in the second term of $\mathcal{L}(m,S)$ and in the two latest terms of the Kullback-Leibler divergence.
 
-<!--
-### Derivation from [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835)
+### Maximize $\mathcal{L}(m,S)$ w.r.t. the variational parameters $m$ and $S$
 
-Let's go back again  and see the things using [[Hensman et. al 2013]](http://arxiv.org/abs/1309.6835) derivation:
-$$
-\begin{aligned}
-\log p(y) &= \log \mathbb{E}_{p(u)}\left[p(y \mid u)\right] \\
-% &= \log \mathbb{E}_{p(u)}\left[\mathbb{E}_{p(\mathrm{f} \mid u)}\left[p(y\mid \mathrm{f},\cancel{u})\right]\right] \\
-\end{aligned}
-$$
+#### Maximize w.r.t. $m$
 
-We can decompose $\log p(y)$ using also the standard trick of variational inference:
-$$
-\log p(y) = \mathbb{E}_{p(u)}\left[\log p(y\mid u)\right] -  \mathbb{E}_{p(u)}\left[\log \frac{p(u \mid y)}{p(u)}\right]
-$$
-
-Instead of computing the bound on $p(y)$, we can compute the bound on $p(y \mid u)$ which is:
+Let's do the change of variables $\alpha = K_{uu}^{-1}m$. The $\mathcal{L}(m,S)$ bound only depends on $\alpha$ on two terms:
 
 $$
-\log p(y \mid u) = \overbrace{\mathbb{E}_{q(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(y,f^\star,\mathrm{f} \mid u)}{q(f^\star,\mathrm{f} \mid u)}\right]}^{\mathcal{L}\left(q(f^\star,\mathrm{f} \mid u)\right)}  \overbrace{-\mathbb{E}_{q(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f} \mid y,u)}{q(f^\star,\mathrm{f} \mid u)}\right]}^{KL\left(q(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right)}
+\mathcal{L}(m,S) = \mathcal{L}(\alpha,S) = \overbrace{\tfrac{-1}{2\sigma^2}\|y-K_{\mathrm{f}u}\alpha\|^2 - \tfrac{1}{2}\alpha^t K_{uu} \alpha}^{J(\alpha)} + \mathrm{const.}
 $$
 
-If we use here the Titsias approximation $q(f^\star,\mathrm{f} \mid u) = p(f^\star,\mathrm{f} \mid u)$. We find that:
+Therefore the derivative of $\mathcal{L}(\alpha,S)$ w.r.t. $\alpha$ is:
 
-1. The first term is our beloved $\mathcal{L}_1$ integral:
 $$
-\mathcal{L}\left(p(f^\star,\mathrm{f} \mid u)\right) = \mathbb{E}_{p(\mathrm{f} \mid u)}\left[\log p(y \mid \mathrm{f})\right]= \mathcal{L}_1
-$$
-1. The second term is just the divergence between the prior and and the posterior:
-$$
-KL\left(p(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right)
+\nabla_{\alpha} \mathcal{L}(\alpha,S) = \tfrac{1}{\sigma^2} K_{u\mathrm{f}}\left(y - K_{\mathrm{f}u}\alpha\right)-K_{uu}\alpha
 $$
 
-We can apply this decomposition to $\log p(y)$:
+Seting $\nabla_\alpha \mathcal{L}(\alpha,S) = 0$ leads to the optimal $\alpha$ that we will call $\alpha^\star$:
+
 $$
-\begin{aligned}
-\log p(y) &= \log \mathbb{E}_{p(u)}\left[p(y \mid u)\right] \\
-&= \log \mathbb{E}_{p(u)}\left[\exp\left(\mathcal{L}_1 + KL\left(p(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right)\right)\right] \\
-&= \log \mathbb{E}_{p(u)}\left[\exp\left(\mathcal{L}_1\right)\exp\left(KL\left(p(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right)\right)\right] \\
-\end{aligned}
+\alpha^\star =  \left(K_{u\mathrm{f}}K_{\mathrm{f}u} + \sigma^2 K_{uu}\right)^{-1}K_{u\mathrm{f}}y
 $$
 
-We can also apply this decomposition in the variational inference decomposition of $\log p(y)$:
+But... wait.. This equation is our beloved Nyström solution that we talk about in [this blog post]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN){:target="_blank"}. (We just have to apply matrix inversion lemma to the latest equation). In addition, if we plug this $\alpha^\star$ in the approximate prediction distribution equation $\text{(APD)}$ of above we see that the predictive mean of the approximate distribution is $K_{\star u}\alpha^\star$!
+
+Now we want to see what happen if we plug the optimal $\alpha^\star$ the bound: $\mathcal{L}(\alpha^\star,S)$. Since the bound only dependence on $\alpha$ is on $J(\alpha)$ we just have to compute $J(\alpha^\star)$. To compute $J(\alpha^\star)$ is a repetitive boring task, fortunately if you trust me the final equation we get is:
+
 $$
-\begin{aligned}
-\log p(y) &= \mathbb{E}_{p(u)}\left[\log p(y\mid u)\right] -  \mathbb{E}_{p(u)}\left[\log \frac{p(u \mid y)}{p(u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1 + KL\left(p(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right) \right] -  \mathbb{E}_{p(u)}\left[\log \frac{p(u \mid y)}{p(u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] + \mathbb{E}_{p(u)}\left[KL\left(p(f^\star,\mathrm{f} \mid u) \mid \mid p(f^\star,\mathrm{f} \mid u,y)\right) \right] -  \mathbb{E}_{p(u)}\left[\log \frac{p(u \mid y)}{p(u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f} \mid y,u)}{p(f^\star,\mathrm{f} \mid u)}\right]\right] - \mathbb{E}_{p(u)}\left[\log \frac{p(u \mid y)}{p(u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f} \mid y,u)}{p(f^\star,\mathrm{f} \mid u)}\right] +\log \frac{p(u \mid y)}{p(u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f} \mid y,u)}{p(f^\star,\mathrm{f} \mid u)} +\log \frac{p(u \mid y)}{p(u)}\right]\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f} \mid y,u)}{p(f^\star,\mathrm{f} \mid u)} \frac{p(u \mid y)}{p(u)}\right]\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f},u \mid y)}{p(f^\star,\mathrm{f} \mid u)\cancel{p(u \mid y)}} \frac{\cancel{p(u \mid y)}}{p(u)}\right]\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(u)}\left[\mathbb{E}_{p(f^\star,\mathrm{f} \mid u)}\left[\log \frac{p(f^\star,\mathrm{f},u \mid y)}{p(f^\star,\mathrm{f}, u)}\right]\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -\mathbb{E}_{p(f^\star,\mathrm{f}, u)}\left[\log \frac{p(f^\star,\mathrm{f},u \mid y)}{p(f^\star,\mathrm{f}, u)}\right] \\
-&= \mathbb{E}_{p(u)}\left[\mathcal{L}_1\right] -KL\left(p(f^\star,\mathrm{f}, u) \mid\mid p(f^\star,\mathrm{f},u \mid y)\right)
-\end{aligned}
+J(\alpha^\star) = \tfrac{-1}{2} y^t \left(Q_{\mathrm{f}\mathrm{f}} + \sigma^2 I\right)^{-1} y
 $$
 
-Things left: compute $\mathbb{E}_{p(u)}\left[\mathcal{L}_1\right]$. Get back the idea of substituting in the first expresion $q(u)=\mathcal{N}(m,S)$.
-
-
-OLD STUFF:
-$$
-\begin{aligned}
-\mathcal{L}(q) &= \mathbb{E}_{q(f)}\left[\log \prod_{i=1}^N p(y_i\mid \mathrm{f}_i)\right] + KL\left[q(u)\mid\mid p(u)\right] \quad \text{(step 6)} \\
-&= \mathbb{E}_{q(\mathrm{f})}\left[\sum_{i=1}^N \log  p(y_i\mid \mathrm{f}_i)\right] + KL\left[q(u)\mid\mid p(u)\right]\\)
-&= \sum_{i=1}^N \mathbb{E}_{q(\mathrm{f})}\left[\log  p(y_i\mid \mathrm{f}_i)\right] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N \mathbb{E}_{q(\mathrm{f})}\left[\frac{-1}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(y_i- f_i)^2\right] + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N \int \left[\frac{-1}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(y_i- f_i)^2\right]q(\mathrm{f}_i)\overbrace{\int q(f_1,..,f_{i-1},f_{i+1},..,f_N \mid \mathrm{f}_i) d(\mathrm{f}_1,..,\mathrm{f}_{i-1},\mathrm{f}_{i+1},..,\mathrm{f}_N)}^{=1}d\mathrm{f}_i + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \sum_{i=1}^N \mathbb{E}_{q(\mathrm{f}_i)}\left[\frac{-1}{2}\log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(y_i- \mathrm{f}_i)^2\right]  + KL\left[q(u)\mid\mid p(u)\right]\\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(\mathrm{f}_i)}\left[ - \frac{1}{2\sigma^2}(y_i- \mathrm{f}_i)^2\right]  + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(u)}\left[\mathbb{E}_{q(\mathrm{f}_i \mid u)}\left[ - \frac{1}{2\sigma^2}(y_i- \mathrm{f}_i)^2\right]\right]  + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(u)}\left[\mathbb{E}_{p(\mathrm{f}_i \mid u)}\left[ - \frac{1}{2\sigma^2}(y_i- \mathrm{f}_i)^2\right]\right]  + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(u)}\left[\mathbb{E}_{p(\mathrm{f}_i \mid u)}\left[ - \frac{1}{2\sigma^2}(y_i^2+ \mathrm{f}_i^2 -2y_i \mathrm{f}_i)\right]\right]  + KL\left[q(u)\mid\mid p(u)\right] \\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(u)}\left[- \frac{1}{2\sigma^2}\left(y_i^2+ \mathbb{E}_{p(\mathrm{f}_i \mid u)}[\mathrm{f}_i^2] -2y_i \mathbb{E}_{p(\mathrm{f}_i \mid u)}[\mathrm{f}_i]\right)\right]  + KL\left[q(u)\mid\mid p(u)\right] \quad \text{Using }p(\mathrm{f}_i \mid u ) = \mathcal{N}(K_{\mathrm{f}_iu}K_{uu}^{-1}u, K_{\mathrm{f}_i\mathrm{f}_i} - Q_{\mathrm{f}_i\mathrm{f}_i}) \\
-&= \frac{-N}{2}\log(2\pi\sigma^2)+\sum_{i=1}^N \mathbb{E}_{q(u)}\left[- \frac{1}{2\sigma^2}\left(y_i^2+ K_{\mathrm{f}_i\mathrm{f}_i} - Q_{\mathrm{f}_i\mathrm{f}_i} + u^tK_{uu}^{-1}K_{u\mathrm{f}_i}K_{\mathrm{f}_iu}K_{uu}^{-1}u -2y_i K_{\mathrm{f}_iu}K_{uu}^{-1}u\right)\right]  + KL\left[q(u)\mid\mid p(u)\right]   \\
-\end{aligned}
-$$-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
