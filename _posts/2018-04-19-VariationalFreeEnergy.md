@@ -93,7 +93,7 @@ $$
 \end{aligned}
 $$
 
-Since this is a $\mathcal{GP}$ $p(f) = \mathcal{N}(f \mid 0,K_{ff})$ so $p(f^\star, \mathrm{f} \mid u)$ can be easily computed using Gaussian identities ([wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions)){:target="_blank"}. In this case we see that $p(f^\star, \mathrm{f} \mid u)$ is the standard posterior of the $\mathcal{GP}$ with noise free variables $u$:
+Since this is a $\mathcal{GP}$ $p(f) = \mathcal{N}(f \mid 0,K_{ff})$ so $p(f^\star, \mathrm{f} \mid u)$ can be easily computed using Gaussian identities ([wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions){:target="_blank"}). In this case we see that $p(f^\star, \mathrm{f} \mid u)$ is the standard posterior of the $\mathcal{GP}$ with noise free variables $u$:
 
 $$
 \begin{aligned}
@@ -116,7 +116,7 @@ $$
 
 Notice that:
 
-* We could also rewrite the true posterior $p(f\mid y)$ using the subset $u$ of $f$:
+* We could also rewrite the true joint posterior $p(f\mid y)$ using the subset $u$ of $f$:
 
 $$
 p(f\mid y) = p(f^\star,\mathrm{f},u \mid y) = p(f^\star, \mathrm{f} \mid u,y)p(u \mid y)
@@ -199,7 +199,7 @@ $$
 If we now substitute the value of the mean and covariance of $p(\mathrm{f} \mid u)$ (This is the marginal distribution of equation $\text{(CD)}$). We have:
 
 $$
-\mathcal{L}_1 =\log \left(\mathcal{N}\left(y \mid K_{fu}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right)
+\mathcal{L}_1 =\log \left(\mathcal{N}\left(y \mid K_{\mathrm{f}u}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right)
 
 $$
 
@@ -209,7 +209,7 @@ $$
 
 $$
 \begin{aligned}
-\mathcal{L}_1 &=\log \left(\mathcal{N}\left(y \mid K_{fu}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right) \\
+\mathcal{L}_1 &=\log \left(\mathcal{N}\left(y \mid K_{\mathrm{f}u}K_{uu}^{-1}u, \sigma^2 I\right)\right) - \tfrac{1}{2\sigma^{2}}\left(\mathrm{trace}(K_{\mathrm{f}\mathrm{f}}-Q_{\mathrm{f}\mathrm{f}}) \right) \\
 &= \sum_{i=1}^N \left[\log\mathcal{N}\left(y_i \mid K_{\mathrm{f}_iu}K_{uu}^{-1}u, \sigma^2\right) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] \\
 &= \sum_{i=1}^N \left[-\tfrac{1}{2\sigma^2}(y_i - K_{\mathrm{f}_iu}K_{uu}^{-1}u)^2  -\tfrac{M}{2}\log(2\pi\sigma^2) - \tfrac{1}{2\sigma^{2}}\left(K_{\mathrm{f}_i\mathrm{f}_i}- K_{\mathrm{f}_iu}K_{uu}^{-1}K_{u\mathrm{f}_i}\right)\right] \\
 \end{aligned}
@@ -268,7 +268,7 @@ Some comments about the full $\mathcal{L}(m,S)$ equation:
 Let's do the change of variables $\alpha = K_{uu}^{-1}m$. The $\mathcal{L}(m,S)$ bound only depends on $\alpha$ on two terms:
 
 $$
-\mathcal{L}(m,S) = \mathcal{L}(\alpha,S) = \overbrace{\tfrac{-1}{2\sigma^2}\|y-K_{\mathrm{f}u}\alpha\|^2 - \tfrac{1}{2}\alpha^t K_{uu} \alpha}^{J(\alpha)} + \mathrm{const.}
+\mathcal{L}(m,S) = \mathcal{L}(\alpha,S) = \overbrace{\tfrac{-1}{2\sigma^2}\|y-K_{\mathrm{f}u}\alpha\|^2 - \tfrac{1}{2}\alpha^t K_{uu} \alpha}^{J(\alpha)} + J(S) + \mathrm{const.}
 $$
 
 Therefore the derivative of $\mathcal{L}(\alpha,S)$ w.r.t. $\alpha$ is:
@@ -283,12 +283,58 @@ $$
 \alpha^\star =  \left(K_{u\mathrm{f}}K_{\mathrm{f}u} + \sigma^2 K_{uu}\right)^{-1}K_{u\mathrm{f}}y
 $$
 
-But... wait.. This equation is our beloved Nyström solution that we talk about in [this blog post]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN){:target="_blank"}. (We just have to apply matrix inversion lemma to the latest equation). In addition, if we plug this $\alpha^\star$ in the approximate prediction distribution equation $\text{(APD)}$ of above we see that the predictive mean of the approximate distribution is $K_{\star u}\alpha^\star$!
+But... wait.. This equation is our beloved Nyström solution that we talk about in [this blog post]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN){:target="_blank"}. (We just have to apply matrix inversion lemma to the latest equation). In addition, if we plug this $\alpha^\star$ in the approximate prediction distribution equation $\text{(APD)}$ of above we see that the mean of the approximate predictive distribution is $K_{\star u}\alpha^\star$!
 
-Now we want to see what happen if we plug the optimal $\alpha^\star$ the bound: $\mathcal{L}(\alpha^\star,S)$. Since the bound only dependence on $\alpha$ is on $J(\alpha)$ we just have to compute $J(\alpha^\star)$. To compute $J(\alpha^\star)$ is a repetitive boring task, fortunately if you trust me the final equation we get is:
+Now we want to see what happen if we plug the optimal $\alpha^\star$ the bound: $\mathcal{L}(\alpha^\star,S)$. Since the bound only dependence on $\alpha$ is on $J(\alpha)$ we just have to compute $J(\alpha^\star)$. If you want to see the full derivation of $J(\alpha)$ <a onclick="$('#jalfa').slideToggle();"> Click here </a>
+
+<div id="jalfa" class="input_hidden" markdown="1">
+Let's split $J(\alpha)$ in the following two terms:
+
+$$
+J(\alpha^\star) = \tfrac{-1}{2\sigma^2}\overbrace{\|y-K_{\mathrm{f}u}\alpha\|^2}^{\operatorname{Err}(\alpha)} - \tfrac{1}{2}\overbrace{\alpha^t K_{uu} \alpha}^{\operatorname{Reg}(\alpha)}
+$$
+
+Then first the error:
+
+$$
+\begin{aligned}
+\operatorname{Err}(\alpha^\star)  &= \|K_{\mathrm{f}u} \alpha^\star - y \|^2 \\
+ &= \Big\|\overbrace{K_{\mathrm{f}u}K_{uu}^{-1}K_{u\mathrm{f}}}^{Q_{\mathrm{ff}}} \Big(Q_{\mathrm{ff}} + \sigma^2  I\Big)^{-1}y - y \Big\|^2  \\
+ &=\Big\|\Big(Q_{\mathrm{ff}}+\sigma^2I -\sigma^2I\Big) \Big(Q_{\mathrm{ff}} + \sigma^2  I\Big)^{-1}y - y \Big\|^2  \text{ Trick add and substract }\sigma^2 I\\
+  &=\Big\|\cancel{\Big(Q_{\mathrm{ff}}+\sigma^2I\Big)\Big(Q_{\mathrm{ff}} + \sigma^2  I\Big)^{-1}y}  -\sigma^2I \Big(Q_{\mathrm{ff}} + \sigma^2  I\Big)^{-1}y - \cancel{y} \Big\|^2  \text{ Trick add and substract }\sigma^2 I\\
+ &= \sigma^4\left\| \left(Q_{\mathrm{ff}} + \sigma^2  I\right)^{-1}y  \right\|^2 \\
+\end{aligned}
+$$
+
+Then the regularizer:
+
+$$
+\begin{aligned}
+\operatorname{Reg}(\alpha^\star) &= \alpha^{\star t} K_{uu}\alpha^\star \\
+&=  y^t\left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1}K_{\mathrm{f}u}K_{uu}^{-1}\cancel{K_{uu}}\cancel{K_{uu}^{-1}}K_{u\mathrm{f}}\left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1} y \\
+&=  y^t\left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1}\left(Q_{\mathrm{ff}}+\sigma^2I-\sigma^2I\right)\left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1} y \\
+&=  y^t\cancel{\left(Q_{\mathrm{ff}} + \sigma^2I\right)^{-1} \left(Q_{\mathrm{ff}}+\sigma^2I\right)} \left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1} y - y^t\left(Q_{\mathrm{ff}} + \sigma^2I\right)^{-1}(\sigma^2I)\left(Q_{\mathrm{ff}} + \sigma^2 I\right)^{-1} y \\
+&= y^t(Q_{\mathrm{ff}}+\sigma^2 I)^{-1} y -\sigma^2\|(Q_{ff}+\sigma^2I)^{-1}y\|^2
+\end{aligned}
+$$
+
+So summing it up we get:
+
+$$
+\begin{aligned}
+J(\alpha^\star) &= \cancel{\tfrac{-1}{2\sigma^2}\sigma^4\left\| \left(Q_{\mathrm{ff}} + \sigma^2  I\right)^{-1}y  \right\|^2} -\tfrac{1}{2}\left(y^t(Q_{\mathrm{ff}}+\sigma^2 I)^{-1} y -\cancel{\sigma^2\|(Q_{ff}+\sigma^2I)^{-1}y\|^2}\right)\\
+&=-\tfrac{1}{2}y^t(Q_{\mathrm{ff}}+\sigma^2 I)^{-1} y
+\end{aligned}
+$$
+
+<a onclick="$('#jalfa').slideToggle();"> Collapse </a>
+</div>
+
+The final equation we get is:
 
 $$
 J(\alpha^\star) = \tfrac{-1}{2} y^t \left(Q_{\mathrm{f}\mathrm{f}} + \sigma^2 I\right)^{-1} y
 $$
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
