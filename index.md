@@ -7,7 +7,7 @@ title: Gonzalo Mateo García
 
 ## Gonzalo Mateo García
 
-<img id="foto" src="imgs/FotoCV_recortada.png" height="120" width="90"/>
+<img id="foto" src="imgs/yo_sin_background_cv.png" height="120" width="90"/>
 
 ### Current position: PhD student
 
