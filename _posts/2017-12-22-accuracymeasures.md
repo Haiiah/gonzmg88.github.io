@@ -29,7 +29,6 @@ The confusion matrix $(i,j)$-element is the number of samples known to be $i$ th
 | | 0 | TN | FP | $N$ |
 | | 1 | FN | TP | $P$ |
 |Total |  | $\hat{N}$  | $\hat{P}$ | total |
-{:style="text-align: center;"}
 
 ### Basic values
 
@@ -63,7 +62,7 @@ NR = \frac{N}{\text{total}} = \frac{N}{P+N} = 1-PR
 
 $$
 
-* **TPR** - true positive rate. Also called **recall**.
+* **TPR** - true positive rate. Also called **recall** or **sensitivity**.
 
 $$
 TPR = \frac{TP}{P} = \frac{TP}{TP + FN}
@@ -81,7 +80,7 @@ $$
 FNR = \frac{FN}{P} = \frac{FN}{TP + FN} = 1 - TPR
 $$
 
-* __TNR__ - true negative rate.
+* __TNR__ - true negative rate. Also called **specificity**
 
 $$
 TNR = \frac{TN}{N} = \frac{TN}{TN + FP} = 1 - FPR
@@ -93,11 +92,17 @@ $$
 \text{Precision} = \frac{TP}{\hat{P}} = \frac{TP}{FP + TP}
 $$
 
-* **Accuracy**: correct predicted
+* **Accuracy**: correct predicted (it is the mean of __TPR__ and __TNR__ if the set is balanced which means __PR__=0.5 )
 
 $$
 \begin{aligned}
 \text{Accuracy} &= \frac{TP+TN}{total} = \frac{TP+TN}{TN+FP+FN+TP} \\
-&= \frac{TP}{P}\frac{P}{total}+\frac{TN}{N}\frac{N}{total} = TPR \cdot PR + TNR \cdot NR = TPR \cdot PR + (1-FPR) \cdot (1-PR)
+&= \frac{TP}{P}\frac{P}{total}+\frac{TN}{N}\frac{N}{total} = TPR \cdot PR + TNR \cdot (1-PR) = TPR \cdot PR + (1-FPR) \cdot (1-PR)
 \end{aligned}
+$$
+
+* $F_1$ __score__. Harmonic mean of precision and recall.
+
+$$
+F_1 = \frac{2}{\tfrac{1}{\text{recall}} + \tfrac{1}{\text{precision}}}
 $$
