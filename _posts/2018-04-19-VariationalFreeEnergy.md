@@ -29,12 +29,11 @@ $$
 \begin{aligned}
 \require{cancel}
 p(f^\star,\mathrm{f} \mid y) &= p(f^\star \mid \mathrm{f},\cancel{y})p(\mathrm{f} \mid y) \\
- &= \mathcal{N}\left(f^\star \mid K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}\mathrm{f}, K_{\star\star} - K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}K_{\mathrm{f}\star}\right)\frac{p(y \mid \mathrm{f}) p(\mathrm{f})}{p(y)} \\
- &= \mathcal{N}\left(f^\star \mid K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}\mathrm{f}, K_{\star\star} - K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}K_{\mathrm{f}\star}\right)\frac{\mathcal{N}(y \mid \mathrm{f},\sigma^2 I) \mathcal{N}(\mathrm{f} \mid 0, K_{\mathrm{f}\mathrm{f}})}{\mathcal{N}(y \mid 0, K_{\mathrm{f}\mathrm{f}}+\sigma^2 I)}
+ &= \mathcal{N}\left(f^\star \mid K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}\mathrm{f}, K_{\star\star} - K_{\star \mathrm{f}}K_{\mathrm{f}\mathrm{f}}^{-1}K_{\mathrm{f}\star}\right)\frac{p(y \mid \mathrm{f}) p(\mathrm{f})}{p(y)}
 \end{aligned}
 $$
 
-If we integrate out the noise free observations $\mathrm{f}$ of the above equation we retrieve the **noise free predictive posterior $p(f^\star \mid y)$**.
+If we integrate out the noise free observations $\mathrm{f}$ of the above equation we retrieve the **posterior $p(f^\star \mid y)$**.
 
 When we do this we should get back the well known formula:
 
@@ -46,7 +45,7 @@ p(f^\star \mid y ) &= \int p(f^\star , \mathrm{f} \mid y) d\mathrm{f} \\
 \end{aligned}
 $$
 
-* _If you manage to do this integral without driving you crazy let me know_
+* _If you manage to do this integral without getting crazy let me know_
 * _The only difference between this noise free predictive posterior and the "standard" predictive posterior ($$p(y^\star \mid y) $$ is that we have to add $\sigma^2 I $ to the variance of the later)_. <a onclick="$('#predictive_posterior').slideToggle();">[Click here to see why]</a>
 
 <div id="predictive_posterior" class="input_hidden" markdown="1">
@@ -58,7 +57,7 @@ p(y^\star \mid y) &= \int p(y^\star \mid f^\star, \cancel{y}) p(f^\star \mid y) 
 \end{aligned}
 $$
 
-This integral of two Gaussians can be done using Bishop's book: Machine Learning and Pattern Recognition. in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. This integral also came up in the [previous blog post on Nyström method]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN#fully-bayesian-approach){:target="_blank"} and we showed there an alternative way to compute it. Anyway, the result is as expected the predictive distribution of the $\mathcal{GP}$:
+This integral of two Gaussians can be done using Bishop's book: Machine Learning and Pattern Recognition. in this case we will have to move to *section 2.3.3. Bayes' theorem for Gaussian variables*. This integral also came up in the [previous blog post on Nyström method]({{site.baseurl}}/blog/2017/10/24/NystromRBFNN#fully-bayesian-approach){:target="_blank"} and we showed there an alternative way to compute it. Anyway, the result is the predictive distribution of the $\mathcal{GP}$:
 
 $$
 \begin{aligned}
