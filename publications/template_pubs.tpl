@@ -47,6 +47,12 @@ title: Publications
   {% if "url" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['url']}}" target="_blank">URL</a>]
   {% endif %}
+  {% if "code" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['code']}}" target="_blank">Code</a>]
+  {% endif %}
+  {% if "visualization" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['visualization']}}" target="_blank">Visualization</a>]
+  {% endif %}
   {% if "doi" in extra[bibentry_key] %}
         [<a href="http://doi.org/{{extra[bibentry_key]['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
@@ -79,6 +85,9 @@ title: Publications
   {% endif %}
   {% if "poster" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['poster']}}" target="_blank">Poster</a>]
+  {% endif %}
+  {% if "code" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['code']}}" target="_blank">Code</a>]
   {% endif %}
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{{extra[bibentry_key]["bibtex"]}}</div>
