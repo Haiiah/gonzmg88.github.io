@@ -86,6 +86,9 @@ title: Publications
   {% if "poster" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['poster']}}" target="_blank">Poster</a>]
   {% endif %}
+  {% if "pdf" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['pdf']}}" target="_blank">PDF</a>]
+  {% endif %}
   {% if "code" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['code']}}" target="_blank">Code</a>]
   {% endif %}
@@ -103,11 +106,7 @@ title: Publications
 		/**/
 		function showFollow(event,clase) {
 		    var content = $(event).next(clase);
-		    content.slideToggle(500,function(){
-		        //var caca = content.querySelectorAll('.imagenes_links');
-		        //console.log(caca);
-		        //wheelzoom(caca);
-		    });
+		    content.slideToggle(500,function(){});
 		};
 
 </script>
