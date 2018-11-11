@@ -1,5 +1,9 @@
 name: Gonzalo Mateo García
 markdown: kramdown
+highlighter: rouge
 permalink: blog/:year/:month/:day/:title
 # baseurl: /gonmagar
 exclude: [publications/Untitled.ipynb, Gemfile, Gemfile.lock, publications/index_2.html, publications/template_pubs.tpl, LICENSE, blog/notebooks/]
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
