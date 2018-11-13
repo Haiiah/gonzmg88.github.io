@@ -10,7 +10,13 @@ author: Gonzalo Mateo-García
 * TOC
 {:toc}
 
+<style>
+.small{
+  font-size: small;
+}
+</style>
 
+[(See this post in notebook format)](https://github.com/gonzmg88/gonzmg88.github.io/blob/master/blog/notebooks/rasterio_conversions.ipynb){: .small }
 This blog post is a tutorial/show case of the python package `rasterio`. In particular I have focused on select specific parts of a raster based on a list of coordinates, squared shapes (bounding boxes) or polygons. We will deal with the different conversions between different objects `rasterio` uses for this and how to go from one to another. Afterwards I will show you how to show this shapes in an open street maps map using `folium` and how to reproject the a region within the raster to a different coordinate system.
 
 I will use a Sentinel 2 Level 2 image saved as 4 band `geotiff` for the examples. This image is projected in a regular grid in the *UTM* coordinate reference system. [Here](https://geohackweek.github.io/raster/04-workingwithrasters/) there is a similar example using Landsat 8 images which can be downloaded directly with `rasterio`.
@@ -24,7 +30,7 @@ There is a pletora of objects that `rasterio` defines to deal with change of coo
 * **`Window`**. A `Window` is a square region of an image given in *(row,col)* coordinates (image coordinates).
 * **`BoundingBox`**. A `BoundingBox` is a square region of an image given in coordinates (in coordinates from an specific coordinate reference system (`CRS`))
 * **`list` of indexes _(row,col)_**. `list` of pixels indexes within an image.
-* **`list` of coordinates***. `list` of coordinates *(x,y)* in a given coordinate reference system (`CRS`).
+* **`list` of coordinates***. `list` of coordinates _(x,y)_ in a given coordinate reference system (`CRS`).
 * **`shapely.Polygon` and _`GeoJSON` like `dictionary`_**.  Polygons are list of coordinates that form a closed polygon in the plane. `shapely` is a python module that allow to easily compute intersections and unions of polygons and other type of shapes. *`GeoJSON` like `dictionary`* is a format to encode vector data widely used in the Internet. I is also used by `rasterio` to deal with polygon objects. We will see that in its most basic form is a simple python `dictiorary` with two fields: `type` and `coordinates`.
 
 
