@@ -293,7 +293,7 @@ Here we cannot go further since we have the non-linear activation $\phi$: $x^L(X
 
 ## Bonus track: $\mathcal{GP}$ Regression (*standard* Bayesian approach)
 
-In the case of $\mathcal{GP}$s, since we do not have an explicit model for $f$ we can *just* compute the posterior on the training points $X$. This would be the closest thing to the **posterior**. We can derive this using Bishop 2.3.3.
+In the case of $\mathcal{GP}$s, the closest thing to the **posterior** would be to compute the posterior on the training points $X$. We can derive this using Bishop 2.3.3.
 
 $$
 \begin{aligned}
@@ -302,7 +302,7 @@ p(f(X) \mid X,y) &\sim \mathcal{N}\Big(\tfrac{1}{\sigma_\epsilon^2} \left(K^{-1}
 \end{aligned}
 $$
 
-Since we do not have a explicit model for $f$ to compute the **predictive posterior** is also not that easy, we have to do:
+To compute the **predictive posterior** is also not that easy because we do not have an explicit model for $f$. We have to do:
 
 $$
 \begin{aligned}
@@ -312,7 +312,7 @@ p(y^\star \mid x^\star,X,y) &= \int p(y^\star \mid f(x^\star), \cancel{X, y,x^\s
 \end{aligned}
 $$
 
-Now in the inner integral, we can compute $p(f(x^\star)\mid f(X),x^\star,X)$ using the [wikipedia formula](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions) on the joint prior:
+In the inner integral, we can compute $p(f(x^\star)\mid f(X),x^\star,X)$ using the [wikipedia formula](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions) on the joint prior:
 
 $$
 p\left(\begin{pmatrix}f(X) \\ f(x^\star) \end{pmatrix}\mid \begin{pmatrix}X \\ x^{\star\top}\end{pmatrix}\right)\sim \mathcal{N}\left( 0, \begin{pmatrix}K_{XX} & K_{X,x^\star} \\ K_{x^\star,X} & k(x^\star,x^\star)\end{pmatrix}\right)
