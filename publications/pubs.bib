@@ -204,3 +204,41 @@ In this work, we modified the Kernel Ridge Regression (KRR) training procedure t
 	month = sep,
 	year = {2012}
 }
+
+@article{wolanin_estimating_2019,
+	title = {Estimating {Crop} {Primary} {Productivity} with {Sentinel}-2 and {Landsat} 8 using {Machine} {Learning} {Methods} {Trained} with {Radiative} {Transfer} {Simulations}},
+	volume = {XX},
+	abstract = {Satellite remote sensing has been widely used in the last decades for agricultural applications, both for assessing vegetation condition and for subsequent yield prediction. 
+Existing remote sensing-based methods to estimate gross primary productivity (GPP), which is an important variable to indicate crop photosynthetic function and stress, typically rely on empirical or semi-empirical approaches, which tend to over-simplify photosynthetic mechanisms.
+In this work, we take advantage of all parallel developments in mechanistic photosynthesis modeling and satellite data availability for an advanced monitoring of crop productivity. In particular, we combine process-based modeling with the soil-canopy energy balance radiative transfer model (SCOPE) with Sentinel-2 and Landsat-8 optical remote sensing data and machine learning methods in order to estimate crop GPP. With this approach, we by-pass the need for an intermediate step to retrieve the set of vegetation biophysical parameters needed to accurately model photosynthesis, while still accounting for the complex processes of the original physically-based model. Several implementations of the machine learning models are tested and validated using simulated and flux tower-based GPP data. Our final neural network model is able to estimate GPP at the tested flux tower sites with \$r{\textasciicircum}2\$ of 0.92 and RMSE of {\textbackslash}SI\{1.38\}\{gC.d{\textasciicircum}\{-1\}.m{\textasciicircum}\{-2\}\}, which outperforms empirical models based on vegetation indices. The first test of applicability of this model to Landsat 8 data showed good results (\$r{\textasciicircum}2\$ of 0.82 and RMSE of {\textbackslash}SI\{1.97\}\{gC.d{\textasciicircum}\{-1\}.m{\textasciicircum}\{-2\}\}), which suggests that our approach can be further applied to other sensors. Modeling and testing is restricted to C3 crops in this study, but can be extended to C4 crops by producing a new training dataset with SCOPE that accounts for the different photosynthetic pathways. Our model successfully estimates GPP across a variety of C3 crop types and environmental conditions even though it does not use any local information from the corresponding sites. This highlights its potential to map crop productivity from new satellite sensors at a global scale with the help of current Earth observation cloud computing platforms.},
+	journal = {Remote Sensing of Environment},
+	author = {Wolanin, Aleksandra and Camps-Valls, Gustau and Gómez-Chova, Luis and Mateo-García, Gonzalo and van der Tol, Christiaan and Zhang, Yongguang and Guanter, Luis},
+	month = mar,
+	year = {2019},
+	pages = {???--???},
+}
+
+@inproceedings{mateo-garcia_domain_2019,
+	title = {Domain {Adaptation} of {Landsat}-8 and {Proba}-{V} data using {Generative} {Adversarial} {Networks} for {Cloud} {Detection}},
+	abstract = {Training machine learning algorithms for new satellites requires collecting new data. This is a critical drawback for most remote sensing applications and specially for cloud detection. 
+A sensible strategy to mitigate this problem is to exploit available data from a similar sensor, which involves transforming this data to resemble the new sensor data. However, even taking into account the technical characteristics of both sensors to transform the images, statistical differences between data distributions still remain. This results in a poor performance of the methods trained on one sensor and applied to the new one. 
+In this this work, we propose to use the generative adversarial networks (GANs) framework to adapt the data from the new satellite. In particular, we use Landsat-8 images, with the corresponding ground truth, to perform cloud detection in Proba-V. Results show that the GANs adaptation significantly improves the detection accuracy.},
+	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	author = {Mateo-García, G. and Laparra, V. and Gómez-Chova, L.},
+	month = jul,
+	year = {2019},
+}
+
+@inproceedings{mateo-garcia_convolutional_2019,
+	title = {Convolutional {Long} {Short}-{Term} {Memory} {Network} for {Multitemporal} {Cloud} {Detection} over {Landmarks}},
+	abstract = {In this work, we propose to exploit both the temporal and spatial correlations in Earth observation satellite images through deep learning methods. 
+In particular, the combination of a U-Net convolutional neural network together with a convolutional long short-term memory (LSTM) layer is proposed. 
+This model is applied for cloud detection on MSG/SEVIRI image time series over selected landmarks. 
+Implementation details are provided and our proposal is compared against a standard SVM and a U-Net without the convolutional LSTM layer but including temporal information too. 
+Experimental results show that this combination of networks exploits both the spatial and temporal dependence and provides state-of-the-art classification results on this dataset.},
+	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	author = {Mateo-García, G. and Adsuara, J.E. and Pérez-Suay, A. and Gómez-Chova, L.},
+	month = jul,
+	year = {2019},
+}
