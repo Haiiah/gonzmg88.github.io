@@ -39,34 +39,37 @@ title: Publications
 
 
 
-
-
 <div class="entry">
-  <div><span style="font-style: italic;">Mar 2019</span>,
-    <span style="font-weight: bold;">Estimating Crop Primary Productivity with Sentinel-2 and Landsat 8 using Machine Learning Methods Trained with Radiative Transfer Simulations</span>
+  <div><span style="font-style: italic;">Dec 2019</span>,
+    <span style="font-weight: bold;">Transferring deep learning models for cloud detection between Landsat-8 and Proba-V</span>
   </div>
-  <div class="author">Aleksandra Wolanin, Gustau Camps-Valls, Luis Gómez-Chova, <u>Gonzalo Mateo-García</u>, Christiaan vanderTol, Yongguang Zhang and Luis Guanter</div>
-  <div class="journal">Remote Sensing of Environment</div>
+  <div class="author"><u>Gonzalo Mateo-García</u>, Valero Laparra, Dan López-Puigdollers and Luis Gómez-Chova</div>
+  <div class="journal">ISPRS Journal of Photogrammetry and Remote Sensing (In Press)</div>
   <div class="blinks">
   
   
   
   
+        [<a href="https://www.dropbox.com/s/z1pz9mxb6i18ebk/Transfer_ISPRS_v3.pdf?raw=1" target="_blank">PDF</a>]
+  
+  
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
-  <div class="bibtex">{% raw %} @article{wolanin_estimating_2019,
-	title = {Estimating {Crop} {Primary} {Productivity} with {Sentinel}-2 and {Landsat} 8 using {Machine} {Learning} {Methods} {Trained} with {Radiative} {Transfer} {Simulations}},
-	volume = {XX},
-Existing remote sensing-based methods to estimate gross primary productivity (GPP), which is an important variable to indicate crop photosynthetic function and stress, typically rely on empirical or semi-empirical approaches, which tend to over-simplify photosynthetic mechanisms.
-In this work, we take advantage of all parallel developments in mechanistic photosynthesis modeling and satellite data availability for an advanced monitoring of crop productivity. In particular, we combine process-based modeling with the soil-canopy energy balance radiative transfer model (SCOPE) with Sentinel-2 and Landsat-8 optical remote sensing data and machine learning methods in order to estimate crop GPP. With this approach, we by-pass the need for an intermediate step to retrieve the set of vegetation biophysical parameters needed to accurately model photosynthesis, while still accounting for the complex processes of the original physically-based model. Several implementations of the machine learning models are tested and validated using simulated and flux tower-based GPP data. Our final neural network model is able to estimate GPP at the tested flux tower sites with \$r{\textasciicircum}2\$ of 0.92 and RMSE of {\textbackslash}SI\{1.38\}\{gC.d{\textasciicircum}\{-1\}.m{\textasciicircum}\{-2\}\}, which outperforms empirical models based on vegetation indices. The first test of applicability of this model to Landsat 8 data showed good results (\$r{\textasciicircum}2\$ of 0.82 and RMSE of {\textbackslash}SI\{1.97\}\{gC.d{\textasciicircum}\{-1\}.m{\textasciicircum}\{-2\}\}), which suggests that our approach can be further applied to other sensors. Modeling and testing is restricted to C3 crops in this study, but can be extended to C4 crops by producing a new training dataset with SCOPE that accounts for the different photosynthetic pathways. Our model successfully estimates GPP across a variety of C3 crop types and environmental conditions even though it does not use any local information from the corresponding sites. This highlights its potential to map crop productivity from new satellite sensors at a global scale with the help of current Earth observation cloud computing platforms.},
-	journal = {Remote Sensing of Environment},
-	author = {Wolanin, Aleksandra and Camps-Valls, Gustau and Gómez-Chova, Luis and Mateo-García, Gonzalo and van der Tol, Christiaan and Zhang, Yongguang and Guanter, Luis},
-	month = mar,
+  <div class="bibtex">{% raw %} @article{mateo-garcia_transferring_2019,
+	title = {Transferring deep learning models for cloud detection between {Landsat}-8 and {Proba}-{V}},
+	volume = {TBD},
+
+Three types of experiments are conducted to demonstrate that transfer learning can work in both directions: a) from Landsat-8 to Proba-V, where we show that models trained only with Landsat-8 data produce cloud masks 5 points more accurate than the current operational Proba-V cloud masking method,b) from Proba-V to Landsat-8, where models that use only Proba-V data for training have an accuracy similar to the operational FMask in the publicly available Biome dataset (87.79-89.77\% vs 88.48\%), and c) jointly from Proba-V and Landsat-8 to Proba-V, where we demonstrate that using jointly both data sources the accuracy increases 1-10 points when few Proba-V labeled images are available. These results highlight that, taking advantage of existing publicly available cloud masking labeled datasets, we can create accurate deep learning based cloud detection models for new satellites, but without the burden of collecting and labeling a large dataset of images.},
+	urldate = {2019-03-24},
+	journal = {ISPRS Journal of Photogrammetry and Remote Sensing (In Press)},
+	author = {Mateo-García, Gonzalo and Laparra, Valero and López-Puigdollers, Dan and Gómez-Chova, Luis},
+	month = dec,
 	year = {2019},
-	pages = {???--???},
+	keywords = {Cloud detection, Cloud shadow, Convolutional feature fusion, Convolutional neural network, MSCFF, Multi-scale},
+	pages = {TBD},
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">Satellite remote sensing has been widely used in the last decades for agricultural applications, both for assessing vegetation condition and for subsequent yield prediction. Existing remote sensing-based methods to estimate gross primary productivity (GPP), which is an important variable to indicate crop photosynthetic function and stress, typically rely on empirical or semi-empirical approaches, which tend to over-simplify photosynthetic mechanisms. In this work, we take advantage of all parallel developments in mechanistic photosynthesis modeling and satellite data availability for an advanced monitoring of crop productivity. In particular, we combine process-based modeling with the soil-canopy energy balance radiative transfer model (SCOPE) with Sentinel-2 and Landsat-8 optical remote sensing data and machine learning methods in order to estimate crop GPP. With this approach, we by-pass the need for an intermediate step to retrieve the set of vegetation biophysical parameters needed to accurately model photosynthesis, while still accounting for the complex processes of the original physically-based model. Several implementations of the machine learning models are tested and validated using simulated and flux tower-based GPP data. Our final neural network model is able to estimate GPP at the tested flux tower sites with \$r\textasciicircum 2\$ of 0.92 and RMSE of \SI\1.38\\gC.d\textasciicircum \-1\.m\textasciicircum \-2\\, which outperforms empirical models based on vegetation indices. The first test of applicability of this model to Landsat 8 data showed good results (\$r\textasciicircum 2\$ of 0.82 and RMSE of \SI\1.97\\gC.d\textasciicircum \-1\.m\textasciicircum \-2\\), which suggests that our approach can be further applied to other sensors. Modeling and testing is restricted to C3 crops in this study, but can be extended to C4 crops by producing a new training dataset with SCOPE that accounts for the different photosynthetic pathways. Our model successfully estimates GPP across a variety of C3 crop types and environmental conditions even though it does not use any local information from the corresponding sites. This highlights its potential to map crop productivity from new satellite sensors at a global scale with the help of current Earth observation cloud computing platforms.</blockquote>
+  <blockquote class="abstract">Accurate cloud detection algorithms are mandatory to analyze the large streams of data coming from the different optical Earth observation satellites. Deep learning (DL) based cloud detection schemes provide very accurate cloud detection models. However, training these models for a given sensor requires large datasets of manually labeled samples, which are very costly or even impossible to create when the satellite has not been launched yet. In this work, we present an approach that exploits manually labeled datasets from one satellite to train deep learning models for cloud detection that can be applied (or transferred) to other satellites. We take into account the physical properties of the acquired signals and propose a simple transfer learning approach using Landsat-8 and Proba-V sensors, whose images have different but similar spatial and spectral characteristics. Three types of experiments are conducted to demonstrate that transfer learning can work in both directions: a) from Landsat-8 to Proba-V, where we show that models trained only with Landsat-8 data produce cloud masks 5 points more accurate than the current operational Proba-V cloud masking method,b) from Proba-V to Landsat-8, where models that use only Proba-V data for training have an accuracy similar to the operational FMask in the publicly available Biome dataset (87.79-89.77% vs 88.48%), and c) jointly from Proba-V and Landsat-8 to Proba-V, where we demonstrate that using jointly both data sources the accuracy increases 1-10 points when few Proba-V labeled images are available. These results highlight that, taking advantage of existing publicly available cloud masking labeled datasets, we can create accurate deep learning based cloud detection models for new satellites, but without the burden of collecting and labeling a large dataset of images.</blockquote>
 </div>
 </div>
 
@@ -75,6 +78,45 @@ In this work, we take advantage of all parallel developments in mechanistic phot
 
 
 
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">May 2019</span>,
+    <span style="font-weight: bold;">Estimating crop primary productivity with Sentinel-2 and Landsat 8 using machine learning methods trained with radiative transfer simulations</span>
+  </div>
+  <div class="author">Aleksandra Wolanin, Gustau Camps-Valls, Luis Gómez-Chova, <u>Gonzalo Mateo-García</u>, Christiaan vanderTol, Yongguang Zhang and Luis Guanter</div>
+  <div class="journal">Remote Sensing of Environment</div>
+  <div class="blinks">
+  
+        [<a href="http://www.sciencedirect.com/science/article/pii/S0034425719300938" target="_blank">URL</a>]
+  
+  
+  
+  
+  
+        [<a href="http://doi.org/10.1016/j.rse.2019.03.002" target="_blank">DOI</a>]
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @article{wolanin_estimating_2019,
+	title = {Estimating crop primary productivity with {Sentinel}-2 and {Landsat} 8 using machine learning methods trained with radiative transfer simulations},
+	volume = {225},
+	issn = {0034-4257},
+	url = {http://www.sciencedirect.com/science/article/pii/S0034425719300938},
+	doi = {10.1016/j.rse.2019.03.002},
+	urldate = {2019-04-01},
+	journal = {Remote Sensing of Environment},
+	author = {Wolanin, Aleksandra and Camps-Valls, Gustau and Gómez-Chova, Luis and Mateo-García, Gonzalo and van der Tol, Christiaan and Zhang, Yongguang and Guanter, Luis},
+	month = may,
+	year = {2019},
+	keywords = {Landsat 8, C3 crops, Gross primary productivity (GPP), Hybrid approach, Machine learning (ML), Neural networks (NN), Radiative transfer modeling (RTM), Sentinel-2 (S2), Soil-canopy-observation of photosynthesis and the energy balance (SCOPE)},
+	pages = {441--457},
+}
+ {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Satellite remote sensing has been widely used in the last decades for agricultural applications, both for assessing vegetation condition and for subsequent yield prediction. Existing remote sensing-based methods to estimate gross primary productivity (GPP), which is an important variable to indicate crop photosynthetic function and stress, typically rely on empirical or semi-empirical approaches, which tend to over-simplify photosynthetic mechanisms. In this work, we take advantage of all parallel developments in mechanistic photosynthesis modeling and satellite data availability for an advanced monitoring of crop productivity. In particular, we combine process-based modeling with the soil-canopy energy balance radiative transfer model (SCOPE) with Sentinel-2 and Landsat 8 optical remote sensing data and machine learning methods in order to estimate crop GPP. With this approach, we by-pass the need for an intermediate step to retrieve the set of vegetation biophysical parameters needed to accurately model photosynthesis, while still accounting for the complex processes of the original physically-based model. Several implementations of the machine learning models are tested and validated using simulated and flux tower-based GPP data. Our final neural network model is able to estimate GPP at the tested flux tower sites with r2 of 0.92 and RMSE of 1.38 gC d−1 m−2, which outperforms empirical models based on vegetation indices. The first test of applicability of this model to Landsat 8 data showed good results (r2 of 0.82 and RMSE of 1.97 gC d−1 m−2), which suggests that our approach can be further applied to other sensors. Modeling and testing is restricted to C3 crops in this study, but can be extended to C4 crops by producing a new training dataset with SCOPE that accounts for the different photosynthetic pathways. Our model successfully estimates GPP across a variety of C3 crop types and environmental conditions even though it does not use any local information from the corresponding sites. This highlights its potential to map crop productivity from new satellite sensors at a global scale with the help of current Earth observation cloud computing platforms.</blockquote>
+</div>
+</div>
 
 
 
@@ -93,6 +135,7 @@ In this work, we take advantage of all parallel developments in mechanistic phot
   
   
         [<a href="http://isp.uv.es/projects/cdc/viewer_l8_GEE.html" target="_blank">Visualization</a>]
+  
   
   
         [<a href="http://doi.org/10.3390/rs10071079" target="_blank">DOI</a>]
@@ -122,6 +165,12 @@ In this work, we take advantage of all parallel developments in mechanistic phot
 
 
 
+
+
+
+
+
+
 <div class="entry">
   <div><span style="font-style: italic;">May 2018</span>,
     <span style="font-weight: bold;">Machine Learning Regression Approaches for Colored Dissolved Organic Matter (CDOM) Retrieval with S2-MSI and S3-OLCI Simulated Data</span>
@@ -134,6 +183,7 @@ In this work, we take advantage of all parallel developments in mechanistic phot
   
   
         [<a href="https://github.com/IPL-UV/mlregocean" target="_blank">Code</a>]
+  
   
   
   
@@ -171,6 +221,7 @@ In this work, we take advantage of all parallel developments in mechanistic phot
   <div class="author">J. Munoz-Mari, E. Izquierdo-Verdiguier, M. Campos-Taberner, A. Perez-Suay, L. Gomez-Chova, <u>G. Mateo-Garcia</u>, A.B. Ruescas, V. Laparra, J.A. Padron, J. Amoros-Lopez and G. Camps-Valls</div>
   <div class="journal">IEEE Geoscience and Remote Sensing Magazine</div>
   <div class="blinks">
+  
   
   
   
@@ -229,6 +280,7 @@ In this work, we take advantage of all parallel developments in mechanistic phot
         [<a href="http://isp.uv.es/projects/cdc/GEE_cloud_detection_results.html" target="_blank">Visualization</a>]
   
   
+  
         [<a href="http://doi.org/10.1117/1.JRS.11.015005" target="_blank">DOI</a>]
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
@@ -260,27 +312,114 @@ In this work, we take advantage of all parallel developments in mechanistic phot
 
 
 <div class="entry">
-  <div><span style="font-style: italic;">Jul 2019</span>,
-    <span style="font-weight: bold;">Domain Adaptation of Landsat-8 and Proba-V data using Generative Adversarial Networks for Cloud Detection</span>
+  <div><span style="font-style: italic;">Jan 2020</span>,
+    <span style="font-weight: bold;">Chapter 2.13 - Statistical biophysical parameter retrieval and emulation with Gaussian processes</span>
   </div>
-  <div class="author"><u>G. Mateo-García</u>, V. Laparra and L. Gómez-Chova</div>
-  <div class="journal">IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="author">Gustau Camps-Valls, Luis Gómez-Chova, Valero Laparra, Luca Martino, <u>Gonzalo Mateo-García</u>, Jordi Muñoz-Marí, DanielH. Svendsen and Jochem Verrelst</div>
+  <div class="journal">Data Handling in Science and Technology</div>
   <div class="blinks">
   
+        [<a href="http://www.sciencedirect.com/science/article/pii/B9780444639776000158" target="_blank">URL</a>]
+  
+  
+        [<a href="http://doi.org/10.1016/B978-0-444-63977-6.00015-8" target="_blank">DOI</a>]
   
   
   
   
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @incollection{camps-valls_chapter_2020,
+	series = {Hyperspectral {Imaging}},
+	title = {Chapter 2.13 - {Statistical} biophysical parameter retrieval and emulation with {Gaussian} processes},
+	volume = {32},
+	url = {http://www.sciencedirect.com/science/article/pii/B9780444639776000158},
+	urldate = {2019-10-02},
+	booktitle = {Data {Handling} in {Science} and {Technology}},
+	publisher = {Elsevier},
+	author = {Camps-Valls, Gustau and Gómez-Chova, Luis and Laparra, Valero and Martino, Luca and Mateo-García, Gonzalo and Muñoz-Marí, Jordi and Svendsen, Daniel H. and Verrelst, Jochem},
+	editor = {Amigo, José Manuel},
+	month = jan,
+	year = {2020},
+	doi = {10.1016/B978-0-444-63977-6.00015-8},
+	keywords = {Emulation, Gaussian process, Earth observation, Bayesian Inference, Earth Observing System, Fractional vegetation cover, Linear model of coregionalization, Machine Learning, Model Inversion, Parameter Retrieval, Radiative transfer model},
+	pages = {333--368},
+}
+ {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Earth observation from satellites poses challenging problems where machine learning is being widely adopted as a key player. Perhaps the most challenging scenario that we are facing nowadays is to provide accurate estimates of particular variables of interest characterizing the Earth's surface. This chapter introduces some recent advances in statistical bio-geophysical parameter retrieval from satellite data. In particular, we will focus on Gaussian process regression (GPR) that has excelled in parameter estimation as well as in modeling complex radiative transfer processes. GPR is based on solid Bayesian statistics and generally yields efficient and accurate parameter estimates, accompanied by confidence intervals for the estimations. We will first review the standard application of GPs for parameter retrieval and inverse modeling, which is based on regressing the parameter of interest on the concurrent observations. Secondly, noting that very often several parameters need to be estimated simultaneously, we review the field of multioutput GPR and illustrate its application in gap filling of multiple time series of parameters. The third GP modeling that we review here is that of combining real and simulated data. Very often a forward model encoding the well-understood physical relations is available. Inverting the model with GP is a standard practice known as hybrid modeling. In addition, we review a joint GP (JGP) model that combines both in situ measurements and simulated data in a single GP model and allows us to transfer information across spatial, temporal, and land cover modalities such as different crops. In recent years, forced by the data deluge, a plethora of large-scale GP models were introduced. We review recent advances and illustrate their performance for the estimation of surface temperature from infrared sounding data. Finally, we take a reversed pathway and focus on mimicking physical models with GPs. We present an automatic emulation scheme that approximates the forward physical model via interpolation, reducing the number of necessary nodes. Empirical evidence of the performance of these models will be presented through illustrative examples of land and vegetation monitoring.</blockquote>
+</div>
+</div>
+
+
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Dec 2019</span>,
+    <span style="font-weight: bold;">Flood Detection On Low Cost Orbital Hardware</span>
+  </div>
+  <div class="author"><u>Gonzalo Mateo-Garcia</u>, Silviu Oprea, Lewis Smith, Josh Veitch-Michaelis, Guy Schumann, Yarin Gal, AtılımGüneş Baydin and Dietmar Backes</div>
+  <div class="journal">Artificial Intelligence for Humanitarian Assistance and Disaster Response Workshop, 33rd Conference on Neural Information Processing Systems (NeurIPS 2019), Vancouver, Canada</div>
+  <div class="blinks">
+  
+        [<a href="http://arxiv.org/abs/1910.03019" target="_blank">URL</a>]
+  
+  
+  
+  
+        [<a href="https://drive.google.com/open?id=1Xw42E2tUAycX_oX1GfZEEKSyc_n0yzT3" target="_blank">Poster</a>]
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_flood_2019,
+	title = {Flood {Detection} {On} {Low} {Cost} {Orbital} {Hardware}},
+	url = {http://arxiv.org/abs/1910.03019},
+	urldate = {2019-10-23},
+	booktitle = {Artificial {Intelligence} for {Humanitarian} {Assistance} and {Disaster} {Response} {Workshop}, 33rd {Conference} on {Neural} {Information} {Processing} {Systems} ({NeurIPS} 2019), {Vancouver}, {Canada}},
+	author = {Mateo-Garcia, Gonzalo and Oprea, Silviu and Smith, Lewis and Veitch-Michaelis, Josh and Schumann, Guy and Gal, Yarin and Baydin, Atılım Güneş and Backes, Dietmar},
+	month = dec,
+	year = {2019},
+	note = {arXiv: 1910.03019},
+	keywords = {Computer Science - Machine Learning, Electrical Engineering and Systems Science - Image and Video Processing, Statistics - Machine Learning},
+}
+ {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Satellite imaging is a critical technology for monitoring and responding to natural disasters such as flooding. Despite the capabilities of modern satellites, there is still much to be desired from the perspective of first response organisations like UNICEF. Two main challenges are rapid access to data, and the ability to automatically identify flooded regions in images. We describe a prototypical flood segmentation system, identifying cloud, water and land, that could be deployed on a constellation of small satellites, performing processing on board to reduce downlink bandwidth by 2 orders of magnitude. We target PhiSat-1, part of the FSSCAT mission, which is planned to be launched by the European Space Agency (ESA) near the start of 2020 as a proof of concept for this new technology.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2019</span>,
+    <span style="font-weight: bold;">Domain Adaptation of Landsat-8 and Proba-V Data Using Generative Adversarial Networks for Cloud Detection</span>
+  </div>
+  <div class="author"><u>Gonzalo Mateo-García</u>, Valero Laparra and Luis Gómez-Chova</div>
+  <div class="journal">IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="blinks">
+  
+  
+        [<a href="http://doi.org/10.1109/IGARSS.2019.8899193" target="_blank">DOI</a>]
+  
+  
+        [<a href="https://docs.google.com/presentation/d/10B2PCpqeBuCGKHz2DZQExPOc8_-S5CVq2iYnzEpoy6A/edit?usp=sharing" target="_blank">Slides</a>]
+  
+  
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_domain_2019,
-	title = {Domain {Adaptation} of {Landsat}-8 and {Proba}-{V} data using {Generative} {Adversarial} {Networks} for {Cloud} {Detection}},
-A sensible strategy to mitigate this problem is to exploit available data from a similar sensor, which involves transforming this data to resemble the new sensor data. However, even taking into account the technical characteristics of both sensors to transform the images, statistical differences between data distributions still remain. This results in a poor performance of the methods trained on one sensor and applied to the new one. 
-In this this work, we propose to use the generative adversarial networks (GANs) framework to adapt the data from the new satellite. In particular, we use Landsat-8 images, with the corresponding ground truth, to perform cloud detection in Proba-V. Results show that the GANs adaptation significantly improves the detection accuracy.},
+	title = {Domain {Adaptation} of {Landsat}-8 and {Proba}-{V} {Data} {Using} {Generative} {Adversarial} {Networks} for {Cloud} {Detection}},
+	doi = {10.1109/IGARSS.2019.8899193},
 	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
-	author = {Mateo-García, G. and Laparra, V. and Gómez-Chova, L.},
+	author = {Mateo-García, Gonzalo and Laparra, Valero and Gómez-Chova, Luis},
 	month = jul,
 	year = {2019},
+	note = {ISSN: 2153-6996},
+	keywords = {Proba-V, Landsat-8, Domain Adaptation, Convolutional Neural Networks, Cloud Detection, Generative Adversarial Networks},
+	pages = {712--715},
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
@@ -292,31 +431,33 @@ In this this work, we propose to use the generative adversarial networks (GANs) 
 
 <div class="entry">
   <div><span style="font-style: italic;">Jul 2019</span>,
-    <span style="font-weight: bold;">Convolutional Long Short-Term Memory Network for Multitemporal Cloud Detection over Landmarks</span>
+    <span style="font-weight: bold;">Convolutional Long Short-Term Memory Network for Multitemporal Cloud Detection Over Landmarks</span>
   </div>
-  <div class="author"><u>G. Mateo-García</u>, J.E. Adsuara, A. Pérez-Suay and L. Gómez-Chova</div>
+  <div class="author"><u>Gonzalo Mateo-García</u>, JoseE. Adsuara, Adrián Pérez-Suay and Luis Gómez-Chova</div>
   <div class="journal">IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium</div>
   <div class="blinks">
   
   
+        [<a href="http://doi.org/10.1109/IGARSS.2019.8897832" target="_blank">DOI</a>]
+  
+  
+        [<a href="https://docs.google.com/presentation/d/1KqLGo_Lq4M1gQlWt72Dqzrf90V-bTbsyUSJRpgP413o/edit?usp=sharing" target="_blank">Slides</a>]
   
   
   
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_convolutional_2019,
-	title = {Convolutional {Long} {Short}-{Term} {Memory} {Network} for {Multitemporal} {Cloud} {Detection} over {Landmarks}},
-In particular, the combination of a U-Net convolutional neural network together with a convolutional long short-term memory (LSTM) layer is proposed. 
-This model is applied for cloud detection on MSG/SEVIRI image time series over selected landmarks. 
-Implementation details are provided and our proposal is compared against a standard SVM and a U-Net without the convolutional LSTM layer but including temporal information too. 
-Experimental results show that this combination of networks exploits both the spatial and temporal dependence and provides state-of-the-art classification results on this dataset.},
+	title = {Convolutional {Long} {Short}-{Term} {Memory} {Network} for {Multitemporal} {Cloud} {Detection} {Over} {Landmarks}},
+	doi = {10.1109/IGARSS.2019.8897832},
 	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
-	booktitle = {{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
-	author = {Mateo-García, G. and Adsuara, J.E. and Pérez-Suay, A. and Gómez-Chova, L.},
+	author = {Mateo-García, Gonzalo and Adsuara, Jose E. and Pérez-Suay, Adrián and Gómez-Chova, Luis},
 	month = jul,
 	year = {2019},
-}
- {% endraw %}</div>
+	note = {ISSN: 2153-6996},
+	keywords = {cloud detection, CNN, convolutional neural networks, landmarks, long short-term memory, LSTM, MSG/SEVIRI},
+	pages = {210--213},
+} {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
   <blockquote class="abstract">In this work, we propose to exploit both the temporal and spatial correlations in Earth observation satellite images through deep learning methods. In particular, the combination of a U-Net convolutional neural network together with a convolutional long short-term memory (LSTM) layer is proposed. This model is applied for cloud detection on MSG/SEVIRI image time series over selected landmarks. Implementation details are provided and our proposal is compared against a standard SVM and a U-Net without the convolutional LSTM layer but including temporal information too. Experimental results show that this combination of networks exploits both the spatial and temporal dependence and provides state-of-the-art classification results on this dataset.</blockquote>
 </div>
@@ -326,50 +467,18 @@ Experimental results show that this combination of networks exploits both the sp
 
 
 
-<div class="entry">
-  <div><span style="font-style: italic;">Jul 2018</span>,
-    <span style="font-weight: bold;">Convolutional Neural Networks for Cloud Screening: Transfer learning from Landsat-8 to Proba-V</span>
-  </div>
-  <div class="author"><u>Gonzalo Mateo-García</u> and Luis Gómez-Chova</div>
-  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
-  <div class="blinks">
-  
-  
-  
-        [<a href="https://www.dropbox.com/s/pjl7uj0b88w7l03/cnn_probav_igarss.pdf?raw=1" target="_blank">Slides</a>]
-  
-  
-        [<a href="https://www.dropbox.com/s/zdhkne7rgttomgs/conference_poster_6.pdf?raw=1" target="_blank">Poster</a>]
-  
-  
-        [<a href="https://www.dropbox.com/s/501bwxdagoey76k/Mateo18bigarss.pdf?raw=1" target="_blank">PDF</a>]
-  
-  
-  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
-  <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_convolutional_2018,
-	title = {Convolutional {Neural} {Networks} for {Cloud} {Screening}: {Transfer} learning from {Landsat}-8 to {Proba}-{V}},
-	booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
-	author = {Mateo-García, Gonzalo and Gómez-Chova, Luis},
-	month = jul,
-	year = {2018},
-	keywords = {cloud detection, Clouds, deep learning, Feature extraction, remote sensing, Training, cloud masking, Proba-V, feature extraction, image classification, Instruments, geophysical image processing, learning (artificial intelligence), Remote sensing, neural nets, art methods, cloud masking problems, convolutional neural networks, Convolutional neural networks, custom feature extraction, different CNN architectures, end-to-end learning, image classification tasks, multispectral image cloud masking, Proba-V multispectral images, remote sensing problems, V},
-}
- {% endraw %}</div>
-  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">Cloud detection is a key issue for exploiting the information from Earth observation satellites multispectral sensors. For Proba-V, cloud detection is challenging due to the limited number of spectral bands. Advanced machine learning methods, such as convolutional neural networks (CNN), have shown to work well on this problem provided enough labeled data. However, simultaneous collocated information about the presence of clouds is usually not available or requires a great amount of manual labor. In this work, we propose to learn from the available Landsat-8 cloud masks datasets and transfer this learning to solve the Proba-V cloud detection problem. CNN are trained with Landsat images adapted to resemble Proba-V characteristics and tested on a large set of real Proba-V scenes. Developed models outperform current operational Proba-V cloud detection without being trained with any real Proba-V data. Moreover, cloud detection accuracy can be further increased if the CNN are fine-tuned using a limited amount of Proba-V data.</blockquote>
-</div>
-</div>
-
 
 
 <div class="entry">
   <div><span style="font-style: italic;">Jul 2018</span>,
-    <span style="font-weight: bold;">Optimizing kernel ridge regression for remote sensing problems</span>
+    <span style="font-weight: bold;">Optimizing Kernel Ridge Regression for Remote Sensing Problems</span>
   </div>
-  <div class="author"><u>Gonzalo Mateo-García</u>, Valero Laparra and Luis Gómez-Chova</div>
-  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="author"><u>G. Mateo-García</u>, V. Laparra and L. Gómez-Chova</div>
+  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
   <div class="blinks">
   
+  
+        [<a href="http://doi.org/10.1109/IGARSS.2018.8518016" target="_blank">DOI</a>]
   
   
         [<a href="https://www.dropbox.com/s/k6gsnm0vi5t6qjm/OKRR_IGARSS18.pdf?raw=1" target="_blank">Slides</a>]
@@ -383,18 +492,59 @@ Experimental results show that this combination of networks exploits both the sp
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_optimizing_2018,
-	title = {Optimizing kernel ridge regression for remote sensing problems},
-In this context, while the amount of available remote sensing data has constantly increased, the size of training sets in kernel methods is usually restricted to few thousand samples. 
-In this work, we modified the Kernel Ridge Regression (KRR) training procedure to deal with large scale datasets. In addition, the basis functions in the reproducing kernel Hilbert space are defined as parameters to be also optimized during the training process. This extends the number of free parameters from two (in the standard KRR with an RBF kernel) to more than fifty thousand in our experiments. The effectiveness of the proposal is illustrated in the problem of surface temperature estimation from MetOp-IASI hyperspectral infrared sounding data. The data set used contains more than one million samples, but the proposed method could potentially be trained with much more data.},
-	booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
-	author = {Mateo-García, Gonzalo and Laparra, Valero and Gómez-Chova, Luis},
+	title = {Optimizing {Kernel} {Ridge} {Regression} for {Remote} {Sensing} {Problems}},
+	doi = {10.1109/IGARSS.2018.8518016},
+	booktitle = {{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	author = {Mateo-García, G. and Laparra, V. and Gómez-Chova, L.},
 	month = jul,
 	year = {2018},
-	keywords = {Remote sensing, neural nets}
+	keywords = {Biological system modeling, Kernel, Training, Remote sensing, Atmospheric modeling, kernel methods, IASI, kernel ridge regression, KRR, Orbits, Proposals, SGD, temperature retrieval},
+	pages = {4007--4010},
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">Kernel methods have been very successful in remote sensing problems because of their ability to deal with high dimensional non-linear data. However, they are computationally expensive to train when a large amount of samples are used. In this context, while the amount of available remote sensing data has constantly increased, the size of training sets in kernel methods is usually restricted to few thousand samples. In this work, we modified the Kernel Ridge Regression (KRR) training procedure to deal with large scale datasets. In addition, the basis functions in the reproducing kernel Hilbert space are defined as parameters to be also optimized during the training process. This extends the number of free parameters from two (in the standard KRR with an RBF kernel) to more than fifty thousand in our experiments. The effectiveness of the proposal is illustrated in the problem of surface temperature estimation from MetOp-IASI hyperspectral infrared sounding data. The data set used contains more than one million samples, but the proposed method could potentially be trained with much more data.</blockquote>
+  <blockquote class="abstract">Kernel methods have been very successful in remote sensing problems because of their ability to deal with high dimensional non-linear data. However, they are computationally expensive to train when a large amount of samples are used. In this context, while the amount of available remote sensing data has constantly increased, the size of training sets in kernel methods is usually restricted to few thousand samples. In this work, we modified the kernel ridge regression (KRR) training procedure to deal with large scale datasets. In addition, the basis functions in the reproducing kernel Hilbert space are defined as parameters to be also optimized during the training process. This extends the number of free parameters from two (in the standard KRR with an RBF kernel) to more than fifty thousand in our experiments. The effectiveness of the proposal is illustrated in the problem of surface temperature estimation from MetOp-IASI hyperspectral infrared sounding data. The data set used contains more than one million samples, but the proposed method could potentially be trained with much more data.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Jul 2018</span>,
+    <span style="font-weight: bold;">Convolutional Neural Networks for Cloud Screening: Transfer Learning from Landsat-8 to Proba-V</span>
+  </div>
+  <div class="author"><u>G. Mateo-García</u> and L. Gómez-Chova</div>
+  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="blinks">
+  
+  
+        [<a href="http://doi.org/10.1109/IGARSS.2018.8517975" target="_blank">DOI</a>]
+  
+  
+        [<a href="https://www.dropbox.com/s/pjl7uj0b88w7l03/cnn_probav_igarss.pdf?raw=1" target="_blank">Slides</a>]
+  
+  
+        [<a href="https://www.dropbox.com/s/zdhkne7rgttomgs/conference_poster_6.pdf?raw=1" target="_blank">Poster</a>]
+  
+  
+        [<a href="https://www.dropbox.com/s/501bwxdagoey76k/Mateo18bigarss.pdf?raw=1" target="_blank">PDF</a>]
+  
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_convolutional_2018,
+	title = {Convolutional {Neural} {Networks} for {Cloud} {Screening}: {Transfer} {Learning} from {Landsat}-8 to {Proba}-{V}},
+	shorttitle = {Convolutional {Neural} {Networks} for {Cloud} {Screening}},
+	doi = {10.1109/IGARSS.2018.8517975},
+	booktitle = {{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	author = {Mateo-García, G. and Gómez-Chova, L.},
+	month = jul,
+	year = {2018},
+	keywords = {Clouds, Biological system modeling, CNN, Proba-V, Cloud detection, Remote sensing, Artificial satellites, Earth, Landsat-8, Data models, Adaptation models, Domain Adaptation, Transfer Learning},
+	pages = {2103--2106},
+}
+ {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Cloud detection is a key issue for exploiting the information from Earth observation satellites multispectral sensors. For Proba-V, cloud detection is challenging due to the limited number of spectral bands. Advanced machine learning methods, such as convolutional neural networks (CNN), have shown to work well on this problem provided enough labeled data. However, simultaneous collocated information about the presence of clouds is usually not available or requires a great amount of manual labor. In this work, we propose to learn from the available Landsat −8 cloud masks datasets and transfer this learning to solve the Proba-V cloud detection problem. CNN are trained with Landsat images adapted to resemble Proba-V characteristics and tested on a large set of real Proba-V scenes. Developed models outperform current operational Proba-V cloud detection without being trained with any real Proba-V data. Moreover, cloud detection accuracy can be further increased if the CNN are fine-tuned using a limited amount of Proba-V data.</blockquote>
 </div>
 </div>
 
@@ -404,10 +554,12 @@ In this work, we modified the Kernel Ridge Regression (KRR) training procedure t
   <div><span style="font-style: italic;">Jul 2018</span>,
     <span style="font-weight: bold;">Retrieval of Case 2 Water Quality Parameters with Machine Learning</span>
   </div>
-  <div class="author">AnaB. Bruescas, <u>Gonzalo Mateo-García</u>, Gustau Camps-Valls and Martin Hieronymi</div>
-  <div class="journal">2018 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="author">A.B. Ruescas, <u>G. Mateo-Garcia</u>, G. Camps-Valls and M. Hieronymi</div>
+  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
   <div class="blinks">
   
+  
+        [<a href="http://doi.org/10.1109/IGARSS.2018.8518810" target="_blank">DOI</a>]
   
   
   
@@ -416,21 +568,21 @@ In this work, we modified the Kernel Ridge Regression (KRR) training procedure t
         [<a href="https://github.com/IPL-UV/mlregocean" target="_blank">Code</a>]
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
-  <div class="bibtex">{% raw %} @inproceedings{bruescas_retrieval_2018,
+  <div class="bibtex">{% raw %} @inproceedings{ruescas_retrieval_2018,
 	title = {Retrieval of {Case} 2 {Water} {Quality} {Parameters} with {Machine} {Learning}},
-	booktitle = {2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})},
-	author = {Bruescas, Ana B. and Mateo-García, Gonzalo and Camps-Valls, Gustau and Hieronymi, Martin},
+	doi = {10.1109/IGARSS.2018.8518810},
+	booktitle = {{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}},
+	author = {Ruescas, A. B. and Mateo-Garcia, G. and Camps-Valls, G. and Hieronymi, M.},
 	month = jul,
 	year = {2018},
-	keywords = {Remote sensing}
+	keywords = {Machine learning, Gaussian processes, remote sensing, Standards, Gaussian process, regression analysis, support vector machines, learning (artificial intelligence), Data models, Remote Sensing, absorbing waters, Case 2 Absorbing Waters, Case 2 water quality parameters, Case2eXtreme dataset, CDOM concentrations, coloured dissolved organic matter, Estimation, EUMETSAT-ESA, Ground penetrating radar, hydrolight in-water radiative transfer simulations, hydrological techniques, independent simulation dataset, Kernel ridge, Machine Learning Regression, machine learning regression methods, Numerical models, Oceans, OLCI Neural Network Swarm, radiative transfer, random forest, regression approaches, regularized linear, Sentinel-3 OLCI wavebands, standard OLCI product, support vector regressors, water quality, Water Quality Parameters},
+	pages = {124--127},
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
   <blockquote class="abstract">Water quality parameters are derived applying several machine learning regression methods on the Case2eXtreme dataset (C2X). The used data are based on Hydrolight in-water radiative transfer simulations at Sentinel-3 OLCI wavebands, and the application is done exclusively for absorbing waters with high concentrations of coloured dissolved organic matter (CDOM). The regression approaches are: regularized linear, random forest, Kernel ridge, Gaussian process and support vector regressors. The validation is made with and an independent simulation dataset. A comparison with the OLCI Neural Network Swarm (ONSS) is made as well. The best approached is applied to a sample scene and compared with the standard OLCI product delivered by EUMETSAT/ESA.</blockquote>
 </div>
 </div>
-
-
 
 
 

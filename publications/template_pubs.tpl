@@ -53,6 +53,9 @@ title: Publications
   {% if "visualization" in extra[bibentry_key] %}
         [<a href="{{ extra[bibentry_key]['visualization']}}" target="_blank">Visualization</a>]
   {% endif %}
+  {% if "pdf" in extra[bibentry_key] %}
+        [<a href="{{ extra[bibentry_key]['pdf']}}" target="_blank">PDF</a>]
+  {% endif %}
   {% if "doi" in extra[bibentry_key] %}
         [<a href="http://doi.org/{{extra[bibentry_key]['doi'] }}" target="_blank">DOI</a>]
   {% endif %}
