@@ -68,11 +68,51 @@ title: Publications
 	author = {Mateo-García, Gonzalo and Laparra, Valero and López-Puigdollers, Dan and Gómez-Chova, Luis},
 	month = feb,
 	year = {2020},
-	keywords = {Cloud masking, Convolutional neural networks, Deep learning, Domain adaptation, Multispectral sensors, Transfer learning},
+	keywords = {Convolutional neural networks, Cloud masking, Deep learning, Transfer learning, Domain adaptation, Multispectral sensors},
 	pages = {1--17},
+}
+ {% endraw %}</div>
+  [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
+  <blockquote class="abstract">Accurate cloud detection algorithms are mandatory to analyze the large streams of data coming from the different optical Earth observation satellites. Deep learning (DL) based cloud detection schemes provide very accurate cloud detection models. However, training these models for a given sensor requires large datasets of manually labeled samples, which are very costly or even impossible to create when the satellite has not been launched yet. In this work, we present an approach that exploits manually labeled datasets from one satellite to train deep learning models for cloud detection that can be applied (or transferred) to other satellites. We take into account the physical properties of the acquired signals and propose a simple transfer learning approach using Landsat-8 and Proba-V sensors, whose images have different but similar spatial and spectral characteristics. Three types of experiments are conducted to demonstrate that transfer learning can work in both directions: (a) from Landsat-8 to Proba-V, where we show that models trained only with Landsat-8 data produce cloud masks 5 points more accurate than the current operational Proba-V cloud masking method, (b) from Proba-V to Landsat-8, where models that use only Proba-V data for training have an accuracy similar to the operational FMask in the publicly available Biome dataset (87.79–89.77\% vs 88.48\%), and (c) jointly from Proba-V and Landsat-8 to Proba-V, where we demonstrate that using jointly both data sources the accuracy increases 1–10 points when few Proba-V labeled images are available. These results highlight that, taking advantage of existing publicly available cloud masking labeled datasets, we can create accurate deep learning based cloud detection models for new satellites, but without the burden of collecting and labeling a large dataset of images.</blockquote>
+</div>
+</div>
+
+
+
+<div class="entry">
+  <div><span style="font-style: italic;">Feb 2020</span>,
+    <span style="font-weight: bold;">Estimating and understanding crop yields with explainable deep learning in the Indian Wheat Belt</span>
+  </div>
+  <div class="author">Aleksandra Wolanin, <u>Gonzalo Mateo-García</u>, Gustau Camps-Valls, Luis Gómez-Chova, Michele Meroni, Gregory Duveiller, You Liangzhi and Luis Guanter</div>
+  <div class="journal">Environmental Research Letters</div>
+  <div class="blinks">
+  
+        [<a href="https://doi.org/10.1088%2F1748-9326%2Fab68ac" target="_blank">URL</a>]
+  
+  
+  
+  
+  
+        [<a href="http://doi.org/10.1088/1748-9326/ab68ac" target="_blank">DOI</a>]
+  
+  [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
+  <div class="bibtex">{% raw %} @article{wolanin_estimating_2020,
+	title = {Estimating and understanding crop yields with explainable deep learning in the {Indian} {Wheat} {Belt}},
+	volume = {15},
+	issn = {1748-9326},
+	url = {https://doi.org/10.1088%2F1748-9326%2Fab68ac},
+	doi = {10.1088/1748-9326/ab68ac},
+	language = {en},
+	number = {2},
+	urldate = {2020-02-12},
+	journal = {Environmental Research Letters},
+	author = {Wolanin, Aleksandra and Mateo-García, Gonzalo and Camps-Valls, Gustau and Gómez-Chova, Luis and Meroni, Michele and Duveiller, Gregory and Liangzhi, You and Guanter, Luis},
+	month = feb,
+	year = {2020},
+	pages = {024019},
 } {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">Accurate cloud detection algorithms are mandatory to analyze the large streams of data coming from the different optical Earth observation satellites. Deep learning (DL) based cloud detection schemes provide very accurate cloud detection models. However, training these models for a given sensor requires large datasets of manually labeled samples, which are very costly or even impossible to create when the satellite has not been launched yet. In this work, we present an approach that exploits manually labeled datasets from one satellite to train deep learning models for cloud detection that can be applied (or transferred) to other satellites. We take into account the physical properties of the acquired signals and propose a simple transfer learning approach using Landsat-8 and Proba-V sensors, whose images have different but similar spatial and spectral characteristics. Three types of experiments are conducted to demonstrate that transfer learning can work in both directions: (a) from Landsat-8 to Proba-V, where we show that models trained only with Landsat-8 data produce cloud masks 5 points more accurate than the current operational Proba-V cloud masking method, (b) from Proba-V to Landsat-8, where models that use only Proba-V data for training have an accuracy similar to the operational FMask in the publicly available Biome dataset (87.79–89.77% vs 88.48%), and (c) jointly from Proba-V and Landsat-8 to Proba-V, where we demonstrate that using jointly both data sources the accuracy increases 1–10 points when few Proba-V labeled images are available. These results highlight that, taking advantage of existing publicly available cloud masking labeled datasets, we can create accurate deep learning based cloud detection models for new satellites, but without the burden of collecting and labeling a large dataset of images.</blockquote>
+  <blockquote class="abstract">Forecasting crop yields is becoming increasingly important under the current context in which food security needs to be ensured despite the challenges brought by climate change, an expanding world population accompanied by rising incomes, increasing soil erosion, and decreasing water resources. Temperature, radiation, water availability and other environmental conditions influence crop growth, development, and final grain yield in a complex nonlinear manner. Machine learning (ML) techniques, and deep learning (DL) methods in particular, can account for such nonlinear relations between yield and its covariates. However, they typically lack transparency and interpretability, since the way the predictions are derived is not directly evident. Yet, in the context of yield forecasting, understanding which are the underlying factors behind both a predicted loss or gain is of great relevance. Here, we explore how to benefit from the increased predictive performance of DL methods while maintaining the ability to interpret how the models achieve their results. To do so, we applied a deep neural network to multivariate time series of vegetation and meteorological data to estimate the wheat yield in the Indian Wheat Belt. Then, we visualized and analyzed the features and yield drivers learned by the model with the use of regression activation maps. The DL model outperformed other tested models (ridge regression and random forest) and facilitated the interpretation of variables and processes that lead to yield variability. The learned features were mostly related to the length of the growing season, and temperature and light conditions during this time. For example, our results showed that high yields in 2012 were associated with low temperatures accompanied by sunny conditions during the growing period. The proposed methodology can be used for other crops and regions in order to facilitate application of DL models in agriculture.</blockquote>
 </div>
 </div>
 
@@ -164,7 +204,7 @@ title: Publications
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">The exploitation of Earth observation satellite images acquired by optical instruments requires an automatic and accurate cloud detection. Multitemporal approaches to cloud detection are usually more powerful than their single scene counterparts since the presence of clouds varies greatly from one acquisition to another whereas surface can be assumed stationary in a broad sense. However, two practical limitations usually hamper their operational use: the access to the complete satellite image archive and the required computational power. This work presents a cloud detection and removal methodology implemented in the Google Earth Engine (GEE) cloud computing platform in order to meet these requirements. The proposed methodology is tested for the Landsat-8 mission over a large collection of manually labeled cloud masks from the Biome dataset. The quantitative results show state-of-the-art performance compared with mono-temporal standard approaches, such as FMask and ACCA algorithms, yielding improvements between 4&ndash;5% in classification accuracy and 3&ndash;10% in commission errors. The algorithm implementation within the Google Earth Engine and the generated cloud masks for all test images are released for interested readers.</blockquote>
+  <blockquote class="abstract">The exploitation of Earth observation satellite images acquired by optical instruments requires an automatic and accurate cloud detection. Multitemporal approaches to cloud detection are usually more powerful than their single scene counterparts since the presence of clouds varies greatly from one acquisition to another whereas surface can be assumed stationary in a broad sense. However, two practical limitations usually hamper their operational use: the access to the complete satellite image archive and the required computational power. This work presents a cloud detection and removal methodology implemented in the Google Earth Engine (GEE) cloud computing platform in order to meet these requirements. The proposed methodology is tested for the Landsat-8 mission over a large collection of manually labeled cloud masks from the Biome dataset. The quantitative results show state-of-the-art performance compared with mono-temporal standard approaches, such as FMask and ACCA algorithms, yielding improvements between 4\&ndash;5\% in classification accuracy and 3\&ndash;10\% in commission errors. The algorithm implementation within the Google Earth Engine and the generated cloud masks for all test images are released for interested readers.</blockquote>
 </div>
 </div>
 
@@ -196,7 +236,7 @@ title: Publications
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @article{ruescas_machine_2018,
-	title = {Machine {Learning} {Regression} {Approaches} for {Colored} {Dissolved} {Organic} {Matter} ({CDOM}) {Retrieval} with {S}2-{MSI} and {S}3-{OLCI} {Simulated} {Data}},
+	title = {Machine {Learning} {Regression} {Approaches} for {Colored} {Dissolved} {Organic} {Matter} ({CDOM}) {Retrieval} with {S2}-{MSI} and {S3}-{OLCI} {Simulated} {Data}},
 	volume = {10},
 	copyright = {http://creativecommons.org/licenses/by/3.0/},
 	url = {http://www.mdpi.com/2072-4292/10/5/786},
@@ -213,7 +253,7 @@ title: Publications
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
-  <blockquote class="abstract">The colored dissolved organic matter (CDOM) variable is the standard measure of humic substance in waters optics. CDOM is optically characterized by its spectral absorption coefficient, a C D O M at at reference wavelength (e.g., &asymp; 440 nm). Retrieval of CDOM is traditionally done using bio-optical models. As an alternative, this paper presents a comparison of five machine learning methods applied to Sentinel-2 and Sentinel-3 simulated reflectance ( R r s ) data for the retrieval of CDOM: regularized linear regression (RLR), random forest regression (RFR), kernel ridge regression (KRR), Gaussian process regression (GPR) and support vector machines (SVR). Two different datasets of radiative transfer simulations are used for the development and training of the machine learning regression approaches. Statistics comparison with well-established polynomial regression algorithms shows optimistic results for all models and band combinations, highlighting the good performance of the methods, especially the GPR approach, when all bands are used as input. Application to an atmospheric corrected OLCI image using the reflectance derived form the alternative neural network (Case 2 Regional) is also shown. Python scripts and notebooks are provided to interested users.</blockquote>
+  <blockquote class="abstract">The colored dissolved organic matter (CDOM) variable is the standard measure of humic substance in waters optics. CDOM is optically characterized by its spectral absorption coefficient, a C D O M at at reference wavelength (e.g., \&asymp; 440 nm). Retrieval of CDOM is traditionally done using bio-optical models. As an alternative, this paper presents a comparison of five machine learning methods applied to Sentinel-2 and Sentinel-3 simulated reflectance ( R r s ) data for the retrieval of CDOM: regularized linear regression (RLR), random forest regression (RFR), kernel ridge regression (KRR), Gaussian process regression (GPR) and support vector machines (SVR). Two different datasets of radiative transfer simulations are used for the development and training of the machine learning regression approaches. Statistics comparison with well-established polynomial regression algorithms shows optimistic results for all models and band combinations, highlighting the good performance of the methods, especially the GPR approach, when all bands are used as input. Application to an atmospheric corrected OLCI image using the reflectance derived form the alternative neural network (Case 2 Regional) is also shown. Python scripts and notebooks are provided to interested users.</blockquote>
 </div>
 </div>
 
@@ -318,12 +358,14 @@ title: Publications
 
 
 
+
+
 <div class="entry">
   <div><span style="font-style: italic;">Jan 2020</span>,
     <span style="font-weight: bold;">Chapter 2.13 - Statistical biophysical parameter retrieval and emulation with Gaussian processes</span>
   </div>
   <div class="author">Gustau Camps-Valls, Luis Gómez-Chova, Valero Laparra, Luca Martino, <u>Gonzalo Mateo-García</u>, Jordi Muñoz-Marí, DanielH. Svendsen and Jochem Verrelst</div>
-  <div class="journal">Data Handling in Science and Technology</div>
+  <div class="journal">Data {Handling} in {Science} and {Technology}</div>
   <div class="blinks">
   
         [<a href="http://www.sciencedirect.com/science/article/pii/B9780444639776000158" target="_blank">URL</a>]
@@ -365,7 +407,7 @@ title: Publications
     <span style="font-weight: bold;">Flood Detection On Low Cost Orbital Hardware</span>
   </div>
   <div class="author"><u>Gonzalo Mateo-Garcia</u>, Silviu Oprea, Lewis Smith, Josh Veitch-Michaelis, Guy Schumann, Yarin Gal, AtılımGüneş Baydin and Dietmar Backes</div>
-  <div class="journal">Artificial Intelligence for Humanitarian Assistance and Disaster Response Workshop, 33rd Conference on Neural Information Processing Systems (NeurIPS 2019), Vancouver, Canada</div>
+  <div class="journal">Artificial {Intelligence} for {Humanitarian} {Assistance} and {Disaster} {Response} {Workshop}, 33rd {Conference} on {Neural} {Information} {Processing} {Systems} ({NeurIPS} 2019), {Vancouver}, {Canada}</div>
   <div class="blinks">
   
         [<a href="http://arxiv.org/abs/1910.03019" target="_blank">URL</a>]
@@ -383,7 +425,7 @@ title: Publications
 	url = {http://arxiv.org/abs/1910.03019},
 	urldate = {2019-10-23},
 	booktitle = {Artificial {Intelligence} for {Humanitarian} {Assistance} and {Disaster} {Response} {Workshop}, 33rd {Conference} on {Neural} {Information} {Processing} {Systems} ({NeurIPS} 2019), {Vancouver}, {Canada}},
-	author = {Mateo-Garcia, Gonzalo and Oprea, Silviu and Smith, Lewis and Veitch-Michaelis, Josh and Schumann, Guy and Gal, Yarin and Baydin, Atılım Güneş and Backes, Dietmar},
+	author = {Mateo-Garcia, Gonzalo and Oprea, Silviu and Smith, Lewis and Veitch-Michaelis, Josh and Schumann, Guy and Gal, Yarin and Baydin, Atılım  Güneş and Backes, Dietmar},
 	month = dec,
 	year = {2019},
 	note = {arXiv: 1910.03019},
@@ -402,7 +444,7 @@ title: Publications
     <span style="font-weight: bold;">Domain Adaptation of Landsat-8 and Proba-V Data Using Generative Adversarial Networks for Cloud Detection</span>
   </div>
   <div class="author"><u>Gonzalo Mateo-García</u>, Valero Laparra and Luis Gómez-Chova</div>
-  <div class="journal">IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="journal">{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}</div>
   <div class="blinks">
   
   
@@ -439,7 +481,7 @@ title: Publications
     <span style="font-weight: bold;">Convolutional Long Short-Term Memory Network for Multitemporal Cloud Detection Over Landmarks</span>
   </div>
   <div class="author"><u>Gonzalo Mateo-García</u>, JoseE. Adsuara, Adrián Pérez-Suay and Luis Gómez-Chova</div>
-  <div class="journal">IGARSS 2019 - 2019 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="journal">{IGARSS} 2019 - 2019 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}</div>
   <div class="blinks">
   
   
@@ -478,7 +520,7 @@ title: Publications
     <span style="font-weight: bold;">Optimizing Kernel Ridge Regression for Remote Sensing Problems</span>
   </div>
   <div class="author"><u>G. Mateo-García</u>, V. Laparra and L. Gómez-Chova</div>
-  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="journal">{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}</div>
   <div class="blinks">
   
   
@@ -518,7 +560,7 @@ title: Publications
     <span style="font-weight: bold;">Convolutional Neural Networks for Cloud Screening: Transfer Learning from Landsat-8 to Proba-V</span>
   </div>
   <div class="author"><u>G. Mateo-García</u> and L. Gómez-Chova</div>
-  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="journal">{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}</div>
   <div class="blinks">
   
   
@@ -559,7 +601,7 @@ title: Publications
     <span style="font-weight: bold;">Retrieval of Case 2 Water Quality Parameters with Machine Learning</span>
   </div>
   <div class="author">A.B. Ruescas, <u>G. Mateo-Garcia</u>, G. Camps-Valls and M. Hieronymi</div>
-  <div class="journal">IGARSS 2018 - 2018 IEEE International Geoscience and Remote Sensing Symposium</div>
+  <div class="journal">{IGARSS} 2018 - 2018 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium}</div>
   <div class="blinks">
   
   
@@ -599,10 +641,10 @@ title: Publications
     <span style="font-weight: bold;">Advances in statistical cloud screening: the Proba-V case study</span>
   </div>
   <div class="author"><u>Gonzalo Mateo-García</u>, Luis Gómez-Chova, Jordi Muñoz-Marí and Gustau Camps-Valls</div>
-  <div class="journal">Vth International Symposium: Recent Advances in Quantitative Remote Sensing, Sept 2017, (RAQRS)</div>
+  <div class="journal">Fifth {Recent} {Advances} in {Quantitative} {Remote} {Sensing}, {Sept} 2017</div>
   <div class="blinks">
   
-        [<a href="http://ipl.uv.es/raqrs/" target="_blank">URL</a>]
+        [<a href="https://cloud.uv.es/owncloud/index.php/s/4DHonL5QjZtLZWd" target="_blank">URL</a>]
   
   
   
@@ -613,15 +655,19 @@ title: Publications
   
   [<a onclick="showFollow(this,'.bibtex')">BibTeX</a>]
   <div class="bibtex">{% raw %} @inproceedings{mateo-garcia_advances_2017,
+	address = {Valencia},
 	title = {Advances in statistical cloud screening: the {Proba}-{V} case study},
+	volume = {V},
 	copyright = {All rights reserved},
-	url = {http://ipl.uv.es/raqrs/},
+	isbn = {978-84-9133-201-5},
+	url = {https://cloud.uv.es/owncloud/index.php/s/4DHonL5QjZtLZWd},
 The objective of the cloud masking algorithms is to detect clouds accurately providing a cloud flag per pixel. We first approach the problem from the classical machine learning perspective based on feature extraction plus supervised classification with neural networks (NN). Using this approach we significantly improve the cloud detection accuracy compared to the operational Proba-V algorithm. Then we approach the problem using deep learning methods based on convolutional neural networks (CNN). Experimental results show that CNN are a promising alternative for solving cloud masking problems.},
-	booktitle = {Vth {International} {Symposium}: {Recent} {Advances} in {Quantitative} {Remote} {Sensing}, {Sept} 2017, ({RAQRS})},
+	booktitle = {Fifth {Recent} {Advances} in {Quantitative} {Remote} {Sensing}, {Sept} 2017},
 	author = {Mateo-García, Gonzalo and Gómez-Chova, Luis and Muñoz-Marí, Jordi and Camps-Valls, Gustau},
 	month = sep,
 	year = {2017},
-	keywords = {AD 2011 10 28, ADL, Aerosol EDR, Aerosol Environmental Data Record Algorithm, aerosols, Aerosols, Algorithm Development Library, artificial satellites, Cloud Mask algorithms, geophysical equipment, Joint Polar Satellite System satellite, JPSS, JPSS VIIRS aerosol EDR algorithms, NOAA Interface Data Processing Segment, Ocean temperature, radiometers, Radiometry, Satellite broadcasting, Satellites, scanning radiometer, Sea surface, Sensors, upstream-downstream effects, VIIRS, VIIRS Sensor Data Record, Visible Infrared Imaging Radiometer Suite}
+	keywords = {AD 2011 10 28, ADL, Aerosol EDR, Aerosol Environmental Data Record Algorithm, aerosols, Aerosols, Algorithm Development Library, artificial satellites, Cloud Mask algorithms, geophysical equipment, Joint Polar Satellite System satellite, JPSS, JPSS VIIRS aerosol EDR algorithms, NOAA Interface Data Processing Segment, Ocean temperature, radiometers, Radiometry, Satellite broadcasting, Satellites, scanning radiometer, Sea surface, Sensors, upstream-downstream effects, VIIRS, VIIRS Sensor Data Record, Visible Infrared Imaging Radiometer Suite},
+	pages = {391--395}
 }
  {% endraw %}</div>
   [<a onclick="showFollow(this,'.abstract')">Abstract</a>]
@@ -636,7 +682,7 @@ The objective of the cloud masking algorithms is to detect clouds accurately pro
     <span style="font-weight: bold;">Fair Kernel Learning</span>
   </div>
   <div class="author">Adrián Pérez-Suay, Valero Laparra, <u>Gonzalo Mateo-García</u>, Jordi Muñoz-Marí, Luis Gómez-Chova and Gustau Camps-Valls</div>
-  <div class="journal">Machine Learning and Knowledge Discovery in Databases</div>
+  <div class="journal">Machine {Learning} and {Knowledge} {Discovery} in {Databases}</div>
   <div class="blinks">
   
         [<a href="https://link.springer.com/chapter/10.1007/978-3-319-71249-9_21" target="_blank">URL</a>]
@@ -677,7 +723,7 @@ The objective of the cloud masking algorithms is to detect clouds accurately pro
     <span style="font-weight: bold;">Cloud detection machine learning algorithms for PROBA-V</span>
   </div>
   <div class="author">L. Gómez-Chova, <u>G. Mateo-García</u>, J. Muñoz-Marí and G. Camps-Valls</div>
-  <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="journal">2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})</div>
   <div class="blinks">
   
   
@@ -711,7 +757,7 @@ The objective of the cloud masking algorithms is to detect clouds accurately pro
     <span style="font-weight: bold;">Cloud detection on the Google Earth engine platform</span>
   </div>
   <div class="author"><u>G. Mateo-García</u>, J. Muñoz-Marí and L. Gómez-Chova</div>
-  <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="journal">2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})</div>
   <div class="blinks">
   
   
@@ -749,7 +795,7 @@ The objective of the cloud masking algorithms is to detect clouds accurately pro
     <span style="font-weight: bold;">Convolutional neural networks for multispectral image cloud masking</span>
   </div>
   <div class="author"><u>G. Mateo-García</u>, L. Gómez-Chova and G. Camps-Valls</div>
-  <div class="journal">2017 IEEE International Geoscience and Remote Sensing Symposium (IGARSS)</div>
+  <div class="journal">2017 {IEEE} {International} {Geoscience} and {Remote} {Sensing} {Symposium} ({IGARSS})</div>
   <div class="blinks">
   
   
@@ -785,7 +831,7 @@ The objective of the cloud masking algorithms is to detect clouds accurately pro
     <span style="font-weight: bold;">Proba-V cloud detection Round Robin: Validation results and recommendations</span>
   </div>
   <div class="author">R.Q. Iannone, F. Niro, P. Goryl, S. Dransfeld, B. Hoersch, K. Stelzer, G. Kirches, M. Paperin, C. Brockmann, L. Gómez-Chova, <u>G. Mateo-García</u>, R. Preusker, J. Fischer, U. Amato, C. Serio, U. Gangkofner, B. Berthelot, M.D. Iordache, L. Bertels, E. Wolters, W. Dierckx, I. Benhadj and E. Swinnen</div>
-  <div class="journal">2017 9th International Workshop on the Analysis of Multitemporal Remote Sensing Images (MultiTemp)</div>
+  <div class="journal">2017 9th {International} {Workshop} on the {Analysis} of {Multitemporal} {Remote} {Sensing} {Images} ({MultiTemp})</div>
   <div class="blinks">
   
   
